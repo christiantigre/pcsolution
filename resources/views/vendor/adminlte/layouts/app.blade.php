@@ -41,6 +41,8 @@ desired effect
     <div class="content-wrapper">
 
         @include('adminlte::layouts.partials.contentheader')
+        <!--Modal-->
+        @include('adminlte::layouts.partials.modal')
 
         <!-- Main content -->
         <section class="content">
