@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/admin/edit/empress/{id}','Admin\EmpresController@edit');
 
 	Route::resource('/admin/orders','Admin\OrderController');
+	Route::get('admin/orders/print/{id}','Admin\OrderController@print');
 	Route::get('admin/listorder','Admin\OrderController@listall');
 
 	//Route::get('/order','Admin\OrderController');

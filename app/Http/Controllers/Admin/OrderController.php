@@ -9,6 +9,7 @@ use App\Articulo;
 use App\Marca;
 use App\Estado;
 use Carbon\Carbon;
+use App\Empres;
 use Input;
 use Session;
 use Illuminate\Support\Facades\Auth;
@@ -69,12 +70,12 @@ class OrderController extends Controller
     }
 
     public static function generate_numbers($start, $count, $digits) {
-     $result = array();
-     for ($n = $start; $n < $start + $count; $n++) {
-      $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
+       $result = array();
+       for ($n = $start; $n < $start + $count; $n++) {
+          $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
+      }
+      return $result;
   }
-  return $result;
-}
     /**
      * Store a newly created resource in storage.
      *
@@ -144,6 +145,17 @@ class OrderController extends Controller
     //$registro->save();
 
     //return "Empresa registrada";
+}
+
+public function print($id){
+    /*$pdf = \App::make('dompdf.wrapper');
+    $pdf->loadHTML('<h1>Test</h1>');
+    return $pdf->stream();*/
+    $orden = Order::orderBy('id','DESC')->where('id',$id)->first();
+    $empresa = Empres::orderBy('id','DESC')->where('id',1)->get();
+    //dd($empresa);
+    $pdf = \PDF::loadView('adminlte::layouts.order.comprobante',['orden'=>$orden,'empresa'=>$empresa]);
+    return $pdf->download('comprobante.pdf');
 }
 
     /**

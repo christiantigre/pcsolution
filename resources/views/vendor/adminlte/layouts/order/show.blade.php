@@ -106,9 +106,10 @@
         <!--<a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>-->
         <button type="button" class="btn btn-success pull-right"><i class="fa fa-edit"></i> Editar
         </button>
-        <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-          <i class="fa fa-download"></i> Generar PDF
-        </button>
+        <a href="{{asset('/admin/orders/print/'.$orden->id)}}" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Print</a>
+        <!--<button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
+          <i class="fa fa-download"></i> Generar PDF admin/orders/print
+        </button>-->
       </div>
     </div>
   </section>
