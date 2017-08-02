@@ -27,5 +27,8 @@ class Marca extends Model
      */
     protected $fillable = ['marca', 'descripcion', 'logo'];
 
-    
+    public function order()
+    {
+        return $this->hasMany('App\Order', 'id');
+    }
 }

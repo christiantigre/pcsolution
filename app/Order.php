@@ -27,5 +27,20 @@ class Order extends Model
 	'tlfncli',
 	'celcli',
 	'mailcli',
+	'anticipo',
+	'valor',
+	'cicli',
+	'dircli',
 	];
+
+	public function articulo(){
+		return $this->belongsTo('App\Articulo','id_articulo');
+	}
+	public function estado(){
+		return $this->belongsTo('App\Estado','id_estado');
+	}
+	public function marca(){
+		return $this->belongsTo('App\Marca','id_marca');
+	}
+
 }

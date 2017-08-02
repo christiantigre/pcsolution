@@ -11,7 +11,7 @@
   <!-- SELECT2 EXAMPLE -->
   <div class="box box-default">
     <div class="box-header with-border">
-      <h3 class="box-title">Registrar Nueva Orden</h3>
+      <h3 class="box-title">Editar Orden</h3>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -21,13 +21,16 @@
     <!-- /.box-header -->
     <div class="box-body">
       <!--<form class="form-horizontal">-->
-      {!! Form::open(['method' => 'POST','id'=>'myForm','class'=>'form-horizontal', 'route' => 'orders.store', 'role' => 'search'])  !!}
+      
+      {!! Form::model($orden,['route'=>['orders.update', $orden->id],'id'=>'myForm', 'method'=>'post','class' => 'form-horizontal', 'enctype'=>'multipart/form-data']) !!}
 
       
       {{ csrf_field() }}
+      {{ method_field('PUT') }}
 
       <button class="btn btn-primary" id="guardaorden" type="submit" >Guardar</button>
       <a href="{{asset('/admin/orders/')}}" class="btn btn-default"> Cancelar</a>
+      <a href="{{ Route('orders.show', $orden->id) }}" class="btn btn-default"> Regresar</a>
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-4">
@@ -74,7 +77,7 @@
             <div class="form-group">
               <label for="fecha" class="col-sm-2 control-label"></label>
               <div class="col-sm-10">
-                N° : {{ $anio }}-{{ $numbers }} 
+                N° : {{ $sec }} 
 
                 {!! Form::hidden('fechaorden',$fecha,null,['class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}
                 {!! Form::hidden('numero',$numbers,null,['class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}
@@ -136,9 +139,9 @@
               <?php 
               $tittle_modal = 'Buscar Cliente';
               ?>
-              {!! Form::text('nom_cli',null,['id'=>'nom_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
+              {!! Form::text('nomcli',null,['id'=>'nom_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
               {!! Form::hidden('name_cli',null,['id'=>'name_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
-              {!! Form::hidden('app_cli',null,['id'=>'app_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
+              {!! Form::hidden('appcli',null,['id'=>'app_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
             </div>
           </div>
           <!-- /.form-group -->
@@ -146,7 +149,9 @@
           <div class="form-group">
             <label for="modelo" class="col-sm-2 control-label">CI</label>
             <div class="col-sm-10">
-              <input type="hidden" name="idcliente" id="idcliente" />
+              <!--<input type="hidden" name="idcliente" id="idcliente" />-->
+              {!! Form::hidden('id_cliente',null,['id'=>'idcliente','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
+
               {!! Form::text('cicli',null,['id'=>'ci_cli','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
               {!! Form::hidden('dircli',null,['id'=>'dir_cli','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
             </div>
@@ -156,21 +161,21 @@
           <div class="form-group">
             <label for="serie" class="col-sm-2 control-label">Telefono</label>
             <div class="col-sm-10">
-              {!! Form::text('tlfn',null,['id'=>'tlfn','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
+              {!! Form::text('tlfncli',null,['id'=>'tlfn','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
             </div>
           </div>
           <!-- /.form-group -->
           <div class="form-group">
             <label for="serie" class="col-sm-2 control-label">Celular</label>
             <div class="col-sm-10">
-              {!! Form::text('cel',null,['id'=>'cel','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
+              {!! Form::text('celcli',null,['id'=>'cel','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
             </div>
           </div>
           <!-- /.form-group -->
           <div class="form-group">
             <label for="serie" class="col-sm-2 control-label">Correo</label>
             <div class="col-sm-10">
-              {!! Form::text('mail',null,['id'=>'mail','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
+              {!! Form::text('mailcli',null,['id'=>'mail','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
             </div>
           </div>
           <!-- /.form-group -->
@@ -182,7 +187,7 @@
             <div class="col-sm-10">
               <!--{!! Form::text('modelo',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Probable reparación']) !!}-->
 
-              {!! Form::text('date_rep',null,['id'=>'datepicker','class'=>'form-control','autofocus'=>'autofocus','autocomplete'=>'off','placeholder'=>'Ingrese fecha de nacimiento ...']) !!}
+              {!! Form::text('fecha_reparacion',$date2,['id'=>'datepicker','class'=>'form-control','autofocus'=>'autofocus','autocomplete'=>'off','placeholder'=>'Ingrese fecha de nacimiento ...']) !!}
             </div>
           </div>
           <!-- /.form-group -->
@@ -226,7 +231,7 @@
           <div class="form-group">
            <label for="fecha" class="col-sm-2 control-label">Problema que reporta</label>
            <div class="col-sm-10">
-            {!! Form::text('problema',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
+            {!! Form::text('problema_reportado',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
           </div>
         </div>
       </div>

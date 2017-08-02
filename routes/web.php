@@ -32,7 +32,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('/admin/orders','Admin\OrderController');
 	Route::get('admin/orders/print/{id}','Admin\OrderController@print');
+	Route::get('admin/orders/edit/{id}','Admin\OrderController@edit');
 	Route::get('admin/listorder','Admin\OrderController@listall');
+	Route::get('admin/pdf/{id}','Admin\OrderController@print');
 
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {

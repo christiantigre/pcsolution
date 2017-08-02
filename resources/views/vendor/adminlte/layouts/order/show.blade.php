@@ -11,7 +11,7 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-    Orden registrada
+      Orden registrada
       <small>#{{ $orden->num_secuencial }}</small>
     </h1>
     
@@ -23,7 +23,7 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-laptop"></i> {{ $orden->id_articulo }}
+          <i class="fa fa-laptop"></i> {{ $orden->articulo->articulo }}
           <small class="pull-right">Fecha: {{ $date }}</small>
         </h2>
       </div>
@@ -42,7 +42,7 @@
       </div>
       <!-- /.col -->
       <div class="col-sm-4 invoice-col">
-        
+
       </div>
       <!-- /.col -->
       <div class="col-sm-4 invoice-col">
@@ -50,7 +50,7 @@
         <br>
         <b>Fecha de recaudo : </b> {{ $orden->fecha_orden }}<br>
         <b>Fecha de revición : </b> {{ $orden->fecha_reparacion }}<br>
-        <b>Estado equipo : </b> {{ $orden->id_estado }}<br>
+        <b>Estado equipo : </b> {{ $orden->estado->estado }}<br>
         <b>Responsable : </b> {{ $orden->responsable }}
       </div>
       <!-- /.col -->
@@ -79,11 +79,11 @@
           <table class="table">
             <tr>
               <th style="width:50%">Equipo:</th>
-              <td>{{ $orden->id_articulo }}</td>
+              <td>{{ $orden->articulo->articulo }}</td>
             </tr>
             <tr>
               <th>Marca:</th>
-              <td>{{ $orden->id_marca }}</td>
+              <td>{{ $orden->marca->marca }}</td>
             </tr>
             <tr>
               <th>Modelo:</th>
@@ -92,6 +92,21 @@
             <tr>
               <th>Serie:</th>
               <td>{{ $orden->serie }}</td>
+            </tr>
+          </table>
+          <p class="lead">Costos</p>
+          <table class="table">
+            <tr>
+              <th style="width:50%">Anticipo:</th>
+              <td>{{ $orden->anticipo }}</td>
+            </tr>
+            <tr>
+              <th>Abono:</th>
+              <td>55.99</td>
+            </tr>
+            <tr>
+              <th>Valor:</th>
+              <td>{{ $orden->valor }}</td>
             </tr>
           </table>
         </div>
@@ -103,13 +118,11 @@
     <!-- this row will not appear when printing -->
     <div class="row no-print">
       <div class="col-xs-12">
-        <!--<a href="invoice-print.html" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>-->
-        <button type="button" class="btn btn-success pull-right"><i class="fa fa-edit"></i> Editar
-        </button>
-        <a href="{{asset('/admin/orders/print/'.$orden->id)}}" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Print</a>
-        <!--<button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
-          <i class="fa fa-download"></i> Generar PDF admin/orders/print
-        </button>-->
+
+        <a href="{{asset('/admin/orders/edit/'.$orden->id)}}" class="btn btn-success pull-right"><i class="fa fa-edit"></i> Editar</a>
+        <a href="{{asset('/admin/orders/print/'.$orden->id)}}" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Descargar</a>
+        <a href="{{asset('/admin/orders/')}}" class="btn btn-default"> Cancelar</a>
+        
       </div>
     </div>
   </section>

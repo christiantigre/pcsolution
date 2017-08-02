@@ -27,5 +27,9 @@ class Estado extends Model
      */
     protected $fillable = ['estado', 'descripcion'];
 
+    public function order()
+    {
+        return $this->hasMany('App\Order', 'id');
+    }
     
 }

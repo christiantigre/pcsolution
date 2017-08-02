@@ -39,7 +39,7 @@
  				td.innerHTML = data.mail+' '
  				+"<input type='hidden' id='nomcamp' name='nomcamp' value="+data.nom_cli+"><input type='hidden' id='appcamp' name='appcamp' value="+data.app_cli+"><input type='hidden' id='cicamp' name='cicamp' value="+data.ci_cli+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
  				td = tr.insertCell(tr.cells.length);
- 				td.innerHTML = data.cel+"<input type='hidden' id='celcamp' name='celcamp' value="+data.cel+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
+ 				td.innerHTML = data.cel+"<input type='hidden' id='dircamp' name='dircamp' value="+data.dir+"><input type='hidden' id='celcamp' name='celcamp' value="+data.cel+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
  				td = tr.insertCell(tr.cells.length);
  				td.innerHTML = data.tlfn;
  				td = tr.insertCell(tr.cells.length);
@@ -64,10 +64,12 @@
  	var id = document.getElementById("idcamp").value;
  	var cel = document.getElementById("celcamp").value;
  	var mail = document.getElementById("mailcamp").value;
+ 	var dircli = document.getElementById("dircamp").value;
  	document.getElementById("nom_cli").value = nom+' '+app;
  	document.getElementById("name_cli").value = nom;
  	document.getElementById("app_cli").value = app;
  	document.getElementById("ci_cli").value = ci;
+ 	document.getElementById("dir_cli").value = dircli;
  	document.getElementById("tlfn").value = cel;
  	document.getElementById("idcliente").value = id;
  	document.getElementById("cel").value = cel;
@@ -110,7 +112,7 @@
  				td.innerHTML = data.mail+' '
  				+"<input type='hidden' id='nomcamp' name='nomcamp' value="+data.nom_cli+"><input type='hidden' id='appcamp' name='appcamp' value="+data.app_cli+"><input type='hidden' id='cicamp' name='cicamp' value="+data.ci_cli+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
  				td = tr.insertCell(tr.cells.length);
- 				td.innerHTML = data.cel+"<input type='hidden' id='celcamp' name='celcamp' value="+data.cel+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
+ 				td.innerHTML = data.cel+"<input type='hidden' id='dircamp' name='dircamp' value="+data.dir+"><input type='hidden' id='celcamp' name='celcamp' value="+data.cel+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
  				td = tr.insertCell(tr.cells.length);
  				td.innerHTML = data.tlfn;
  				td = tr.insertCell(tr.cells.length);
@@ -164,7 +166,7 @@
  				td.innerHTML = data.mail+' '
  				+"<input type='hidden' id='nomcamp' name='nomcamp' value="+data.nom_cli+"><input type='hidden' id='appcamp' name='appcamp' value="+data.app_cli+"><input type='hidden' id='cicamp' name='cicamp' value="+data.ci_cli+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
  				td = tr.insertCell(tr.cells.length);
- 				td.innerHTML = data.cel+"<input type='hidden' id='celcamp' name='celcamp' value="+data.cel+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
+ 				td.innerHTML = data.cel+"<input type='hidden' id='dircamp' name='dircamp' value="+data.dir+"><input type='hidden' id='celcamp' name='celcamp' value="+data.cel+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+">";
  				td = tr.insertCell(tr.cells.length);
  				td.innerHTML = data.tlfn;
  				td = tr.insertCell(tr.cells.length);

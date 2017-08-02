@@ -35,6 +35,10 @@ class CreateOrderWorkTable extends Migration
             $table->string('tlfncli',45)->nullable();
             $table->string('celcli',45)->nullable();
             $table->string('mailcli',45)->nullable();
+            $table->string('cicli',45)->nullable();
+            $table->string('dircli',45)->nullable();
+            $table->decimal('anticipo',9,2)->nullable();
+            $table->decimal('valor',9,2)->nullable();
             $table->integer('id_cliente')->unsigned();
             $table->foreign('id_cliente')->references('id')->on('clients');
             $table->timestamps();
