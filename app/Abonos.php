@@ -12,6 +12,8 @@ class Abonos extends Model
 	'abono',
 	'articulo',
 	'id_orden',
+	'fecha',
+	'emitente',
 	];
 
 }

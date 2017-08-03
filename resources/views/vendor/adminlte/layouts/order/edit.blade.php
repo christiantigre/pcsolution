@@ -24,6 +24,8 @@
       
       {!! Form::model($orden,['route'=>['orders.update', $orden->id],'id'=>'myForm', 'method'=>'post','class' => 'form-horizontal', 'enctype'=>'multipart/form-data']) !!}
 
+      {!! Form::hidden('id', $orden->id,['id'=>'id','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
+
       
       {{ csrf_field() }}
       {{ method_field('PUT') }}
@@ -31,6 +33,7 @@
       <button class="btn btn-primary" id="guardaorden" type="submit" >Guardar</button>
       <a href="{{asset('/admin/orders/')}}" class="btn btn-default"> Cancelar</a>
       <a href="{{ Route('orders.show', $orden->id) }}" class="btn btn-default"> Regresar</a>
+      <a href="{{ Route('orders.show', $orden->id) }}" type="button" class="btn btn-success">Ver</a>
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-4">
@@ -137,10 +140,10 @@
             <label for="modelo" class="col-sm-2 control-label">Nombre Cliente</label>
             <div class="col-sm-10">
               <?php 
-              $tittle_modal = 'Buscar Cliente';
+              $tittle_modal = 'Registrar Abono';
               ?>
-              {!! Form::text('nomcli',null,['id'=>'nom_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
-              {!! Form::hidden('name_cli',null,['id'=>'name_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
+              {!! Form::hidden('nomcli',null,['id'=>'nom_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
+              {!! Form::text('name_cli',$nombre,['id'=>'name_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
               {!! Form::hidden('appcli',null,['id'=>'app_cli','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'Buscar cliente']) !!}
             </div>
           </div>
@@ -211,44 +214,123 @@
             <label for="serie" class="col-sm-2 control-label">Abono</label>
             <div class="col-sm-10">
               <!--{!! Form::text('serie',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}-->
-              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default">Registrar Abono</button>
-              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default">Ver Abonos</button>
-            </div>
-          </div>
-          <!-- /.form-group -->
-          <div class="form-group">
-            <label for="serie" class="col-sm-2 control-label">Valor total</label>
-            <div class="col-sm-10">
-              <!--{!! Form::text('serie',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}-->
-              {!! Form::text('valor', null,['placeholder'=>'Precio final 30.99','id'=>'valor','class'=>'form-control','autofocus'=>'autofocus'])    !!}
-            </div>
-          </div>
-          <!-- /.form-group -->
-        </div>
-        <!-- /.col -->
-        <div class="col-md-12"> 
+              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-abono">Registrar Abono</button>
+              
+              @if(count($abonos)>0)
+              <table class="table table-condensed" id="tablaAbono">
+                <caption>ABONOS</caption>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Abono</th>
+                    <th>Emite</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?Php $i=1; ?>
+                  @foreach($abonos as $abono)
 
-          <div class="form-group">
-           <label for="fecha" class="col-sm-2 control-label">Problema que reporta</label>
-           <div class="col-sm-10">
-            {!! Form::text('problema_reportado',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
+                  <tr>
+                    <td>{{ $abono->fecha }}</td>
+                    <td>{{ $abono->abono }}</td>
+                    <td>{{ $abono->emitente }}</td>
+                    <td>
+                      <a href="{{ Route('abonos.edit', $abono->id) }}" type="button" class="btn btn-block btn-warning btn-xs">Editar</a>
+                    </td>
+                    <td>
+                     {!! Form::hidden('id_abono', $abono->id,['id'=>'id_abono','placeholder'=>'Anticipo 30.99','id'=>'anticipo','class'=>'form-control','autofocus'=>'autofocus'])    !!}
+
+                     <a href="{{ asset('/admin/abonos/delete/'.$abono->id) }}" type="button" class="btn btn-block btn-danger btn-xs">Eliminar</a>
+
+                     
+                   </td>
+                 </tr>
+
+                 <?Php $i++; ?>
+                 @endforeach
+               </tbody>
+             </table>
+             @else
+             No registra abonos
+             <table class="table table-condensed" id="tablaAbono">
+              <caption>ABONOS</caption>
+              <thead>
+                <tr>
+                  <th>Fecha</th>
+                  <th>Abono</th>
+                  <th>Emite</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?Php $i=1; ?>
+                @foreach($abonos as $abono)
+
+                <tr>
+                  <td>{{ $abono->fecha }}</td>
+                  <td>{{ $abono->abono }}</td>
+                  <td>{{ $abono->emitente }}</td>
+                  <td>
+                    <a href="{{ Route('abonos.edit', $abono->id) }}" type="button" class="btn btn-block btn-warning btn-xs">Editar</a>
+                  </td>
+                  <td>
+                    <button id="delete_abono" class="btn btn-block btn-danger btn-xs" value="{{ $abono->id }}">Eliminar</button>
+                  </td>
+                  <td>
+
+
+                  </td>
+                </tr>
+
+                <?Php $i++; ?>
+                @endforeach
+              </tbody>
+            </table>
+            @endif
           </div>
         </div>
+        <div class="form-group">
+          <label for="serie" class="col-sm-2 control-label">Adeuda</label>
+          <div class="col-sm-10">
+            {!! Form::text('adeuda', $pre_final,['placeholder'=>'Adeuda el cliente','id'=>'valor','class'=>'form-control','autofocus'=>'autofocus'])    !!}
+          </div>
+        </div>
+        <!-- /.form-group -->
+        <div class="form-group">
+          <label for="serie" class="col-sm-2 control-label">Valor total</label>
+          <div class="col-sm-10">
+            {!! Form::text('valor', null,['placeholder'=>'Precio final 30.99','id'=>'valor','class'=>'form-control','autofocus'=>'autofocus'])    !!}
+          </div>
+        </div>
+        <!-- /.form-group -->
       </div>
-      <div class="col-md-12">           
+      <!-- /.col -->
+      <div class="col-md-12"> 
 
-       <div class="form-group">
-         <label for="notas" class="col-sm-2 control-label">Notas</label>
+        <div class="form-group">
+         <label for="fecha" class="col-sm-2 control-label">Problema que reporta</label>
          <div class="col-sm-10">
-          {!! Form::text('notas',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
+          {!! Form::text('problema_reportado',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
         </div>
       </div>
     </div>
-  </div>
+    <div class="col-md-12">           
 
-  {!! Form::close() !!}
-  <!--</form>-->
-  <!-- /.row -->
+     <div class="form-group">
+       <label for="notas" class="col-sm-2 control-label">Notas</label>
+       <div class="col-sm-10">
+        {!! Form::text('notas',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
+      </div>
+    </div>
+  </div>
+</div>
+
+{!! Form::close() !!}
+<!--</form>-->
+<!-- /.row -->
 </div>
 <!-- /.box-body -->
 <div class="box-footer">
@@ -262,3 +344,79 @@
 <!-- /.content -->
 @endsection
 
+
+
+<div class="modal fade" id="modal-abono">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      {!! Form::open(['id'=>'FormAbono'])  !!}
+      {{ csrf_field() }}
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+          <?Php
+          if (empty($tittle_modal)) {
+            ?>
+            <h4 class="modal-title">Default Modal</h4>
+            <?php
+          }else{
+            ?>
+            <h4 class="modal-title"><?Php echo $tittle_modal ?></h4>
+            <?php
+          }
+          ?>
+
+        </div>
+        <div class="modal-body">
+          <div class="col-lg-12">
+
+            <div class="form-group">
+              <label for="modelo" class="col-sm-2 control-label">Abono :</label>
+              <div class="col-sm-10">
+                {!! Form::text('abono',null,['id'=>'abono','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','maxlength'=>'30','placeholder'=>'Abono 22.22']) !!}
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <label for="modelo" class="col-sm-2 control-label">Articulo :</label>
+              <div class="col-sm-10">
+                {!! Form::text('articulo',null,['id'=>'articulo','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','maxlength'=>'30','placeholder'=>'Articulo que cubre el precio']) !!}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="modelo" class="col-sm-2 control-label">Emite :</label>
+              <div class="col-sm-10">
+                {!! Form::text('emitente',null,['id'=>'emitente','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','maxlength'=>'30','placeholder'=>'Persona que realiza el abono']) !!}
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="modelo" class="col-sm-2 control-label">Fecha :</label>
+              <div class="col-sm-10">
+                {!! Form::text('fecha',null,['id'=>'datepicker','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','maxlength'=>'30','placeholder'=>'Fecha de Abono']) !!}
+              </div>
+            </div> 
+
+          </div><!-- /.col-lg-6 -->
+          <!-- /.form-group -->
+          <!-- /.row -->            
+        </div>
+        <div class="modal-footer">
+          <div class="form-group">
+
+            <button type="button" id="save_abono" onclick="guardaAbono();" class="btn btn-primary pull-right" data-dismiss="modal">Guardar</button>
+            
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+
+          </div>
+
+        </div>
+        {!! Form::close() !!}
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->

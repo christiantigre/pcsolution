@@ -203,15 +203,6 @@
           </div>
           <!-- /.form-group -->
           <div class="form-group">
-            <label for="serie" class="col-sm-2 control-label">Abono</label>
-            <div class="col-sm-10">
-              <!--{!! Form::text('serie',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}-->
-              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default">Registrar Abono</button>
-              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default">Ver Abonos</button>
-            </div>
-          </div>
-          <!-- /.form-group -->
-          <div class="form-group">
             <label for="serie" class="col-sm-2 control-label">Valor total</label>
             <div class="col-sm-10">
               <!--{!! Form::text('serie',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}-->

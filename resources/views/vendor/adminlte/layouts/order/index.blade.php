@@ -53,10 +53,10 @@
                             <th>#</th>
                             <th>Secuencial</th>
                             <th>Fecha orden</th>
-                            <th>Articulo</th>
-                            <th>Modelo</th>
-                            <th>id_cliente</th>
+                            <th>Articulo / Marca / Modelo / Serie</th>
+                            <th>Cliente</th>
                             <th>Estado</th>
+                            <th>Precio</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -79,22 +79,23 @@
                             </th> 
                             <th>
                               <strong>
-                                {{ $order->articulo }}
+                                {{ $order->articulo->articulo }} / {{ $order->marca->marca }} / {{ $order->modelo}} / {{ $order->serie}}
+                              </strong>
+                            </th>
+                            
+                            <th>
+                              <strong>
+                                {{ $order->nomcli }} {{ $order->appcli }} / {{ $order->tlfncli }} / {{ $order->celcli }} / {{ $order->mailcli }}
                               </strong>
                             </th>
                             <th>
                               <strong>
-                                {{ $order->modelo }}
+                                {{ $order->estado->estado }}
                               </strong>
                             </th>
                             <th>
                               <strong>
-                                {{ $order->id_cliente }}
-                              </strong>
-                            </th>
-                            <th>
-                              <strong>
-                                {{ $order->estado_reporte }}
+                                {{ $order->valor }}
                               </strong>
                             </th>
                             
@@ -121,10 +122,10 @@
                             <th>#</th>
                             <th>Secuencial</th>
                             <th>Fecha orden</th>
-                            <th>Articulo</th>
-                            <th>Modelo</th>
-                            <th>id_cliente</th>
+                            <th>Articulo / Marca / Modelo / Serie</th>
+                            <th>Cliente</th>
                             <th>Estado</th>
+                            <th>Precio</th>
                             <th></th>
                             <th></th>
                             <th></th>

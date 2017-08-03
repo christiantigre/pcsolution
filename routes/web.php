@@ -29,8 +29,12 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('/admin/empres','Admin\EmpresController');
 	Route::get('/admin/edit/empress/{id}','Admin\EmpresController@edit');
+	Route::get('/admin/orders/delete/{id}','Admin\EmpresController@destroy');
+	Route::get('/admin/abonos/delete/{id}','Admin\AbonosController@destroy');
 
 	Route::resource('/admin/orders','Admin\OrderController');
+	Route::resource('/admin/abonos','Admin\AbonosController');
+	Route::post('/admin/orders/saveOrden','Admin\OrderController@saveOrden');
 	Route::get('admin/orders/print/{id}','Admin\OrderController@print');
 	Route::get('admin/orders/edit/{id}','Admin\OrderController@edit');
 	Route::get('admin/listorder','Admin\OrderController@listall');

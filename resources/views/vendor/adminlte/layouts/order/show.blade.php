@@ -98,15 +98,33 @@
           <table class="table">
             <tr>
               <th style="width:50%">Anticipo:</th>
-              <td>{{ $orden->anticipo }}</td>
+              <td>{{ number_format($orden->anticipo,2) }}</td>
             </tr>
+          </table>
+          <p class="lead">Abonos</p>
+          <table class="table">
+            <?php $i=1; ?>
+            @foreach($abonos as $abono)
             <tr>
-              <th>Abono:</th>
-              <td>55.99</td>
+              <th style="width:15%">Abono (<?php echo $i; ?>):</th>
+              <td>{{ $abono->emitente }}</td>
+              <td>{{ number_format($abono->abono,2) }}</td>
+              <td>{{ $abono->fecha }}</td>
             </tr>
+            <?php $i++; ?>
+
+            @endforeach
+          </table><p class="lead"></p>
+          <table class="table">
             <tr>
-              <th>Valor:</th>
-              <td>{{ $orden->valor }}</td>
+              <th style="width:50%">Adeuda:</th>
+              <td>{{ number_format($pre_final,2) }}</td>
+            </tr>
+          </table>
+          <table class="table">
+            <tr>
+              <th style="width:50%">Valor:</th>
+              <td>{{ number_format($orden->valor,2) }}</td>
             </tr>
           </table>
         </div>
@@ -121,7 +139,8 @@
 
         <a href="{{asset('/admin/orders/edit/'.$orden->id)}}" class="btn btn-success pull-right"><i class="fa fa-edit"></i> Editar</a>
         <a href="{{asset('/admin/orders/print/'.$orden->id)}}" class="btn btn-primary pull-right"><i class="fa fa-download"></i> Descargar</a>
-        <a href="{{asset('/admin/orders/')}}" class="btn btn-default"> Cancelar</a>
+        <a href="{{ Route('orders.index') }}" type="button" class="btn btn-default pull-right">Cancelar</a>
+        <a href="{{ url()->previous() }}" class="btn btn-default">Back</a>
         
       </div>
     </div>

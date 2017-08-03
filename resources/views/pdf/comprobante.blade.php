@@ -114,11 +114,15 @@
                 </tr>
                 <tr>
                   <td><strong>Abono :</strong></td>
-                  <td><label class="header_label firma">{{ number_format($tot->anticipo,2) }}</label></td>
+                  <td><label class="header_label firma">{{ number_format($tot_abonos,2) }}</label></td>
+                </tr>
+                <tr>
+                  <td><strong>Cliente Adeuda :</strong></td>
+                  <td><label class="header_label firma">{{ number_format($pre_final,2) }}</label></td>
                 </tr>
                 <tr>
                   <td><strong>Valor de reparación :</strong></td>
-                  <td><label class="header_label firma">{{ number_format($tot->anticipo,2) }}</label></td>
+                  <td><label class="header_label firma">{{ number_format($tot->valor,2) }}</label></td>
                 </tr>
                 @endforeach              
               </table>

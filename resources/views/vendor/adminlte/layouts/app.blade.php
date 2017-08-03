@@ -43,6 +43,7 @@ desired effect
         @include('adminlte::layouts.partials.contentheader')
         <!--Modal-->
         @include('adminlte::layouts.partials.modal')
+        @include('adminlte::layouts.partials.modalAbono')
 
         <!-- Main content -->
         <section class="content">

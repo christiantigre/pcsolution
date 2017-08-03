@@ -183,3 +183,80 @@
  	});
  });
 
+ $(document).ready(function(){
+ 	$("#save_abono").click(function(event){
+ 		event.preventDefault();
+ 		var idorden = $("#id").val();
+ 		var abono = $("#abono").val();
+ 		var articulo = $("#articulo").val();
+ 		var emitente = $("#emitente").val();
+ 		var datepicker = $("#datepicker").val();
+ 		var token = $("input[name=_token]").val();
+ 		var route = '/admin/orders/saveOrden/';
+ 		if (abono == ""){
+ 			alert('Ingrese valor de abono');
+ 			document.getElementById("abono").focus();
+ 			return false;
+ 		}
+ 		$.ajax({
+ 			url:route,
+ 			headers:{'X-CSRF-TOKEN':token},
+ 			type:'post',
+ 			dataType: 'json',
+ 			data:{
+ 				id: idorden,
+ 				abono: abono,
+ 				articulo:articulo,
+ 				emitente:emitente
+ 			},
+ 			success:function(data)
+ 			{
+ 				console.log('success '+data);
+ 				document.getElementById("tabla").deleteRow(0);
+ 				console.log('Si '+data.id);
+ 				var contLin = 3;
+ 				var tr, td, tabla;
+ 				tabla = document.getElementById('tablaAbono');
+ 				tr = tabla.insertRow(tabla.rows.length);
+ 				td = tr.insertCell(tr.cells.length);
+ 				td.innerHTML = datepicker;
+ 				td = tr.insertCell(tr.cells.length);
+ 				td.innerHTML = abono;
+ 				td = tr.insertCell(tr.cells.length);
+ 				td.innerHTML = emitente;
+ 				contLin++;
+ 			},
+ 			error:function(data)
+ 			{
+ 				console.log('Error '+data);
+ 			}  
+ 		});
+ 	});
+ });
+//guardaAbono();
+
+
+
+$(document).ready(function(){
+	$("#delete_abono").click(function(event){
+		alert("eliminar");
+		/*var id = $("#id_abono").val();
+		var route = "/admin/abonos/delete/"+id+'';
+		var token = $("#token").val();
+		alert(route);
+		$.ajax({
+			url: route,
+			headers: {'X-CSRF-TOKEN': token},
+			type: 'DELETE',
+			dataType:'json',
+			success: function(data){
+				console.log("eliminado");
+			},
+			error:function(data)
+			{
+				console.log('Error '+data);
+			} */
+		});
+	});
+	
+	

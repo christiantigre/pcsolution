@@ -17,6 +17,8 @@ class CreateAbonosTable extends Migration
             $table->increments('id');         
             $table->decimal('abono',9,2)->nullable();
             $table->string('articulo',45)->nullable();
+            $table->date('fecha')->nullable();
+            $table->string('emitente',45)->nullable();
             $table->integer('id_orden')->unsigned();
             $table->foreign('id_orden')->references('id')->on('order_work');
             $table->timestamps();

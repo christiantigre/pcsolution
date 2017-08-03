@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Order;
 use App\Articulo;
 use App\Marca;
+use App\Abonos;
 use App\Estado;
 use Carbon\Carbon;
 use App\FormatOrden;
@@ -15,6 +16,8 @@ use Input;
 use Session;
 use Illuminate\Support\Facades\Auth;
 use PDF;
+
+use App\Http\Requests\OrderRequest;
 
 class OrderController extends Controller
 {
@@ -84,7 +87,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
         $hoy = Carbon::now();
         $date = Carbon::parse($hoy)->format('Y-m-d');
@@ -153,9 +156,19 @@ class OrderController extends Controller
     /**
      * Se repite con los demás datos que desees asignar...
      */
+    $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$registro->id)->get();
+    $tot_abonos = \DB::table('abonos')
+    ->where('id_orden', $registro->id)
+    ->sum('abono');
+    $anticipo = $registro->anticipo;
+    $valor_reparacion = $registro->valor;
+    $suma_anti_abono = $tot_abonos+$anticipo;
+    $pre_final = $valor_reparacion-$suma_anti_abono;
+
     if ($registro->save()) {
         $orden = Order::orderBy('id','DESC')->where('id',$registro->id)->first();
-        return view('adminlte::layouts.order.show',array('orden'=>$orden,'date'=>$date));
+        return view('adminlte::layouts.order.show',array('orden'=>$orden,'date'=>$date,'abonos'=>$abonos,
+            'pre_final'=>$pre_final));
     }else{
         return "error al guardar";
     }
@@ -169,9 +182,25 @@ public function print($id){
     $hoy = new Carbon();
     $hoy  = Carbon::now(new \DateTimeZone('America/Guayaquil'));
     $orden = Order::orderBy('id','DESC')->where('id',$id)->get();
+    $ordenes = Order::orderBy('id','DESC')->where('id',$id)->first();
+    $tot_abonos = \DB::table('abonos')
+    ->where('id_orden', $id)
+    ->sum('abono');
+    $anticipo = $ordenes->anticipo;
+
+    $valor_reparacion = $ordenes->valor;
+    $suma_anti_abono = $tot_abonos+$anticipo;
+    $pre_final = $valor_reparacion-$suma_anti_abono;
+
     $empresa = Empres::orderBy('id','DESC')->where('id',1)->get();
     $pdf = \PDF::loadView('adminlte::layouts.order.comprobante',['orden'=>$orden,'empresa'=>$empresa,'hoy'=>$hoy]);
-    $pdf = \PDF::loadView('pdf.comprobante',['orden'=>$orden,'empresa'=>$empresa,'hoy'=>$hoy,'clausulas'=>$clausulas]);
+    $pdf = \PDF::loadView('pdf.comprobante',[
+        'orden'=>$orden,
+        'empresa'=>$empresa,
+        'hoy'=>$hoy,
+        'tot_abonos'=>$tot_abonos,
+        'pre_final'=>$pre_final,
+        'clausulas'=>$clausulas]);
 
     return $pdf->download('orden-#.pdf');
 }
@@ -187,7 +216,20 @@ public function print($id){
         $hoy = Carbon::now();
         $date = Carbon::parse($hoy)->format('Y-m-d');
         $orden = Order::orderBy('id','DESC')->where('id',$id)->first();
-        return view('adminlte::layouts.order.show',array('orden'=>$orden,'date'=>$date));
+        $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$id)->get();
+        $tot_abonos = \DB::table('abonos')
+        ->where('id_orden', $id)
+        ->sum('abono');
+        $anticipo = $orden->anticipo;
+        $valor_reparacion = $orden->valor;
+        $suma_anti_abono = $tot_abonos+$anticipo;
+        $pre_final = $valor_reparacion-$suma_anti_abono;
+        
+        return view('adminlte::layouts.order.show',array('orden'=>$orden,
+            'date'=>$date,
+            'abonos'=>$abonos,
+            'pre_final'=>$pre_final
+            ));
     }
 
     /**
@@ -215,11 +257,23 @@ public function print($id){
         'numbers' => $numbers,
         ]);
     $orden = Order::orderBy('id','DESC')->where('id',$id)->first();
+    $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$id)->get();
+
+    $nombre = $orden->nomcli.' '.$orden->appcli;
+    
     $sec = $orden->num_secuencial;
     $hoy = Carbon::now();
     $date = Carbon::parse($hoy)->format('Y-m-d');
     $cambio_fecha = $orden->fecha_reparacion;
     $date2 = Carbon::parse($cambio_fecha)->format('d-m-Y');
+
+    $tot_abonos = \DB::table('abonos')
+    ->where('id_orden', $id)
+    ->sum('abono');
+    $anticipo = $orden->anticipo;
+    $valor_reparacion = $orden->valor;
+    $suma_anti_abono = $tot_abonos+$anticipo;
+    $pre_final = $valor_reparacion-$suma_anti_abono;
 
     return view('adminlte::layouts.order.edit',array(
         'anio'=>$anio,
@@ -231,6 +285,10 @@ public function print($id){
         'orden'=>$orden,
         'date2'=>$date2,
         'sec'=>$sec,
+        'nombre'=>$nombre,
+        'abonos'=>$abonos,
+        'pre_final'=>$pre_final,
+        'tot_abonos'=>$tot_abonos
         ));
 
 }
@@ -256,9 +314,9 @@ public function print($id){
         $id_marca = $request->input('id_marca');
         $modelo = $request->input('modelo');
         $serie = $request->input('serie');
-        $nom_cli = $request->input('nomcli');
+        $nom_cli = $request->input('nom_cli');
         $name_cli = $request->input('name_cli');
-        $app_cli = $request->input('appcli');
+        $app_cli = $request->input('app_cli');
         $ci_cli = $request->input('cicli');
         $dir_cli = $request->input('dircli');
         $idcliente = $request->input('id_cliente');
@@ -317,7 +375,27 @@ public function print($id){
     }else{
         return "error al guardar";
     }
+}
+
+public function saveOrden(Request $request){
+    if ($request->ajax()) {
+        $hoy = Carbon::now();
+        $date = Carbon::parse($hoy)->format('Y-m-d');
+        $abono = new Abonos;
+        $abono->abono = $request->input('abono');
+        $abono->articulo = $request->input('articulo');
+        $abono->emitente = $request->input('emitente');
+        $abono->fecha = $date;
+        $abono->id_orden = $request->input('id');
+
+        if ($abono->save()) {
+            return response()->json(["mensaje"=>"Registrado con exito","data"=>$abono]);
+        }else{
+            return "error al guardar";
+        }
+        //return response()->json(["mensaje"=>$request->all()]);
     }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -327,6 +405,8 @@ public function print($id){
      */
     public function destroy($id)
     {
-        //
+        $orden = Order::find($id);
+        $orden->delete();
+        return back()->with('info','Orden #'.$orden->num_secuencial.' eliminado');
     }
 }
