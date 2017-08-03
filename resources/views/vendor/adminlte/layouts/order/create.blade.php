@@ -146,7 +146,7 @@
           <div class="form-group">
             <label for="modelo" class="col-sm-2 control-label">CI</label>
             <div class="col-sm-10">
-              <input type="hidden" name="idcliente" id="idcliente" />
+              <input type="hidden" name="id_cliente" id="id_cliente" />
               {!! Form::text('cicli',null,['id'=>'ci_cli','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
               {!! Form::hidden('dircli',null,['id'=>'dir_cli','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
             </div>

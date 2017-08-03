@@ -136,5 +136,7 @@ return [
     'empress'                 => 'Empresa',
     'client'                 => 'Clientes',
     'status'                 => 'Estados',
+    'brands'                 => 'Marcas',
+
 
     ];

@@ -87,7 +87,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderRequest $request)
+    public function store(Request $request)
     {
         $hoy = Carbon::now();
         $date = Carbon::parse($hoy)->format('Y-m-d');
@@ -106,7 +106,7 @@ class OrderController extends Controller
         $app_cli = $request->input('app_cli');
         $ci_cli = $request->input('cicli');
         $dir_cli = $request->input('dircli');
-        $idcliente = $request->input('idcliente');
+        $idcliente = $request->input('id_cliente');
         $tlfn = $request->input('tlfn');
         $cel = $request->input('cel');
         $mail = $request->input('mail');

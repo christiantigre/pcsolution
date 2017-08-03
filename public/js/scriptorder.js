@@ -71,7 +71,7 @@
  	document.getElementById("ci_cli").value = ci;
  	document.getElementById("dir_cli").value = dircli;
  	document.getElementById("tlfn").value = cel;
- 	document.getElementById("idcliente").value = id;
+ 	document.getElementById("id_cliente").value = id;
  	document.getElementById("cel").value = cel;
  	document.getElementById("mail").value = mail;
  }

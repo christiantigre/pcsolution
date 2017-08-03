@@ -24,7 +24,8 @@ class OrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'num_secuencial'=>'required|unique:order_work|max:35'
+            'num_secuencial'=>'required|unique:order_work|max:35',
+            'id_cliente'=>'required'
         ];
     }
 }
