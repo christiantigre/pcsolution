@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
 use Session;
+use Image;
+use Input;
 
 class ProductController extends Controller
 {
@@ -18,29 +20,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = $request->get('search');
-        $perPage = 25;
-
-        if (!empty($keyword)) {
-            $product = Product::where('nombre', 'LIKE', "%$keyword%")
-            ->orWhere('slug', 'LIKE', "%$keyword%")
-            ->orWhere('codbarra', 'LIKE', "%$keyword%")
-            ->orWhere('cant', 'LIKE', "%$keyword%")
-            ->orWhere('pre_com', 'LIKE', "%$keyword%")
-            ->orWhere('pre_ven', 'LIKE', "%$keyword%")
-            ->orWhere('img', 'LIKE', "%$keyword%")
-            ->orWhere('prgr_tittle', 'LIKE', "%$keyword%")
-            ->orWhere('nuevo', 'LIKE', "%$keyword%")
-            ->orWhere('promocion', 'LIKE', "%$keyword%")
-            ->orWhere('catalogo', 'LIKE', "%$keyword%")
-            ->orWhere('is_active', 'LIKE', "%$keyword%")
-            ->orWhere('articulo_id', 'LIKE', "%$keyword%")
-            ->orWhere('marca_id', 'LIKE', "%$keyword%")
-            ->paginate($perPage);
-        } else {
-            $product = Product::paginate($perPage);
-        }
-
+        $product = Product::orderBy('id','DESC')->get();      
         return view('admin.product.index', compact('product'));
     }
 
@@ -79,15 +59,90 @@ class ProductController extends Controller
         'cant.max'=>'Cantidad fuera de rango permitido',
         ];
 
-        $this->validate($request, $rules, $messages);
-        
-        $requestData = $request->all();
-        
-        Product::create($requestData);
+        $file = Input::file('img');
+        if(empty($file)){
+            $url = "";
+            $requestData_returned = $this->guarda_producto($request,$url);
+            $requestData_returned->save();
+            Session::flash('flash_message', 'Producto agregado!');
+            return redirect('admin/product');
+        }else{
 
-        Session::flash('flash_message', 'Producto agregado!');
 
-        return redirect('admin/product');
+            $random = str_random(10);
+            $nombre = $random.' - '.$file->getClientOriginalName();
+            $path = public_path('uploads/productos/'.$nombre);
+            $url = '/uploads/productos/'.$nombre;
+            $image = Image::make($file->getRealPath());
+            $image->resize(640, 400);
+
+            if($image->save($path)){
+                $this->validate($request, $rules, $messages);
+                $requestData_returned = $this->guarda_producto($request,$url);                              $requestData_returned->save();
+                Session::flash('flash_message', 'Producto agregado!');
+                return redirect('admin/product');
+            }else{
+                Session::flash('flash_message', 'Ocurrio un error al subir la imagen al servidor!');
+                return redirect('admin/product');
+            }
+        }
+    }
+
+    public static function guarda_producto($request, $url){
+        $requestData = new Product;
+        $requestData->nombre = $request->nombre;
+        $requestData->slug = $request->slug;
+        $requestData->codbarra = $request->codbarra;
+        $requestData->cant = $request->cant;
+        $requestData->pre_ven = $request->pre_ven;
+        $requestData->pre_com = $request->pre_com;
+        $requestData->img = $url;
+        $requestData->prgr_tittle = $request->prgr_tittle;
+        $requestData->nuevo = $request->nuevo;
+        $requestData->promocion = $request->promocion;
+        $requestData->catalogo = $request->catalogo;
+        $requestData->is_active = $request->is_active;
+        $requestData->articulo_id = $request->articulo_id;
+        $requestData->marca_id = $request->marca_id;
+
+        return $requestData;
+    }
+    public static function update_producto($request, $url, $id){
+        if(empty($url)){
+            $requestData = Product::findOrFail($id);
+            $requestData->nombre = $request->nombre;
+            $requestData->slug = $request->slug;
+            $requestData->codbarra = $request->codbarra;
+            $requestData->cant = $request->cant;
+            $requestData->pre_ven = $request->pre_ven;
+            $requestData->pre_com = $request->pre_com;
+            $requestData->prgr_tittle = $request->prgr_tittle;
+            $requestData->nuevo = $request->nuevo;
+            $requestData->promocion = $request->promocion;
+            $requestData->catalogo = $request->catalogo;
+            $requestData->is_active = $request->is_active;
+            $requestData->articulo_id = $request->articulo_id;
+            $requestData->marca_id = $request->marca_id;
+            return $requestData;
+        }else{
+            $requestData = Product::findOrFail($id);
+            $requestData->nombre = $request->nombre;
+            $requestData->slug = $request->slug;
+            $requestData->codbarra = $request->codbarra;
+            $requestData->cant = $request->cant;
+            $requestData->pre_ven = $request->pre_ven;
+            $requestData->pre_com = $request->pre_com;
+            $requestData->img = $url;
+            $requestData->prgr_tittle = $request->prgr_tittle;
+            $requestData->nuevo = $request->nuevo;
+            $requestData->promocion = $request->promocion;
+            $requestData->catalogo = $request->catalogo;
+            $requestData->is_active = $request->is_active;
+            $requestData->articulo_id = $request->articulo_id;
+            $requestData->marca_id = $request->marca_id;
+            return $requestData;
+        }
+        
     }
 
     /**
@@ -128,17 +183,47 @@ class ProductController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, [
-         'catalogo' => 'max:1'
-         ]);
-        $requestData = $request->all();
-        
-        $product = Product::findOrFail($id);
-        $product->update($requestData);
+        $rules = [
+        'catalogo' => 'max:1',
+        'pre_com'=>'numeric',
+        'pre_ven'=>'numeric',
+        'cant' => 'numeric|min:1|max:10000'
+        ];
 
-        Session::flash('flash_message', 'Product updated!');
+        $messages = [
+        'pre_com.numeric'=>'Caractér invalido',
+        'pre_ven.numeric'=>'Caractér invalido',
+        'cant.numeric'=>'Cantidad incorrecta',
+        'cant.max'=>'Cantidad fuera de rango permitido',
+        ];
 
-        return redirect('admin/product');
+        $file = Input::file('img');
+        if(empty($file)){
+            $url = "";
+            $requestData_returned = $this->update_producto($request,$url,$id);
+            $requestData_returned->update();
+            Session::flash('flash_message', 'Producto agregado!');
+            return redirect('admin/product');
+        }else{
+
+
+            $random = str_random(10);
+            $nombre = $random.' - '.$file->getClientOriginalName();
+            $path = public_path('uploads/productos/'.$nombre);
+            $url = '/uploads/productos/'.$nombre;
+            $image = Image::make($file->getRealPath());
+            $image->resize(640, 400);
+
+            if($image->save($path)){
+                $this->validate($request, $rules, $messages);
+                $requestData_returned = $this->update_producto($request,$url,$id);                              $requestData_returned->update();
+                Session::flash('flash_message', 'Producto agregado!');
+                return redirect('admin/product');
+            }else{
+                Session::flash('flash_message', 'Ocurrio un error al subir la imagen al servidor!');
+                return redirect('admin/product');
+            }
+        }
     }
 
     /**

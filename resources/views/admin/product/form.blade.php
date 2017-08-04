@@ -37,7 +37,6 @@
 </div><div class="form-group {{ $errors->has('img') ? 'has-error' : ''}}">
     {!! Form::label('img', 'Imagen', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('img', null, ['class' => 'form-control']) !!}
         <input type="file" name="img" id="img" accept="image/*"  class="form-control"/>
         {!! $errors->first('img', '<p class="help-block">:message</p>') !!}
     </div>
