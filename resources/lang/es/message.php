@@ -137,6 +137,7 @@ return [
     'client'                 => 'Clientes',
     'status'                 => 'Estados',
     'brands'                 => 'Marcas',
+    'product'                 => 'Productos',
 
 
     ];

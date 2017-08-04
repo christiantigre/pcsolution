@@ -1,0 +1,138 @@
+{
+    "fields": [
+        {
+            "name": "nombre",
+            "type": "string"
+        },
+        {
+            "name": "slug",
+            "type": "string"
+        },
+        {
+            "name": "codbarra",
+            "type": "string"
+        },
+        {
+            "name": "cant",
+            "type": "string"
+        },
+        {
+            "name": "pre_com",
+            "type": "string"
+        },
+        {
+            "name": "pre_ven",
+            "type": "string"
+        },
+        {
+            "name": "img",
+            "type": "string"
+        },
+        {
+            "name": "prgr_tittle",
+            "type": "string"
+        },
+        {
+            "name": "nuevo",
+            "type": "boolean"
+        },
+        {
+            "name": "promocion",
+            "type": "boolean"
+        },
+        {
+            "name": "catalogo",
+            "type": "boolean"
+        },
+        {
+            "name": "is_active",
+            "type": "boolean"
+        },
+        {
+            "name": "articulo_id",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "marca_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "foreign_keys": [
+        {
+            "column": "marca_id",
+            "references": "id",
+            "on": "marcas"
+        },
+        {
+            "column": "articulo_id",
+            "references": "id",
+            "on": "articulos"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "marca",
+            "type": "belongsTo",
+            "class": "App\\Marca"
+        },
+        {
+            "name": "articulo",
+            "type": "belongsTo",
+            "class": "App\\Articulo"
+        }
+    ],
+    "validations": [
+        {
+            "field": "nombre",
+            "rules": "max:35"
+        },
+        {
+            "field": "slug",
+            "rules": "max:35"            
+        },
+        {
+            "field": "codbarra",
+            "rules": "max:20"
+        },
+        {
+
+            "field": "cant",
+            "rules": "max:5"
+        },
+        {
+
+            "field": "pre_ven",
+            "rules": "max:8,2"
+        },
+        {
+
+            "field": "pre_com",
+            "rules": "max:8,2"
+        },
+        {
+
+            "field": "img",
+            "rules": "max:300"
+        },
+        {
+
+            "field": "prgr_tittle",
+            "rules": "max:300"
+        },
+        {
+
+            "field": "nuevo",
+            "rules": "max:1"
+        },
+        {
+
+            "field": "promocion",
+            "rules": "max:1"
+        },
+        {
+            
+            "field": "catalogo",
+            "rules": "max:1"
+        }
+    ]
+}

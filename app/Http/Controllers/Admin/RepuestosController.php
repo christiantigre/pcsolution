@@ -4,21 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Abonos;
+use App\Repuestos;
 use Carbon\Carbon;
-use App\Order;
-use App\Articulo;
 use App\Marca;
 use App\Estado;
-use App\FormatOrden;
-use App\Empres;
-use App\Repuestos;
-use Input;
-use Session;
-use Illuminate\Support\Facades\Auth;
-use PDF;
+use App\Order;
+use App\Articulo;
+use App\Abonos;
 
-class AbonosController extends Controller
+class RepuestosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,13 +24,6 @@ class AbonosController extends Controller
         //
     }
 
-    public static function generate_numbers($start, $count, $digits) {
-       $result = array();
-       for ($n = $start; $n < $start + $count; $n++) {
-          $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
-      }
-      return $result;
-  }
     /**
      * Show the form for creating a new resource.
      *
@@ -45,6 +32,23 @@ class AbonosController extends Controller
     public function create()
     {
         //
+    }
+
+    public function saveGasto(Request $request){
+        if ($request->ajax()) {
+            $hoy = Carbon::now();
+            $date = Carbon::parse($hoy)->format('Y-m-d');
+            $repuestos = new Repuestos;
+            $repuestos->repuesto = $request->input('repuesto');
+            $repuestos->valor = $request->input('valor');
+            $repuestos->id_orden = $request->input('id');
+
+            if ($repuestos->save()) {
+                return response()->json(["mensaje"=>"Registrado con exito","data"=>$repuestos]);
+            }else{
+                return "error al guardar";
+            }
+        }
     }
 
     /**
@@ -77,15 +81,11 @@ class AbonosController extends Controller
      */
     public function edit($id)
     {
-        $abono = Abonos::FindOrFail($id);
+        $repuesto = Repuestos::FindOrFail($id);
 
-        $cambio_fecha = $abono->fecha;
-        $date2 = Carbon::parse($cambio_fecha)->format('d-m-Y');
-        return view('adminlte::layouts.abono.edit',array(
-            'abono'=>$abono,
-            'date2'=>$date2
+        return view('adminlte::layouts.repuestos.edit',array(
+            'repuesto'=>$repuesto
             ));
-
     }
 
     /**
@@ -98,13 +98,11 @@ class AbonosController extends Controller
     public function update(Request $request, $id)
     {
 
-        $date2 = Carbon::parse($request->fecha)->format('Y-m-d');
-        $abono = Abonos::findOrFail($id);    
-        $abono->abono = $request->abono;
-        $abono->articulo = $request->articulo;
-        $abono->emitente = $request->emitente;
-        $abono->fecha = $date2;
-        if ($abono->update()) {            
+        $repuesto = Repuestos::findOrFail($id);    
+        $repuesto->valor = $request->valor;
+        $repuesto->repuesto = $request->repuesto;
+        $repuesto->id_orden = $request->id_orden;
+        if ($repuesto->update()) {            
 
             $articulos = Articulo::orderBy('id','DESC')->pluck('articulo','id');
             $marcas = Marca::orderBy('id','DESC')->pluck('marca','id');
@@ -123,18 +121,21 @@ class AbonosController extends Controller
                 'anio' => $anio,
                 'numbers' => $numbers,
                 ]);
-            $ordenes = Order::orderBy('id','DESC')->where('id',$abono->id_orden)->first();
+            $ordenes = Order::orderBy('id','DESC')->where('id',$repuesto->id_orden)->first();
             $tot_abonos = \DB::table('abonos')
-            ->where('id_orden', $abono->id_orden)
+            ->where('id_orden', $repuesto->id_orden)
             ->sum('abono');
             $anticipo = $ordenes->anticipo;
+            $repuestos = Repuestos::orderBy('id','DESC')->where('id_orden',$request->id_orden)->get();
+            
+            
 
             $valor_reparacion = $ordenes->valor;
             $suma_anti_abono = $tot_abonos+$anticipo;
             $pre_final = $valor_reparacion-$suma_anti_abono;
             //$orden = Order::orderBy('id','DESC')->where('id',$id)->first();
-            $orden = Order::findOrFail($abono->id_orden);
-            $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$abono->id_orden)->get();
+            $orden = Order::findOrFail($request->id_orden);
+            $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$request->id_orden)->get();
             $nombre = $orden->nomcli.' '.$orden->appcli;
 
             $sec = $orden->num_secuencial;
@@ -156,13 +157,22 @@ class AbonosController extends Controller
                 'nombre'=>$nombre,
                 'abonos'=>$abonos,
                 'tot_abonos'=>$tot_abonos,
-                'pre_final'=>$pre_final
+                'pre_final'=>$pre_final,
+                'repuestos'=>$repuestos
                 ));
         }else{
             return "error al guardar";
         }
     }
 
+
+    public static function generate_numbers($start, $count, $digits) {
+       $result = array();
+       for ($n = $start; $n < $start + $count; $n++) {
+          $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
+      }
+      return $result;
+  }
     /**
      * Remove the specified resource from storage.
      *
@@ -171,8 +181,8 @@ class AbonosController extends Controller
      */
     public function destroy($id)
     {
-        $abono = Abonos::find($id);
-        $abono->delete();
+        $repuesto = Repuestos::find($id);
+        $repuesto->delete();
         $articulos = Articulo::orderBy('id','DESC')->pluck('articulo','id');
         $marcas = Marca::orderBy('id','DESC')->pluck('marca','id');
         $estados = Estado::orderBy('id','DESC')->pluck('estado','id');
@@ -191,7 +201,7 @@ class AbonosController extends Controller
             'numbers' => $numbers,
             ]);
             //$orden = Order::orderBy('id','DESC')->where('id',$id)->first();
-        $orden = Order::findOrFail($abono->id_orden);
+        $orden = Order::findOrFail($repuesto->id_orden);
         $nombre = $orden->nomcli.' '.$orden->appcli;
         $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$orden->id)->get();
         $ordenes = Order::orderBy('id','DESC')->where('id',$orden->id)->first();
@@ -211,6 +221,7 @@ class AbonosController extends Controller
         $date = Carbon::parse($hoy)->format('Y-m-d');
         $cambio_fecha = $orden->fecha_reparacion;
         $date2 = Carbon::parse($cambio_fecha)->format('d-m-Y');
+        $repuestos = Repuestos::orderBy('id','DESC')->where('id_orden',$repuesto->id_orden)->get();
 
         return view('adminlte::layouts.order.edit',array(
             'anio'=>$anio,
@@ -224,6 +235,7 @@ class AbonosController extends Controller
             'sec'=>$sec,
             'nombre'=>$nombre,
             'abonos'=>$abonos,
+            'repuestos'=>$repuestos,
             'pre_final'=>$pre_final
             ));
     }

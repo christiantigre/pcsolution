@@ -9,6 +9,7 @@ use App\Articulo;
 use App\Marca;
 use App\Abonos;
 use App\Estado;
+use App\Repuestos;
 use Carbon\Carbon;
 use App\FormatOrden;
 use App\Empres;
@@ -75,12 +76,12 @@ class OrderController extends Controller
     }
 
     public static function generate_numbers($start, $count, $digits) {
-     $result = array();
-     for ($n = $start; $n < $start + $count; $n++) {
-      $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
+       $result = array();
+       for ($n = $start; $n < $start + $count; $n++) {
+          $result[] = str_pad($n, $digits, "0", STR_PAD_LEFT);
+      }
+      return $result;
   }
-  return $result;
-}
     /**
      * Store a newly created resource in storage.
      *
@@ -157,6 +158,8 @@ class OrderController extends Controller
      * Se repite con los demás datos que desees asignar...
      */
     $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$registro->id)->get();
+    $repuestos = Repuestos::orderBy('id','DESC')->where('id_orden',$registro->id)->get();
+
     $tot_abonos = \DB::table('abonos')
     ->where('id_orden', $registro->id)
     ->sum('abono');
@@ -167,7 +170,7 @@ class OrderController extends Controller
 
     if ($registro->save()) {
         $orden = Order::orderBy('id','DESC')->where('id',$registro->id)->first();
-        return view('adminlte::layouts.order.show',array('orden'=>$orden,'date'=>$date,'abonos'=>$abonos,
+        return view('adminlte::layouts.order.show',array('orden'=>$orden,'date'=>$date,'abonos'=>$abonos,'repuestos'=>$repuestos,
             'pre_final'=>$pre_final));
     }else{
         return "error al guardar";
@@ -217,17 +220,23 @@ public function print($id){
         $date = Carbon::parse($hoy)->format('Y-m-d');
         $orden = Order::orderBy('id','DESC')->where('id',$id)->first();
         $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$id)->get();
+        $repuestos = Repuestos::orderBy('id','DESC')->where('id_orden',$id)->get();
+
         $tot_abonos = \DB::table('abonos')
         ->where('id_orden', $id)
         ->sum('abono');
+        $tot_repuestos = \DB::table('repuestos')
+        ->where('id_orden', $id)
+        ->sum('valor');
         $anticipo = $orden->anticipo;
         $valor_reparacion = $orden->valor;
-        $suma_anti_abono = $tot_abonos+$anticipo;
-        $pre_final = $valor_reparacion-$suma_anti_abono;
+        $suma_anti_abono = ($tot_abonos+$anticipo)-$tot_repuestos;
+        $pre_final = ($valor_reparacion-$suma_anti_abono);
         
         return view('adminlte::layouts.order.show',array('orden'=>$orden,
             'date'=>$date,
             'abonos'=>$abonos,
+            'repuestos'=>$repuestos,
             'pre_final'=>$pre_final
             ));
     }
@@ -256,6 +265,7 @@ public function print($id){
         'anio' => $anio,
         'numbers' => $numbers,
         ]);
+    $repuestos = Repuestos::orderBy('id','DESC')->where('id_orden',$id)->get();
     $orden = Order::orderBy('id','DESC')->where('id',$id)->first();
     $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$id)->get();
 
@@ -288,7 +298,8 @@ public function print($id){
         'nombre'=>$nombre,
         'abonos'=>$abonos,
         'pre_final'=>$pre_final,
-        'tot_abonos'=>$tot_abonos
+        'tot_abonos'=>$tot_abonos,
+        'repuestos'=>$repuestos
         ));
 
 }
@@ -371,7 +382,22 @@ public function print($id){
      */
     if ($registro->update()) {
         $orden = Order::orderBy('id','DESC')->where('id',$registro->id)->first();
-        return view('adminlte::layouts.order.show',array('orden'=>$orden,'date'=>$date));
+        $abonos = Abonos::orderBy('id','DESC')->where('id_orden',$orden->id)->get();
+        $repuestos = Repuestos::orderBy('id','DESC')->where('id_orden',$orden->id)->get();
+        $tot_abonos = \DB::table('abonos')
+        ->where('id_orden', $id)
+        ->sum('abono');
+        $anticipo = $orden->anticipo;
+        $valor_reparacion = $orden->valor;
+        $suma_anti_abono = $tot_abonos+$anticipo;
+        $pre_final = $valor_reparacion-$suma_anti_abono;
+        return view('adminlte::layouts.order.show',array('orden'=>$orden,
+            'date'=>$date,
+            'abonos'=>$abonos,
+            'repuestos'=>$repuestos,
+            'pre_final'=>$pre_final,
+            'tot_abonos'=>$tot_abonos
+            ));
     }else{
         return "error al guardar";
     }

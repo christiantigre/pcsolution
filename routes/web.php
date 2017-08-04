@@ -31,9 +31,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/admin/edit/empress/{id}','Admin\EmpresController@edit');
 	Route::get('/admin/orders/delete/{id}','Admin\EmpresController@destroy');
 	Route::get('/admin/abonos/delete/{id}','Admin\AbonosController@destroy');
+	Route::get('/admin/repuestos/delete/{id}','Admin\RepuestosController@destroy');
 
 	Route::resource('/admin/orders','Admin\OrderController');
 	Route::resource('/admin/abonos','Admin\AbonosController');
+	Route::resource('/admin/repuestos','Admin\RepuestosController');
+	Route::post('/admin/repuestos/saveGasto','Admin\RepuestosController@saveGasto');
 	Route::post('/admin/orders/saveOrden','Admin\OrderController@saveOrden');
 	Route::get('admin/orders/print/{id}','Admin\OrderController@print');
 	Route::get('admin/orders/edit/{id}','Admin\OrderController@edit');
@@ -54,3 +57,7 @@ Route::resource('estados', 'EstadosController');
 Route::resource('admin/estados', 'Admin\\EstadosController');
 Route::resource('admin/estados', 'Admin\\EstadosController');
 Route::resource('admin/marcas', 'Admin\\MarcasController');
+Route::resource('admin/product', 'Admin\\ProductController');
+Route::resource('admin/product', 'Admin\\ProductController');
+Route::resource('admin/product', 'Admin\\ProductController');
+Route::resource('admin/product', 'Admin\\ProductController');

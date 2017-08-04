@@ -259,4 +259,48 @@ $(document).ready(function(){
 		});
 	});
 	
-	
+	 $(document).ready(function(){
+ 	$("#save_gatorepuesto").click(function(event){
+ 		event.preventDefault();
+ 		var idorden = $("#id").val();
+ 		var valor = $("#valor").val();
+ 		var repuesto = $("#repuesto").val();
+ 		var token = $("input[name=_token]").val();
+ 		var route = '/admin/repuestos/saveGasto/';
+ 		if (valor == ""){
+ 			alert('Ingrese valor del repuesto');
+ 			document.getElementById("valor").focus();
+ 			return false;
+ 		}
+ 		$.ajax({
+ 			url:route,
+ 			headers:{'X-CSRF-TOKEN':token},
+ 			type:'post',
+ 			dataType: 'json',
+ 			data:{
+ 				id: idorden,
+ 				valor: valor,
+ 				repuesto:repuesto
+ 			},
+ 			success:function(data)
+ 			{
+ 				console.log('success '+data);
+ 				document.getElementById("tablaGastos").deleteRow(0);
+ 				console.log('Si '+data.id);
+ 				var contLin = 3;
+ 				var tr, td, tabla;
+ 				tabla = document.getElementById('tablaGastos');
+ 				tr = tabla.insertRow(tabla.rows.length);
+ 				td = tr.insertCell(tr.cells.length);
+ 				td.innerHTML = repuesto;
+ 				td = tr.insertCell(tr.cells.length);
+ 				td.innerHTML = valor;
+ 				contLin++;
+ 			},
+ 			error:function(data)
+ 			{
+ 				console.log('Error '+data);
+ 			}  
+ 		});
+ 	});
+ });

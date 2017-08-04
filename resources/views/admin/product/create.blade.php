@@ -11,9 +11,9 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create New Estado</div>
+                    <div class="panel-heading">Create New Product</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/estados') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/product') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -25,9 +25,9 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/estados', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::open(['url' => '/admin/product', 'class' => 'form-horizontal', 'files' => true,'enctype'=>'multipart/form-data']) !!}
 
-                        @include ('admin.estados.form')
+                        @include ('admin.product.form')
 
                         {!! Form::close() !!}
 

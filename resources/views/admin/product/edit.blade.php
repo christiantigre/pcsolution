@@ -11,9 +11,9 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create New Estado</div>
+                    <div class="panel-heading">Edit Product #{{ $product->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/estados') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/product') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -25,9 +25,14 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/estados', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::model($product, [
+                            'method' => 'PATCH',
+                            'url' => ['/admin/product', $product->id],
+                            'class' => 'form-horizontal',
+                            'files' => true
+                        ]) !!}
 
-                        @include ('admin.estados.form')
+                        @include ('admin.product.form', ['submitButtonText' => 'Update'])
 
                         {!! Form::close() !!}
 

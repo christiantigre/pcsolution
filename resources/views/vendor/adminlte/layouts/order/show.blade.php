@@ -102,6 +102,7 @@
             </tr>
           </table>
           <p class="lead">Abonos</p>
+          @if(count($abonos)>0)
           <table class="table">
             <?php $i=1; ?>
             @foreach($abonos as $abono)
@@ -114,7 +115,29 @@
             <?php $i++; ?>
 
             @endforeach
-          </table><p class="lead"></p>
+          </table>
+          @else
+          No registra abonos
+          @endif
+
+          <p class="lead">Gastos repuestos</p>
+          @if(count($repuestos)>0)
+          <table class="table">
+            <?php $i=1; ?>
+            @foreach($repuestos as $rep)
+            <tr>
+              <th style="width:20%">Repuesto (<?php echo $i; ?>):</th>
+              <td>{{ number_format($rep->valor,2) }}</td>
+              <td>{{ $rep->repuesto }}</td>
+            </tr>
+            <?php $i++; ?>
+
+            @endforeach
+          </table>
+          @else
+          No registra gastos
+          @endif
+          <p class="lead"></p>
           <table class="table">
             <tr>
               <th style="width:50%">Adeuda:</th>

@@ -211,10 +211,14 @@
           </div>
           <!-- /.form-group -->
           <div class="form-group">
-            <label for="serie" class="col-sm-2 control-label">Abono</label>
+            <label for="serie" class="col-sm-2 control-label">Abonos</label>
             <div class="col-sm-10">
               <!--{!! Form::text('serie',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}-->
               <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-abono">Registrar Abono</button>
+
+              
+
+
               
               @if(count($abonos)>0)
               <table class="table table-condensed" id="tablaAbono">
@@ -289,43 +293,84 @@
                 @endforeach
               </tbody>
             </table>
-            @endif
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="serie" class="col-sm-2 control-label">Adeuda</label>
-          <div class="col-sm-10">
-            {!! Form::text('adeuda', $pre_final,['placeholder'=>'Adeuda el cliente','id'=>'valor','class'=>'form-control','autofocus'=>'autofocus'])    !!}
-          </div>
-        </div>
-        <!-- /.form-group -->
-        <div class="form-group">
-          <label for="serie" class="col-sm-2 control-label">Valor total</label>
-          <div class="col-sm-10">
-            {!! Form::text('valor', null,['placeholder'=>'Precio final 30.99','id'=>'valor','class'=>'form-control','autofocus'=>'autofocus'])    !!}
-          </div>
-        </div>
-        <!-- /.form-group -->
-      </div>
-      <!-- /.col -->
-      <div class="col-md-12"> 
+            @endif            
 
+          </div>
+        </div>
         <div class="form-group">
-         <label for="fecha" class="col-sm-2 control-label">Problema que reporta</label>
-         <div class="col-sm-10">
-          {!! Form::text('problema_reportado',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
+          <label for="serie" class="col-sm-2 control-label">Gastos repuestos</label>
+          <div class="col-sm-10">
+            <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-repuesto">Registrar Gasto repuestos</button>
+
+            <table class="table table-condensed" id="tablaGastos">
+              <caption>GASTOS</caption>
+              <thead>
+                <tr>
+                  <th>Gasto</th>
+                  <th>Repuesto</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <?Php $i=1; ?>
+                @foreach($repuestos as $rep)
+
+                <tr>
+                  <td>{{ $rep->repuesto }}</td>
+                  <td>{{ $rep->valor }}</td>
+                  <td>
+                    <a href="{{ Route('repuestos.edit', $rep->id) }}" type="button" class="btn btn-block btn-warning btn-xs">Editar</a>
+                  </td>
+                  <td>
+                   {!! Form::hidden('id_repuesto', $rep->id,['id'=>'id_repuesto','class'=>'form-control','autofocus'=>'autofocus'])    !!}
+
+                   <a href="{{ asset('/admin/repuestos/delete/'.$rep->id) }}" type="button" class="btn btn-block btn-danger btn-xs">Eliminar</a>
+
+                 </td>
+               </tr>
+
+               <?Php $i++; ?>
+               @endforeach
+             </tbody>
+           </table>
+
+         </div>
+       </div>
+       <div class="form-group">
+        <label for="serie" class="col-sm-2 control-label">Adeuda</label>
+        <div class="col-sm-10">
+          {!! Form::text('adeuda', $pre_final,['placeholder'=>'Adeuda el cliente','id'=>'valor','class'=>'form-control','autofocus'=>'autofocus'])    !!}
         </div>
       </div>
+      <!-- /.form-group -->
+      <div class="form-group">
+        <label for="serie" class="col-sm-2 control-label">Valor total</label>
+        <div class="col-sm-10">
+          {!! Form::text('valor', null,['placeholder'=>'Precio final 30.99','id'=>'valor','class'=>'form-control','autofocus'=>'autofocus'])    !!}
+        </div>
+      </div>
+      <!-- /.form-group -->
     </div>
-    <div class="col-md-12">           
+    <!-- /.col -->
+    <div class="col-md-12"> 
 
-     <div class="form-group">
-       <label for="notas" class="col-sm-2 control-label">Notas</label>
+      <div class="form-group">
+       <label for="fecha" class="col-sm-2 control-label">Problema que reporta</label>
        <div class="col-sm-10">
-        {!! Form::text('notas',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
+        {!! Form::text('problema_reportado',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
       </div>
     </div>
   </div>
+  <div class="col-md-12">           
+
+   <div class="form-group">
+     <label for="notas" class="col-sm-2 control-label">Notas</label>
+     <div class="col-sm-10">
+      {!! Form::text('notas',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'','maxlength'=>'255']) !!}
+    </div>
+  </div>
+</div>
 </div>
 
 {!! Form::close() !!}
@@ -420,3 +465,56 @@
     <!-- /.modal-dialog -->
   </div>
   <!-- /.modal -->
+
+
+  <div class="modal fade" id="modal-repuesto">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        {!! Form::open(['id'=>'FormRepuestos'])  !!}
+        {{ csrf_field() }}
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+            
+            <h4 class="modal-title">Registrar gastos en repuestos</h4>
+
+
+          </div>
+          <div class="modal-body">
+            <div class="col-lg-12">
+
+              <div class="form-group">
+                <label for="modelo" class="col-sm-2 control-label">Repuesto</label>
+                <div class="col-sm-10">
+                  {!! Form::text('repuesto',null,['id'=>'repuesto','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','maxlength'=>'30','placeholder'=>'Fecha de Abono']) !!}
+                </div>
+              </div> 
+
+              <div class="form-group">
+                <label for="modelo" class="col-sm-2 control-label">Valor</label>
+                <div class="col-sm-10">
+                  {!! Form::text('valor',null,['id'=>'valor','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','maxlength'=>'30','placeholder'=>'Fecha de Abono']) !!}
+                </div>
+              </div> 
+
+            </div><!-- /.col-lg-6 -->
+            <!-- /.form-group -->
+            <!-- /.row -->            
+          </div>
+          <div class="modal-footer">
+            <div class="form-group">
+
+              <button type="button" id="save_gatorepuesto" class="btn btn-primary pull-right" data-dismiss="modal">Guardar</button>
+
+              <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+
+            </div>
+
+          </div>
+          {!! Form::close() !!}
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
