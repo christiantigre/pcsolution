@@ -93,13 +93,15 @@
 </div><div class="form-group {{ $errors->has('articulo_id') ? 'has-error' : ''}}">
     {!! Form::label('articulo_id', 'Articulo', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::number('articulo_id', null, ['class' => 'form-control']) !!}
+        <!--{!! Form::number('articulo_id', null, ['class' => 'form-control']) !!}-->
+        {!! Form::select('articulo_id', $articulos, null,['placeholder'=>'Selecciona','id'=>'articulo_id','class'=>'form-control','autofocus'=>'autofocus'])    !!}
         {!! $errors->first('articulo_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('marca_id') ? 'has-error' : ''}}">
     {!! Form::label('marca_id', 'Marca', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::number('marca_id', null, ['class' => 'form-control']) !!}
+        <!--{!! Form::number('marca_id', null, ['class' => 'form-control']) !!}-->
+        {!! Form::select('marca_id', $marcas, null,['placeholder'=>'Selecciona','id'=>'marca_id','class'=>'form-control','autofocus'=>'autofocus'])    !!}
         {!! $errors->first('marca_id', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

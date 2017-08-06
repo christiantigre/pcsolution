@@ -13,7 +13,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Edit Estado #{{ $estado->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/estados') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/estados') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
                         <br />
                         <br />
 
@@ -32,7 +32,7 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('admin.estados.form', ['submitButtonText' => 'Update'])
+                        @include ('admin.estados.form', ['submitButtonText' => 'Actualizar'])
 
                         {!! Form::close() !!}
 

@@ -11,9 +11,9 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Edit Marca #{{ $marca->id }}</div>
+                    <div class="panel-heading">Editar Marca #{{ $marca->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/marcas') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/marcas') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
                         <br />
                         <br />
 
@@ -32,7 +32,7 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('admin.marcas.form', ['submitButtonText' => 'Update'])
+                        @include ('admin.marcas.form', ['submitButtonText' => 'Actualizar'])
 
                         {!! Form::close() !!}
 

@@ -14,14 +14,14 @@
                     <div class="panel-heading">Marca {{ $marca->id }}</div>
                     <div class="panel-body">
 
-                        <a href="{{ url('/admin/marcas') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
-                        <a href="{{ url('/admin/marcas/' . $marca->id . '/edit') }}" title="Edit Marca"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                        <a href="{{ url('/admin/marcas') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
+                        <a href="{{ url('/admin/marcas/' . $marca->id . '/edit') }}" title="Edit Marca"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
                         {!! Form::open([
                             'method'=>'DELETE',
                             'url' => ['admin/marcas', $marca->id],
                             'style' => 'display:inline'
                         ]) !!}
-                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                            {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar', array(
                                     'type' => 'submit',
                                     'class' => 'btn btn-danger btn-xs',
                                     'title' => 'Delete Marca',
@@ -37,7 +37,7 @@
                                     <tr>
                                         <th>ID</th><td>{{ $marca->id }}</td>
                                     </tr>
-                                    <tr><th> Marca </th><td> {{ $marca->marca }} </td></tr><tr><th> Descripcion </th><td> {{ $marca->descripcion }} </td></tr><tr><th> Logo </th><td> {{ $marca->logo }} </td></tr>
+                                    <tr><th> Marca </th><td> {{ $marca->marca }} </td></tr><tr><th> Descripción </th><td> {{ $marca->descripcion }} </td></tr><tr><th> Logo </th><td> {{ $marca->logo }} </td></tr>
                                 </tbody>
                             </table>
                         </div>

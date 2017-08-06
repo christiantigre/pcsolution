@@ -6,6 +6,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Product;
+use App\Articulo;
+use App\Marca;
 use Illuminate\Http\Request;
 use Session;
 use Image;
@@ -31,7 +33,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('admin.product.create');
+        $articulos = Articulo::orderBy('id','DESC')->pluck('articulo','id');
+        $marcas = Marca::orderBy('id','DESC')->pluck('marca','id');
+        return view('admin.product.create',array(
+            'articulos'=>$articulos,
+            'marcas'=>$marcas
+            ));
     }
 
     /**
@@ -169,8 +176,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
+        $articulos = Articulo::orderBy('id','DESC')->pluck('articulo','id');
+        $marcas = Marca::orderBy('id','DESC')->pluck('marca','id');
 
-        return view('admin.product.edit', compact('product'));
+        return view('admin.product.edit', array('product'=>$product,'articulos'=>$articulos,
+            'marcas'=>$marcas));
     }
 
     /**

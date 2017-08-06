@@ -19,4 +19,9 @@ class Articulo extends Model
 	{
 		return $this->hasMany('App\Order', 'id');
 	}
+
+	public function producto()
+	{
+		return $this->hasMany('App\Product', 'id');
+	}
 }

@@ -19,9 +19,10 @@
 			"searching": false,
 			"ordering": true,
 			"info": true,
-			"autoWidth": false
+			"autoWidth": false			
 		});
 	});
+
 </script>
 
 <!-- bootstrap datepicker -->

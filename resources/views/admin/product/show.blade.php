@@ -11,7 +11,7 @@
 
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Product {{ $product->id }}</div>
+                <div class="panel-heading">Product {{ $product->slug }}</div>
                 <div class="panel-body">
 
                     <a href="{{ url('/admin/product') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
@@ -35,9 +35,6 @@
                         <table class="table table-borderless">
                             <tbody>
                                 <tr>
-                                    <th>ID</th><td>{{ $product->id }}</td>
-                                </tr>
-                                <tr>
                                     <th> Nombre </th><td> {{ $product->nombre }} </td></tr><tr><th> Slug </th><td> {{ $product->slug }} </td>
                                 </tr>
                                 <tr><th> Codbarra </th><td> {{ $product->codbarra }} </td>
@@ -56,11 +53,17 @@
                                 </tr>
                                 <tr><th> Catalogo </th><td> {{ $product->catalogo }} </td>
                                 </tr>
-                                <tr><th> Estado </th><td> {{ $product->is_active }} </td>
+                                <tr><th> Estado </th><td> 
+                                @if(($product->is_active)=='0')
+                                    Inactivo
+                                @else
+                                    Activo
+                                @endif
+                                </td>
                                 </tr>
-                                <tr><th> Sección </th><td> {{ $product->articulo_id }} </td>
+                                <tr><th> Sección </th><td> {{ $product->articulo->articulo }} </td>
                                 </tr>
-                                <tr><th> Marca </th><td> {{ $product->marca_id }} </td>
+                                <tr><th> Marca </th><td> {{ $product->marca->marca }} </td>
                                 </tr>
                                 <tr>
                                     <th>Imagen</th>

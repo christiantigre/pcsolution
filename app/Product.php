@@ -27,5 +27,12 @@ class Product extends Model
      */
     protected $fillable = ['nombre', 'slug', 'codbarra', 'cant', 'pre_com', 'pre_ven', 'img', 'prgr_tittle', 'nuevo', 'promocion', 'catalogo', 'is_active', 'articulo_id', 'marca_id'];
 
+    public function articulo(){
+        return $this->belongsTo('App\Articulo','articulo_id');
+    }
+    
+    public function marca(){
+        return $this->belongsTo('App\Marca','marca_id');
+    }
     
 }

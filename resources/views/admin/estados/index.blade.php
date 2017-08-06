@@ -14,7 +14,7 @@
                     <div class="panel-heading">Estados</div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/estados/create') }}" class="btn btn-success btn-sm" title="Add New Estado">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar nuevo
                         </a>
 
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/estados', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
@@ -43,14 +43,14 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->estado }}</td><td>{{ $item->descripcion }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/estados/' . $item->id) }}" title="View Estado"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/admin/estados/' . $item->id . '/edit') }}" title="Edit Estado"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/admin/estados/' . $item->id) }}" title="View Estado"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Ver</button></a>
+                                            <a href="{{ url('/admin/estados/' . $item->id . '/edit') }}" title="Edit Estado"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => ['/admin/estados', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-xs',
                                                         'title' => 'Delete Estado',

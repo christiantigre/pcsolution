@@ -14,7 +14,7 @@
                     <div class="panel-heading">Marcas</div>
                     <div class="panel-body">
                         <a href="{{ url('/admin/marcas/create') }}" class="btn btn-success btn-sm" title="Add New Marca">
-                            <i class="fa fa-plus" aria-hidden="true"></i> Add New
+                            <i class="fa fa-plus" aria-hidden="true"></i> Agregar nuevo
                         </a>
 
                         {!! Form::open(['method' => 'GET', 'url' => '/admin/marcas', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
@@ -34,7 +34,7 @@
                             <table class="table table-borderless">
                                 <thead>
                                     <tr>
-                                        <th>ID</th><th>Marca</th><th>Descripcion</th><th>Logo</th><th>Actions</th>
+                                        <th>ID</th><th>Marca</th><th>Descripción</th><th>Logo</th><th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -43,14 +43,14 @@
                                         <td>{{ $item->id }}</td>
                                         <td>{{ $item->marca }}</td><td>{{ $item->descripcion }}</td><td>{{ $item->logo }}</td>
                                         <td>
-                                            <a href="{{ url('/admin/marcas/' . $item->id) }}" title="View Marca"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
-                                            <a href="{{ url('/admin/marcas/' . $item->id . '/edit') }}" title="Edit Marca"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+                                            <a href="{{ url('/admin/marcas/' . $item->id) }}" title="View Marca"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Ver</button></a>
+                                            <a href="{{ url('/admin/marcas/' . $item->id . '/edit') }}" title="Edit Marca"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
                                             {!! Form::open([
                                                 'method'=>'DELETE',
                                                 'url' => ['/admin/marcas', $item->id],
                                                 'style' => 'display:inline'
                                             ]) !!}
-                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Delete', array(
+                                                {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar', array(
                                                         'type' => 'submit',
                                                         'class' => 'btn btn-danger btn-xs',
                                                         'title' => 'Delete Marca',
