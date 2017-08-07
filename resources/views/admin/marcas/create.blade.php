@@ -6,34 +6,35 @@
 @endsection
 
 @section('main-content')
-    <div class="container">
-        <div class="row">
+<div class="container">
+    <div class="row">
 
-            <div class="col-md-9">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Crear Nueva Marca</div>
-                    <div class="panel-body">
-                        <a href="{{ url('/admin/marcas') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
-                        <br />
-                        <br />
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading">Crear Nueva Marca</div>
+                <div class="panel-body">
 
-                        @if ($errors->any())
-                            <ul class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
+                    <a href="{{ url('/admin/marcas') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
+                    <br />
+                    <br />
 
-                        {!! Form::open(['url' => '/admin/marcas', 'class' => 'form-horizontal', 'files' => true]) !!}
+                    @if ($errors->any())
+                    <ul class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                    @endif
 
-                        @include ('admin.marcas.form')
+                    {!! Form::open(['url' => '/admin/marcas', 'class' => 'form-horizontal', 'files' => true]) !!}
 
-                        {!! Form::close() !!}
+                    @include ('admin.marcas.form')
 
-                    </div>
+                    {!! Form::close() !!}
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 @endsection

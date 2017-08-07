@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 use Session;
 use Image;
 use Input;
+/*use Maatwebsite\Excel\Facades\Excel as Excel;*/
+use App\Item;
+use DB;
+use Excel;
 
 class ProductController extends Controller
 {
@@ -251,4 +255,56 @@ class ProductController extends Controller
 
         return redirect('admin/product');
     }
+
+    public function importExport()
+    {
+        return view('importExport');
+    }
+    public function downloadExcel($type)
+    {
+        $data = Product::get()->toArray();
+        return Excel::create('productos', function($excel) use ($data) {
+            $excel->sheet('listado', function($sheet) use ($data)
+            {
+                $sheet->fromArray($data);
+            });
+        })->download($type);
+    }
+    public function importExcel()
+    {
+        if(Input::hasFile('import_file')){
+            $path = Input::file('import_file')->getRealPath();
+            $data = \Excel::load($path, function($reader) {
+            })->get();
+            if(!empty($data) && $data->count()){
+                foreach ($data as $key => $value) {
+                    $insert[] = [
+                    'nombre' => $value->nombre, 
+                    'slug' => $value->slug,
+                    'codbarra' => $value->codbarra,
+                    'cant' => $value->cant,
+                    'pre_com' => $value->pre_com,
+                    'pre_ven' => $value->pre_ven,
+                    'img' => $value->img,
+                    'prgr_tittle' => $value->prgr_tittle,
+                    'nuevo' => $value->nuevo,
+                    'promocion' => $value->promocion,
+                    'catalogo' => $value->catalogo,
+                    'is_active' => $value->is_active,
+                    'articulo_id' => $value->articulo_id,
+                    'marca_id' => $value->marca_id,
+                    'created_at' => $value->created_at,
+                    'updated_at' => $value->updated_at
+                    ];
+                }
+                if(!empty($insert)){
+                    DB::table('products')->insert($insert);
+                    dd('Insert Record successfully.');
+                }
+            }
+        }
+        return back();
+    }
+
+    
 }
