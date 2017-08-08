@@ -12,10 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 Route::get('/admin', function () {
-    return redirect('/home');
+	return redirect('/home');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -43,6 +43,18 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('admin/listorder','Admin\OrderController@listall');
 	Route::get('admin/pdf/{id}','Admin\OrderController@print');
 
+	Route::resource('admin/posts', 'Admin\\PostsController');
+	Route::resource('estados', 'EstadosController');
+	Route::resource('admin/estados', 'Admin\\EstadosController');
+	Route::resource('admin/marcas', 'Admin\\MarcasController');
+	Route::resource('admin/product', 'Admin\\ProductController');
+	Route::get('admin/product/importEcxel','Admin\ProductController@importEcxel');
+	Route::get('importExport', 'Admin\ProductController@importExport');
+	Route::get('downloadExcel/{type}', 'Admin\ProductController@downloadExcel');
+	Route::post('importExcel', 'Admin\ProductController@importExcel');
+
+	Route::resource('admin/articles', 'Admin\\ArticlesController');
+
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware
@@ -52,13 +64,4 @@ Route::group(['middleware' => 'auth'], function () {
     #adminlte_routes
 });
 
-Route::resource('admin/posts', 'Admin\\PostsController');
-Route::resource('estados', 'EstadosController');
-Route::resource('admin/estados', 'Admin\\EstadosController');
-Route::resource('admin/estados', 'Admin\\EstadosController');
-Route::resource('admin/marcas', 'Admin\\MarcasController');
-Route::resource('admin/product', 'Admin\\ProductController');
-Route::get('admin/product/importEcxel','Admin\ProductController@importEcxel');
-Route::get('importExport', 'Admin\ProductController@importExport');
-Route::get('downloadExcel/{type}', 'Admin\ProductController@downloadExcel');
-Route::post('importExcel', 'Admin\ProductController@importExcel');
+

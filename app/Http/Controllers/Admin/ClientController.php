@@ -56,8 +56,7 @@ class ClientController extends Controller
      */
     public function create(Request $request)
     {
-        
-        dd($request);
+        return view('adminlte::layouts.client.create');
     }
 
     /**
@@ -68,7 +67,55 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+        'ci' => 'numeric|max:15',
+        'ruc_cli' => 'numeric|max:15',
+        'tlfn' => 'numeric|max:15',
+        'cel' => 'numeric|max:15',
+        'mail'=>'unique:clients'
+        ];
+
+        $messages = [
+        'ci.numeric'=>'Caractér invalido',
+        'ci.max'=>'Limite eccedido en caracteres',
+        'ruc_cli.max'=>'Limite eccedido en caracteres',
+        'ruc_cli.numeric'=>'Caractér invalido',
+        'tlfn.max'=>'Limite eccedido en caracteres',
+        'tlfn.numeric'=>'Caractér invalido',
+        'cel.max'=>'Limite eccedido en caracteres',
+        'cel.numeric'=>'Caractér invalido',
+        'mail.unique'=>'El correo electronico ya esta en uso'
+        ];
+
+        $this->validate($request, $rules, $messages);
+
+
+        $fechanac = $request->input('fechanac');
+        $fecha = Carbon::parse($fechanac)->format('Y-m-d');
+
+        $requestData = new Client;
+        $requestData->nomcli = $request->nomcli;
+        $requestData->app_cli = $request->app_cli;
+        $requestData->ci = $request->ci;
+        $requestData->ruc_cli = $request->ruc_cli;
+        $requestData->fechanac = $fecha;
+        $requestData->dirlocal = $request->dirlocal;
+        $requestData->telefono = $request->telefono;
+        $requestData->celular = $request->celular;
+        $requestData->correo = $request->correo;
+        $requestData->estado = $request->estado;
+
+        if($requestData->save()){
+            Session::flash('flash_message', 'Cliente added!');
+
+            return redirect('admin/clients');
+        }else{
+            Session::flash('flash_message', 'Error al guardar!');
+
+            return redirect('admin/clients');
+
+        }
+
     }
 
     /**

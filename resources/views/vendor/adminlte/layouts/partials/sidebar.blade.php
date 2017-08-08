@@ -42,6 +42,7 @@
                 <ul class="treeview-menu">
                     <li><a href="/admin/empres">{{ trans('message.empress') }}</a></li>
                     <li><a href="/admin/estados">{{ trans('message.status') }}</a></li>
+                    <li><a href="/admin/articles">{{ trans('message.article') }}</a></li>
                     <li><a href="/admin/marcas">{{ trans('message.brands') }}</a></li>
                 </ul>
             </li>

@@ -11,6 +11,8 @@
   <div class="box-header with-border">
     <h3 class="box-title">
       <!--titulo ventana-->
+
+      <a href="{{ Route('clients.create') }}" type="button" class="btn btn-block btn-success btn-xs">Nuevo</a>
     </h3>
 
     <div class="box-tools pull-right">
@@ -22,7 +24,9 @@
       </div>
       <!-- Main content -->
       <section class="content">
-        <h3 class="box-title">Listado de Clientes</h3>
+
+        <h3 class="box-title">Listado de Clientes
+        </h3>
         <p id="mensaje">
 
         </p>

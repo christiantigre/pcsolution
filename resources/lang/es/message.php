@@ -138,6 +138,7 @@ return [
     'status'                 => 'Estados',
     'brands'                 => 'Marcas',
     'product'                 => 'Productos',
+    'article'                 => 'Articulos',
 
 
     ];

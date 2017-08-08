@@ -1,0 +1,16 @@
+{
+    "fields": [
+        {
+            "name": "articulo",
+            "type": "string"
+        },
+        {
+            "name": "cod_articulo",
+            "type": "string"
+        },
+        {
+            "name": "status",
+            "type": "string"
+        }
+    ],
+}
