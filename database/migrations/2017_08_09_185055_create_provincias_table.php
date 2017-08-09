@@ -14,9 +14,9 @@ class CreateProvinciasTable extends Migration
     {
         Schema::create('provincias', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('provincia',35);
-            $table->string('iso',15);
-            $table->boolean('status')->defaul(1);
+            $table->string('provincia',35)->nullable();
+            $table->string('iso',15)->nullable();
+            $table->boolean('status')->default(1);
             $table->integer('pais_id')->unsigned();
             $table->foreign('pais_id')->references('id')->on('pais');
             $table->timestamps();
