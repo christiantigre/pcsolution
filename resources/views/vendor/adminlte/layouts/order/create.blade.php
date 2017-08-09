@@ -88,19 +88,26 @@
           <!--articulo-->
           <div class="form-group">
             <label for="articulo" class="col-sm-2 control-label">Articulo</label>
-            <div class="col-sm-10">
+            <div class="col-sm-5">
               {!! Form::select('id_articulo', $articulos, null,['placeholder'=>'Selecciona','id'=>'id_articulo','class'=>'form-control','autofocus'=>'autofocus'])    !!}
-
-              <!-- {!! Form::text('articulo',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}-->
+            </div>
+            <div class="col-sm-5">
+              <a href="{{ url('/admin/articles/create') }}" class="btn btn-default btn-sm" title="Add New Article">
+                <i class="fa fa-plus" aria-hidden="true"></i> Agregar equipo
+              </a>
             </div>
           </div>
           <!-- /.form-group -->
           <!--marca-->
           <div class="form-group">
             <label for="marca" class="col-sm-2 control-label">Marca</label>
-            <div class="col-sm-10">
-              <!--{!! Form::text('marca',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}-->
+            <div class="col-sm-5">
               {!! Form::select('id_marca', $marcas, null,['placeholder'=>'Selecciona','id'=>'id_marca','class'=>'form-control','autofocus'=>'autofocus'])    !!}
+            </div>
+            <div class="col-sm-5">
+            <a href="{{ url('/admin/marcas/create') }}" class="btn btn-default btn-sm" title="Add New Article">
+                <i class="fa fa-plus" aria-hidden="true"></i> Agregar marca
+              </a>
             </div>
           </div>
           <!--modelo-->            
@@ -124,8 +131,13 @@
         <div class="col-md-4">
 
           <div class="form-group"> 
-            <div class="col-sm-10">
-              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default">Buscar Cliente</button>
+            <div class="col-sm-5">
+              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default"><i class="fa fa-search" aria-hidden="true"></i> Buscar Cliente</button>
+            </div>
+            <div class="col-sm-5">
+            <a href="{{ url('/admin/clients/create') }}" class="btn btn-default" title="Add New Client">
+                <i class="fa fa-plus" aria-hidden="true"></i> Registrar Cliente
+              </a>
             </div>
           </div>
 

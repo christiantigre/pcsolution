@@ -20,6 +20,13 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
+      @if ($errors->any())
+      <ul class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+      </ul>
+      @endif
       <!--<form class="form-horizontal">-->
       {!! Form::open(['method' => 'POST','id'=>'myForm','class'=>'form-horizontal', 'route' => 'clients.store', 'role' => 'search'])  !!}
 

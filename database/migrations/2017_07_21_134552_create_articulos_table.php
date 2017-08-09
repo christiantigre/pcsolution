@@ -16,7 +16,7 @@ class CreateArticulosTable extends Migration
         Schema::create('articulos', function (Blueprint $table) {
             $table->increments('id'); 
             $table->string('articulo',50)->nullable();
-            $table->string('cod_articulo',5)->nullable();
+            $table->string('cod_articulo',15)->nullable();
             $table->boolean('status',1)->default(1);
             $table->timestamps();
         });

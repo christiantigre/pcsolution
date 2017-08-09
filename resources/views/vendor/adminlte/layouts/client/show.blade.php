@@ -63,7 +63,7 @@
                       {{ $cliente->fecha_nac }}
                       @if(($final)=='')
                       @else                      
-                      ({{ $final }})
+                      ({{ $final }} años)
                       @endif
                     </strong></h4>
                   </div>

@@ -9,6 +9,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Order;
 
 /**
  * Class HomeController
@@ -33,6 +34,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('adminlte::home');
+
+        $count = Order::where('id_estado', 1)->count();
+        return view('adminlte::home',array('ordenes' => $count ));
     }
 }

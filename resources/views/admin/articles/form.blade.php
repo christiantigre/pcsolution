@@ -14,10 +14,10 @@
     {!! Form::label('status', 'Status', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         <div class="checkbox">
-    <label>{!! Form::radio('status', '1') !!} Yes</label>
+    <label>{!! Form::radio('status', '1', true) !!} Yes</label>
 </div>
 <div class="checkbox">
-    <label>{!! Form::radio('status', '0', true) !!} No</label>
+    <label>{!! Form::radio('status', '0') !!} No</label>
 </div>
         {!! $errors->first('status', '<p class="help-block">:message</p>') !!}
     </div>

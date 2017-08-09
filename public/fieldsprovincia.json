@@ -1,0 +1,44 @@
+{
+    "fields": [
+        {
+            "name": "provincia",
+            "type": "string"
+        },
+        {
+            "name": "iso",
+            "type": "string"
+        },        
+        {
+            "name": "status",
+            "type": "boolean"
+        },
+        {
+            "name": "pais_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "foreign_keys": [
+        {
+            "column": "pais_id",
+            "references": "id",
+            "on": "pais"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "pais",
+            "type": "belongsTo",
+            "class": "App\\Pai"
+        }
+    ],
+    "validations": [
+        {
+            "field": "provincia",
+            "rules": "max:35"
+        },
+        {
+            "field": "iso",
+            "rules": "max:15"            
+        }
+    ]
+}

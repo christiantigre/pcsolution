@@ -68,16 +68,16 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $rules = [
-        'ci' => 'numeric|max:15',
-        'ruc_cli' => 'numeric|max:15',
-        'tlfn' => 'numeric|max:15',
-        'cel' => 'numeric|max:15',
+        'ci_cli' => 'numeric|max:9999999999',
+        'ruc_cli' => 'numeric|max:999999999999999',
+        'tlfn' => 'numeric|max:99999999999999',
+        'cel' => 'numeric|max:999999999999999',
         'mail'=>'unique:clients'
         ];
 
         $messages = [
-        'ci.numeric'=>'Caractér invalido',
-        'ci.max'=>'Limite eccedido en caracteres',
+        'ci_cli.numeric'=>'Caractér invalido',
+        'ci_cli.max'=>'Limite eccedido en caracteres',
         'ruc_cli.max'=>'Limite eccedido en caracteres',
         'ruc_cli.numeric'=>'Caractér invalido',
         'tlfn.max'=>'Limite eccedido en caracteres',
@@ -87,23 +87,21 @@ class ClientController extends Controller
         'mail.unique'=>'El correo electronico ya esta en uso'
         ];
 
-        $this->validate($request, $rules, $messages);
-
-
-        $fechanac = $request->input('fechanac');
+        $res = $this->validate($request, $rules, $messages);
+        $fechanac = $request->input('fecha_nac');
         $fecha = Carbon::parse($fechanac)->format('Y-m-d');
 
         $requestData = new Client;
-        $requestData->nomcli = $request->nomcli;
+        $requestData->nom_cli = $request->nom_cli;
         $requestData->app_cli = $request->app_cli;
-        $requestData->ci = $request->ci;
+        $requestData->ci_cli = $request->ci_cli;
         $requestData->ruc_cli = $request->ruc_cli;
-        $requestData->fechanac = $fecha;
-        $requestData->dirlocal = $request->dirlocal;
-        $requestData->telefono = $request->telefono;
-        $requestData->celular = $request->celular;
-        $requestData->correo = $request->correo;
-        $requestData->estado = $request->estado;
+        $requestData->fecha_nac = $fecha;
+        $requestData->tlfn = $request->tlfn;
+        $requestData->dir = $request->dir;
+        $requestData->cel = $request->cel;
+        $requestData->mail = $request->mail;
+        $requestData->status = $request->status;
 
         if($requestData->save()){
             Session::flash('flash_message', 'Cliente added!');
@@ -128,8 +126,8 @@ class ClientController extends Controller
     {
         $hoy = Carbon::now();
         $cliente = Client::find($id);
-        if(!empty($cliente->date_nac)){           
-            $fecha_nacimiento = $cliente->date_nac;
+        if(!empty($cliente->fecha_nac)){           
+            $fecha_nacimiento = $cliente->fecha_nac;
             $diff = Carbon::createFromFormat('Y-m-d',$fecha_nacimiento);
             $final = $hoy->diffInYears($diff);
         }else{
@@ -164,7 +162,27 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input  = $request->date_nac;
+        $rules = [
+        'ci_cli' => 'numeric|max:9999999999',
+        'ruc_cli' => 'numeric|max:999999999999999',
+        'tlfn' => 'numeric|max:99999999999999',
+        'cel' => 'numeric|max:999999999999999'
+        ];
+
+        $messages = [
+        'ci_cli.numeric'=>'Caractér invalido',
+        'ci_cli.max'=>'Limite eccedido en caracteres',
+        'ruc_cli.max'=>'Limite eccedido en caracteres',
+        'ruc_cli.numeric'=>'Caractér invalido',
+        'tlfn.max'=>'Limite eccedido en caracteres',
+        'tlfn.numeric'=>'Caractér invalido',
+        'cel.max'=>'Limite eccedido en caracteres',
+        'cel.numeric'=>'Caractér invalido'
+        ];
+
+        $res = $this->validate($request, $rules, $messages);
+
+        $input  = $request->fecha_nac;
         $fecha_nac = Carbon::parse($input)->format('Y-m-d');
 
         $cliente = Client::findOrFail($id);

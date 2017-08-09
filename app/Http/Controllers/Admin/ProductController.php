@@ -276,6 +276,7 @@ class ProductController extends Controller
             $path = Input::file('import_file')->getRealPath();
             $data = \Excel::load($path, function($reader) {
             })->get();
+            \DB::table('products')->truncate();
             if(!empty($data) && $data->count()){
                 foreach ($data as $key => $value) {
                     $insert[] = [
@@ -299,7 +300,9 @@ class ProductController extends Controller
                 }
                 if(!empty($insert)){
                     DB::table('products')->insert($insert);
-                    dd('Insert Record successfully.');
+                    //dd('Insert Record successfully.');
+                    Session::flash('success', 'Documento importado con exito!');
+                    return redirect('admin/product');
                 }
             }
         }

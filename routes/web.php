@@ -54,6 +54,9 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::post('importExcel', 'Admin\ProductController@importExcel');
 
 	Route::resource('admin/articles', 'Admin\\ArticlesController');
+	Route::resource('admin/pais', 'Admin\\PaisController');
+	Route::resource('admin/provincia', 'Admin\\ProvinciaController');
+	Route::resource('admin/ciudad', 'Admin\\CiudadController');
 
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {
@@ -63,5 +66,4 @@ Route::group(['middleware' => 'auth'], function () {
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
 });
-
 

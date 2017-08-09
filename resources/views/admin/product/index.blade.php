@@ -73,6 +73,7 @@
                           <tr>
                             <th>ID</th>
                             <th>Nombre</th>
+                            <th>Slug</th>
                             <th>Stock</th>
                             <th>Codbarra</th>
                             <th>Estado</th>
@@ -86,6 +87,7 @@
                           <tr>
                             <td>{{ $item->id }}</td>
                             <td>{{ $item->nombre }}</td>
+                            <td>{{ $item->slug }}</td>
                             <td>{{ $item->cant }}</td>
                             <td>{{ $item->codbarra }}</td>
                             <td>
@@ -135,4 +137,4 @@
     <!-- /.box -->
 
 
-    @endsection
+@endsection

@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePostsTable extends Migration
+class CreateProvinciasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function(Blueprint $table) {
+        Schema::create('provincias', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->text('content');
-            $table->string('category');
+            $table->string('provincia',35);
+            $table->string('iso',15);
+            $table->boolean('status')->defaul(1);
+            $table->integer('pais_id')->unsigned();
+            $table->foreign('pais_id')->references('id')->on('pais');
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('posts');
+        Schema::drop('provincias');
     }
 }

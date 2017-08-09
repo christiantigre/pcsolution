@@ -30,7 +30,8 @@
             <section class="content">
               <!-- Default box -->
               <div class="box">
-                <div class="box-body">
+              <div class="box-body">
+
                   @include('adminlte::errors.errors')
 
                   {!! Form::model($cliente,['route'=>['clients.update', $cliente->id], 'method'=>'post','files' => 'true', 'enctype'=>'multipart/form-data']) !!}
@@ -41,7 +42,7 @@
                   <!-- /.box-body -->
                   <div class="box-footer">
                     <div class="col-sm-offset-2 col-sm-10">
-                    <a href="{{ Route('clients.index') }}" type="button" class="btn btn-default pull-right">Cancelar</a>
+                      <a href="{{ Route('clients.index') }}" type="button" class="btn btn-default pull-right">Cancelar</a>
                       {!! Form::submit('Guardar',['class'=>'btn btn-success pull-right']) !!}
                     </div>
                   </div>

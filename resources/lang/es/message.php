@@ -139,6 +139,10 @@ return [
     'brands'                 => 'Marcas',
     'product'                 => 'Productos',
     'article'                 => 'Articulos',
+    'country'                 => 'Paises',
+    'prov'                 => 'Provincias',
+    'city'                 => 'Ciudad',
+
 
 
     ];

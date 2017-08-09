@@ -44,6 +44,9 @@
                     <li><a href="/admin/estados">{{ trans('message.status') }}</a></li>
                     <li><a href="/admin/articles">{{ trans('message.article') }}</a></li>
                     <li><a href="/admin/marcas">{{ trans('message.brands') }}</a></li>
+                    <li><a href="/admin/pais">{{ trans('message.country') }}</a></li>
+                    <li><a href="/admin/provincia">{{ trans('message.prov') }}</a></li>
+                    <li><a href="/admin/ciudad">{{ trans('message.city') }}</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->
