@@ -37,6 +37,7 @@
             <li class="active"><a href="{{ url('/admin/orders') }}"><i class='fa fa-link'></i> <span>{{ trans('message.order') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/clients') }}"><i class='fa fa-link'></i> <span>{{ trans('message.client') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/product') }}"><i class='fa fa-link'></i> <span>{{ trans('message.product') }}</span></a></li>
+            <li class="active"><a href="{{ url('/admin/proveedor') }}"><i class='fa fa-link'></i> <span>{{ trans('message.proveedor') }}</span></a></li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('message.conf') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
@@ -46,7 +47,8 @@
                     <li><a href="/admin/marcas">{{ trans('message.brands') }}</a></li>
                     <li><a href="/admin/pais">{{ trans('message.country') }}</a></li>
                     <li><a href="/admin/provincia">{{ trans('message.prov') }}</a></li>
-                    <li><a href="/admin/ciudad">{{ trans('message.city') }}</a></li>
+                    <li><a href="/admin/canton">{{ trans('message.canton') }}</a></li>
+                    <li><a href="/admin/parroquia">{{ trans('message.parr') }}</a></li>
                 </ul>
             </li>
         </ul><!-- /.sidebar-menu -->

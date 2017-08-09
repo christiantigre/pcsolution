@@ -142,6 +142,9 @@ return [
     'country'                 => 'Paises',
     'prov'                 => 'Provincias',
     'city'                 => 'Ciudad',
+    'proveedor'                 => 'Proveedores',
+    'canton'                 => 'Cantones',
+    'parr'                 => 'Parroquias',
 
 
 

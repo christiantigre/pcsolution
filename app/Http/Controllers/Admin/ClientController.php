@@ -68,11 +68,11 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $rules = [
-        'ci_cli' => 'numeric|max:9999999999',
-        'ruc_cli' => 'numeric|max:999999999999999',
-        'tlfn' => 'numeric|max:99999999999999',
-        'cel' => 'numeric|max:999999999999999',
-        'mail'=>'unique:clients'
+        'ci_cli' => 'nullable|numeric|max:9999999999',
+        'ruc_cli' => 'nullable|numeric|max:999999999999999',
+        'tlfn' => 'nullable|numeric|max:99999999999999',
+        'cel' => 'nullable|numeric|max:999999999999999',
+        'mail'=>'nullable|unique:clients'
         ];
 
         $messages = [
@@ -104,7 +104,7 @@ class ClientController extends Controller
         $requestData->status = $request->status;
 
         if($requestData->save()){
-            Session::flash('flash_message', 'Cliente added!');
+            Session::flash('flash_message', $request->nom_cli.' Registrado correctamente!');
 
             return redirect('admin/clients');
         }else{
@@ -163,10 +163,10 @@ class ClientController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-        'ci_cli' => 'numeric|max:9999999999',
-        'ruc_cli' => 'numeric|max:999999999999999',
-        'tlfn' => 'numeric|max:99999999999999',
-        'cel' => 'numeric|max:999999999999999'
+        'ci_cli' => 'nullable|numeric|max:9999999999',
+        'ruc_cli' => 'nullable|numeric|max:999999999999999',
+        'tlfn' => 'nullable|numeric|max:99999999999999',
+        'cel' => 'nullable|numeric|max:999999999999999'
         ];
 
         $messages = [
@@ -197,7 +197,7 @@ class ClientController extends Controller
         $cliente->mail = $request->mail;
         $cliente->status = $request->status;
         $cliente->save();
-        Session::flash('success', $request->nom_cli.' Registrado correctamente');
+        Session::flash('success', $request->nom_cli.' Actualizado correctamente');
         return redirect('admin/clients'); 
 
     }

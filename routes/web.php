@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('admin/estados', 'Admin\\EstadosController');
 	Route::resource('admin/marcas', 'Admin\\MarcasController');
 	Route::resource('admin/product', 'Admin\\ProductController');
+
 	Route::get('admin/product/importEcxel','Admin\ProductController@importEcxel');
 	Route::get('importExport', 'Admin\ProductController@importExport');
 	Route::get('downloadExcel/{type}', 'Admin\ProductController@downloadExcel');
@@ -55,9 +56,14 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('admin/articles', 'Admin\\ArticlesController');
 	Route::resource('admin/pais', 'Admin\\PaisController');
+	Route::get('PaisdownloadExcel/{type}', 'Admin\PaisController@downloadExcel');
+	Route::post('PaisimportExcel', 'Admin\PaisController@importExcel');
+
 	Route::resource('admin/provincia', 'Admin\\ProvinciaController');
 	Route::resource('admin/ciudad', 'Admin\\CiudadController');
-
+	Route::resource('admin/proveedor', 'Admin\\ProveedorController');
+	Route::resource('admin/canton', 'Admin\\CantonController');
+	Route::resource('admin/parroquia', 'Admin\\ParroquiaController');
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware
@@ -66,4 +72,6 @@ Route::group(['middleware' => 'auth'], function () {
     //Please do not remove this if you want adminlte:route and adminlte:link commands to works correctly.
     #adminlte_routes
 });
+
+
 

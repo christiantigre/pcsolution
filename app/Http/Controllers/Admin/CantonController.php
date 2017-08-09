@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Pai;
+use App\Canton;
 use Illuminate\Http\Request;
 use Session;
-use DB;
-use Excel;
-use Input;
 
-class PaisController extends Controller
+class CantonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,15 +22,16 @@ class PaisController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $pais = Pai::where('pais', 'LIKE', "%$keyword%")
-            ->orWhere('iso', 'LIKE', "%$keyword%")
-            ->orWhere('status', 'LIKE', "%$keyword%")
-            ->paginate($perPage);
+            $canton = Canton::where('canton', 'LIKE', "%$keyword%")
+				->orWhere('iso', 'LIKE', "%$keyword%")
+				->orWhere('status', 'LIKE', "%$keyword%")
+				->orWhere('provincia_id', 'LIKE', "%$keyword%")
+				->paginate($perPage);
         } else {
-            $pais = Pai::paginate($perPage);
+            $canton = Canton::paginate($perPage);
         }
 
-        return view('admin.pais.index', compact('pais'));
+        return view('admin.canton.index', compact('canton'));
     }
 
     /**
@@ -43,7 +41,7 @@ class PaisController extends Controller
      */
     public function create()
     {
-        return view('admin.pais.create');
+        return view('admin.canton.create');
     }
 
     /**
@@ -55,14 +53,17 @@ class PaisController extends Controller
      */
     public function store(Request $request)
     {
-
+        $this->validate($request, [
+			'canton' => 'max:35',
+			'iso' => 'max:15'
+		]);
         $requestData = $request->all();
         
-        Pai::create($requestData);
+        Canton::create($requestData);
 
-        Session::flash('flash_message', 'Pai added!');
+        Session::flash('flash_message', 'Canton added!');
 
-        return redirect('admin/pais');
+        return redirect('admin/canton');
     }
 
     /**
@@ -74,9 +75,9 @@ class PaisController extends Controller
      */
     public function show($id)
     {
-        $pai = Pai::findOrFail($id);
+        $canton = Canton::findOrFail($id);
 
-        return view('admin.pais.show', compact('pai'));
+        return view('admin.canton.show', compact('canton'));
     }
 
     /**
@@ -88,9 +89,9 @@ class PaisController extends Controller
      */
     public function edit($id)
     {
-        $pai = Pai::findOrFail($id);
+        $canton = Canton::findOrFail($id);
 
-        return view('admin.pais.edit', compact('pai'));
+        return view('admin.canton.edit', compact('canton'));
     }
 
     /**
@@ -103,15 +104,18 @@ class PaisController extends Controller
      */
     public function update($id, Request $request)
     {
-
+        $this->validate($request, [
+			'canton' => 'max:35',
+			'iso' => 'max:15'
+		]);
         $requestData = $request->all();
         
-        $pai = Pai::findOrFail($id);
-        $pai->update($requestData);
+        $canton = Canton::findOrFail($id);
+        $canton->update($requestData);
 
-        Session::flash('flash_message', 'Pai updated!');
+        Session::flash('flash_message', 'Canton updated!');
 
-        return redirect('admin/pais');
+        return redirect('admin/canton');
     }
 
     /**
@@ -123,23 +127,10 @@ class PaisController extends Controller
      */
     public function destroy($id)
     {
-        Pai::destroy($id);
+        Canton::destroy($id);
 
-        Session::flash('flash_message', 'Pai deleted!');
+        Session::flash('flash_message', 'Canton deleted!');
 
-        return redirect('admin/pais');
+        return redirect('admin/canton');
     }
-
-    
-    public function downloadExcel($type)
-    {
-        $data = Pai::get()->toArray();
-        return Excel::create('pais', function($excel) use ($data) {
-            $excel->sheet('listado', function($sheet) use ($data)
-            {
-                $sheet->fromArray($data);
-            });
-        })->download($type);
-    }
-    
 }

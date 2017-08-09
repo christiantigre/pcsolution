@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use App\Ciudad;
-use App\Provincium;
+use App\Parroquium;
 use Illuminate\Http\Request;
 use Session;
 
-class CiudadController extends Controller
+class ParroquiaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,16 +22,16 @@ class CiudadController extends Controller
         $perPage = 25;
 
         if (!empty($keyword)) {
-            $ciudad = Ciudad::where('ciudad', 'LIKE', "%$keyword%")
-            ->orWhere('iso', 'LIKE', "%$keyword%")
-            ->orWhere('status', 'LIKE', "%$keyword%")
-            ->orWhere('provincia_id', 'LIKE', "%$keyword%")
-            ->paginate($perPage);
+            $parroquia = Parroquium::where('parroquia', 'LIKE', "%$keyword%")
+				->orWhere('iso', 'LIKE', "%$keyword%")
+				->orWhere('status', 'LIKE', "%$keyword%")
+				->orWhere('canton_id', 'LIKE', "%$keyword%")
+				->paginate($perPage);
         } else {
-            $ciudad = Ciudad::paginate($perPage);
+            $parroquia = Parroquium::paginate($perPage);
         }
 
-        return view('admin.ciudad.index', compact('ciudad'));
+        return view('admin.parroquia.index', compact('parroquia'));
     }
 
     /**
@@ -42,9 +41,8 @@ class CiudadController extends Controller
      */
     public function create()
     {
-     $provincias = Provincium::orderBy('id','DESC')->pluck('provincia','id');
-     return view('admin.ciudad.create',array('provincias'=>$provincias));
- }
+        return view('admin.parroquia.create');
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -56,16 +54,16 @@ class CiudadController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-         'ciudad' => 'max:35',
-         'iso' => 'max:15'
-         ]);
+			'parroquia' => 'max:35',
+			'iso' => 'max:15'
+		]);
         $requestData = $request->all();
         
-        Ciudad::create($requestData);
+        Parroquium::create($requestData);
 
-        Session::flash('flash_message', 'Ciudad added!');
+        Session::flash('flash_message', 'Parroquium added!');
 
-        return redirect('admin/ciudad');
+        return redirect('admin/parroquia');
     }
 
     /**
@@ -77,9 +75,9 @@ class CiudadController extends Controller
      */
     public function show($id)
     {
-        $ciudad = Ciudad::findOrFail($id);
+        $parroquium = Parroquium::findOrFail($id);
 
-        return view('admin.ciudad.show', compact('ciudad'));
+        return view('admin.parroquia.show', compact('parroquium'));
     }
 
     /**
@@ -91,9 +89,9 @@ class CiudadController extends Controller
      */
     public function edit($id)
     {
-        $ciudad = Ciudad::findOrFail($id);
+        $parroquium = Parroquium::findOrFail($id);
 
-        return view('admin.ciudad.edit', compact('ciudad'));
+        return view('admin.parroquia.edit', compact('parroquium'));
     }
 
     /**
@@ -107,17 +105,17 @@ class CiudadController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-         'ciudad' => 'max:35',
-         'iso' => 'max:15'
-         ]);
+			'parroquia' => 'max:35',
+			'iso' => 'max:15'
+		]);
         $requestData = $request->all();
         
-        $ciudad = Ciudad::findOrFail($id);
-        $ciudad->update($requestData);
+        $parroquium = Parroquium::findOrFail($id);
+        $parroquium->update($requestData);
 
-        Session::flash('flash_message', 'Ciudad updated!');
+        Session::flash('flash_message', 'Parroquium updated!');
 
-        return redirect('admin/ciudad');
+        return redirect('admin/parroquia');
     }
 
     /**
@@ -129,10 +127,10 @@ class CiudadController extends Controller
      */
     public function destroy($id)
     {
-        Ciudad::destroy($id);
+        Parroquium::destroy($id);
 
-        Session::flash('flash_message', 'Ciudad deleted!');
+        Session::flash('flash_message', 'Parroquium deleted!');
 
-        return redirect('admin/ciudad');
+        return redirect('admin/parroquia');
     }
 }

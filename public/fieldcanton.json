@@ -1,0 +1,44 @@
+{
+    "fields": [
+        {
+            "name": "canton",
+            "type": "string"
+        },
+        {
+            "name": "iso",
+            "type": "string"
+        },        
+        {
+            "name": "status",
+            "type": "boolean"
+        },
+        {
+            "name": "provincia_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "foreign_keys": [
+        {
+            "column": "provincia_id",
+            "references": "id",
+            "on": "provincium"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "provincium",
+            "type": "belongsTo",
+            "class": "App\\Provincium"
+        }
+    ],
+    "validations": [
+        {
+            "field": "canton",
+            "rules": "max:35"
+        },
+        {
+            "field": "iso",
+            "rules": "max:15"            
+        }
+    ]
+}

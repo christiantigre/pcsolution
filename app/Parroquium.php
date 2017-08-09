@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Ciudad extends Model
+class Parroquium extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'ciudads';
+    protected $table = 'parroquias';
 
     /**
     * The database primary key value.
@@ -25,11 +25,11 @@ class Ciudad extends Model
      *
      * @var array
      */
-    protected $fillable = ['ciudad', 'iso', 'status', 'provincia_id'];
+    protected $fillable = ['parroquia', 'iso', 'status', 'canton_id'];
 
-    public function provincium()
+    public function canton()
 	{
-		return $this->belongsTo('App\Provincium');
+		return $this->belongsTo('App\Canton');
 	}
 	
 }

@@ -1,0 +1,137 @@
+{
+    "fields": [
+        {
+            "name": "nom_pro",
+            "type": "string"
+        },
+        {
+            "name": "app_pro",
+            "type": "string"
+        },
+        {
+            "name": "dir",
+            "type": "string"
+        },
+        {
+            "name": "tlfn",
+            "type": "string"
+        },
+        {
+            "name": "cel_movi",
+            "type": "string"
+        },
+        {
+            "name": "cel_claro",
+            "type": "string"
+        },
+        {
+            "name": "fax",
+            "type": "string"
+        },
+        {
+            "name": "mail",
+            "type": "string"
+        },
+        {
+            "name": "web",
+            "type": "string"
+        },
+        {
+            "name": "ruc",
+            "type": "string"
+        },
+        {
+            "name": "representante",
+            "type": "string"
+        },
+        {
+            "name": "actividad",
+            "type": "string"
+        },
+        {
+            "name": "logo",
+            "type": "string"
+        },
+        {
+            "name": "id_pais",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_provincia",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_ciudad",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "status",
+            "type": "boolean"
+        },
+        {
+            "name": "empresa",
+            "type": "string"
+        },
+        {
+            "name": "ubicacion",
+            "type": "string"
+        },
+        {
+            "name": "latitud",
+            "type": "string"
+        },
+        {
+            "name": "longitud",
+            "type": "string"
+        }
+    ],
+    "foreign_keys": [
+        {
+            "column": "id_pais",
+            "references": "id",
+            "on": "pais"
+        },
+        {
+            "column": "id_provincia",
+            "references": "id",
+            "on": "provincias"
+        },
+        {
+            "column": "id_canton",
+            "references": "id",
+            "on": "ciudads"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "pais",
+            "type": "belongsTo",
+            "class": "App\\Pai"
+        },
+        {
+            "name": "provincium",
+            "type": "belongsTo",
+            "class": "App\\Provincium"
+        }
+        ,
+        {
+            "name": "canton",
+            "type": "belongsTo",
+            "class": "App\\Canton"
+        }
+    ],
+    "validations": [
+        {
+            "field": "nom_pro",
+            "rules": "max:35"
+        },
+        {
+            "field": "app_pro",
+            "rules": "max:35"
+        },
+        {
+            "field": "dir",
+            "rules": "max:150"
+        }
+    ]
+}

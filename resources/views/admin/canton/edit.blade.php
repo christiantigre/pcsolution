@@ -11,9 +11,9 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Create New Ciudad</div>
+                    <div class="panel-heading">Edit Canton #{{ $canton->id }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/ciudad') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
+                        <a href="{{ url('/admin/canton') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button></a>
                         <br />
                         <br />
 
@@ -25,9 +25,14 @@
                             </ul>
                         @endif
 
-                        {!! Form::open(['url' => '/admin/ciudad', 'class' => 'form-horizontal', 'files' => true]) !!}
+                        {!! Form::model($canton, [
+                            'method' => 'PATCH',
+                            'url' => ['/admin/canton', $canton->id],
+                            'class' => 'form-horizontal',
+                            'files' => true
+                        ]) !!}
 
-                        @include ('admin.ciudad.form')
+                        @include ('admin.canton.form', ['submitButtonText' => 'Update'])
 
                         {!! Form::close() !!}
 
