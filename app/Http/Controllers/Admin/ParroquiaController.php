@@ -28,7 +28,7 @@ class ParroquiaController extends Controller
 				->orWhere('canton_id', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $parroquia = Parroquium::paginate($perPage);
+            $parroquia = Parroquium::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.parroquia.index', compact('parroquia'));

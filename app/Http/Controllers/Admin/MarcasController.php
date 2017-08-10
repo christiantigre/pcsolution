@@ -27,7 +27,7 @@ class MarcasController extends Controller
 				->orWhere('logo', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $marcas = Marca::paginate($perPage);
+            $marcas = Marca::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.marcas.index', compact('marcas'));

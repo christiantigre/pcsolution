@@ -29,7 +29,7 @@ class ProvinciaController extends Controller
             ->orWhere('pais_id', 'LIKE', "%$keyword%")
             ->paginate($perPage);
         } else {
-            $provincia = Provincium::paginate($perPage);
+            $provincia = Provincium::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.provincia.index', compact('provincia'));

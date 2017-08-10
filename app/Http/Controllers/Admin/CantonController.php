@@ -28,7 +28,7 @@ class CantonController extends Controller
 				->orWhere('provincia_id', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $canton = Canton::paginate($perPage);
+            $canton = Canton::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.canton.index', compact('canton'));

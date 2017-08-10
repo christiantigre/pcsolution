@@ -26,7 +26,7 @@ class EstadosController extends Controller
 				->orWhere('descripcion', 'LIKE', "%$keyword%")
 				->paginate($perPage);
         } else {
-            $estados = Estado::paginate($perPage);
+            $estados = Estado::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.estados.index', compact('estados'));

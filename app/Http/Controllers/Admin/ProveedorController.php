@@ -6,6 +6,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Proveedor;
+use App\Pai;
+use App\Provincium;
+use App\Canton;
 use Illuminate\Http\Request;
 use Session;
 
@@ -23,24 +26,24 @@ class ProveedorController extends Controller
 
         if (!empty($keyword)) {
             $proveedor = Proveedor::where('nom_pro', 'LIKE', "%$keyword%")
-				->orWhere('app_pro', 'LIKE', "%$keyword%")
-				->orWhere('dir', 'LIKE', "%$keyword%")
-				->orWhere('tlfn', 'LIKE', "%$keyword%")
-				->orWhere('cel_movi', 'LIKE', "%$keyword%")
-				->orWhere('cel_claro', 'LIKE', "%$keyword%")
-				->orWhere('fax', 'LIKE', "%$keyword%")
-				->orWhere('mail', 'LIKE', "%$keyword%")
-				->orWhere('web', 'LIKE', "%$keyword%")
-				->orWhere('ruc', 'LIKE', "%$keyword%")
-				->orWhere('representante', 'LIKE', "%$keyword%")
-				->orWhere('actividad', 'LIKE', "%$keyword%")
-				->orWhere('logo', 'LIKE', "%$keyword%")
-				->orWhere('id_pais', 'LIKE', "%$keyword%")
-				->orWhere('id_provincia', 'LIKE', "%$keyword%")
-				->orWhere('id_ciudad', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+            ->orWhere('app_pro', 'LIKE', "%$keyword%")
+            ->orWhere('dir', 'LIKE', "%$keyword%")
+            ->orWhere('tlfn', 'LIKE', "%$keyword%")
+            ->orWhere('cel_movi', 'LIKE', "%$keyword%")
+            ->orWhere('cel_claro', 'LIKE', "%$keyword%")
+            ->orWhere('fax', 'LIKE', "%$keyword%")
+            ->orWhere('mail', 'LIKE', "%$keyword%")
+            ->orWhere('web', 'LIKE', "%$keyword%")
+            ->orWhere('ruc', 'LIKE', "%$keyword%")
+            ->orWhere('representante', 'LIKE', "%$keyword%")
+            ->orWhere('actividad', 'LIKE', "%$keyword%")
+            ->orWhere('logo', 'LIKE', "%$keyword%")
+            ->orWhere('id_pais', 'LIKE', "%$keyword%")
+            ->orWhere('id_provincia', 'LIKE', "%$keyword%")
+            ->orWhere('id_ciudad', 'LIKE', "%$keyword%")
+            ->paginate($perPage);
         } else {
-            $proveedor = Proveedor::paginate($perPage);
+            $proveedor = Proveedor::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.proveedor.index', compact('proveedor'));
@@ -53,7 +56,14 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        return view('admin.proveedor.create');
+        $pais = Pai::orderBy('id','DESC')->pluck('pais','id');
+        $provincias = Provincium::orderBy('id','DESC')->pluck('provincia','id');
+        $cantones = Canton::orderBy('id','DESC')->pluck('canton','id');
+        return view('admin.proveedor.create',array(
+            'paises'=>$pais,
+            'provincias'=>$provincias,
+            'cantones'=>$cantones
+            ));
     }
 
     /**
@@ -66,10 +76,10 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'nom_pro' => 'max:35',
-			'app_pro' => 'max:35',
-			'dir' => 'max:150'
-		]);
+         'nom_pro' => 'max:35',
+         'app_pro' => 'max:35',
+         'dir' => 'max:150'
+         ]);
         $requestData = $request->all();
         
         Proveedor::create($requestData);
@@ -102,9 +112,13 @@ class ProveedorController extends Controller
      */
     public function edit($id)
     {
+        $paises = Pai::orderBy('id','DESC')->pluck('pais','id');
+        $provincias = Provincium::orderBy('id','DESC')->pluck('provincia','id');
+        $cantones = Canton::orderBy('id','DESC')->pluck('canton','id');
+
         $proveedor = Proveedor::findOrFail($id);
 
-        return view('admin.proveedor.edit', compact('proveedor'));
+        return view('admin.proveedor.edit', compact('proveedor','paises','provincias','cantones'));
     }
 
     /**
@@ -118,10 +132,10 @@ class ProveedorController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-			'nom_pro' => 'max:35',
-			'app_pro' => 'max:35',
-			'dir' => 'max:150'
-		]);
+         'nom_pro' => 'max:35',
+         'app_pro' => 'max:35',
+         'dir' => 'max:150'
+         ]);
         $requestData = $request->all();
         
         $proveedor = Proveedor::findOrFail($id);

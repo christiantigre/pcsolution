@@ -27,7 +27,7 @@ class ArticlesController extends Controller
             ->orWhere('status', 'LIKE', "%$keyword%")
             ->paginate($perPage);
         } else {
-            $articles = Articulo::paginate($perPage);
+            $articles = Articulo::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.articles.index', compact('articles'));

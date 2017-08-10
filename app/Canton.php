@@ -21,9 +21,9 @@ class Canton extends Model
      * @var array
      */
     protected $fillable = ['canton', 'iso', 'status', 'provincia_id'];
-    public function provincium()
-	{
-		return $this->belongsTo('App\Provincium');
-	}
-	
+    public function provincia()
+    {
+      return $this->belongsTo('App\Provincium');
+    }
+
 }

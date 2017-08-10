@@ -30,7 +30,7 @@ class PaisController extends Controller
             ->orWhere('status', 'LIKE', "%$keyword%")
             ->paginate($perPage);
         } else {
-            $pais = Pai::paginate($perPage);
+            $pais = Pai::orderBy('id','DESC')->get(); 
         }
 
         return view('admin.pais.index', compact('pais'));

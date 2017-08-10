@@ -32,7 +32,7 @@
                             'files' => true
                         ]) !!}
 
-                        @include ('admin.parroquia.form', ['submitButtonText' => 'Update'])
+                        @include ('admin.parroquia.form', ['submitButtonText' => 'Actualizar'])
 
                         {!! Form::close() !!}
 
