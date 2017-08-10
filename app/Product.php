@@ -25,7 +25,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['nombre', 'slug', 'codbarra', 'cant', 'pre_com', 'pre_ven', 'img', 'prgr_tittle', 'nuevo', 'promocion', 'catalogo', 'is_active', 'articulo_id', 'marca_id'];
+    protected $fillable = ['nombre', 'slug', 'codbarra', 'cant', 'pre_com', 'pre_ven', 'img', 'prgr_tittle', 'nuevo', 'promocion', 'catalogo', 'is_active', 'articulo_id', 'marca_id','proveedor_id'];
 
     public function articulo(){
         return $this->belongsTo('App\Articulo','articulo_id');
@@ -33,6 +33,11 @@ class Product extends Model
     
     public function marca(){
         return $this->belongsTo('App\Marca','marca_id');
+    }
+
+    public function proveedor()
+    {
+        return $this->belongsTo('App\Proveedor', 'id');
     }
     
 }

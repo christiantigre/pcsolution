@@ -257,44 +257,96 @@ $(document).ready(function(){
 				console.log('Error '+data);
 			} */
 		});
+});
+
+$(document).ready(function(){
+	$("#save_gatorepuesto").click(function(event){
+		event.preventDefault();
+		var idorden = $("#id").val();
+		var valor = $("#valor").val();
+		var repuesto = $("#repuesto").val();
+		var token = $("input[name=_token]").val();
+		var route = '/admin/repuestos/saveGasto/';
+		if (valor == ""){
+			alert('Ingrese valor del repuesto');
+			document.getElementById("valor").focus();
+			return false;
+		}
+		$.ajax({
+			url:route,
+			headers:{'X-CSRF-TOKEN':token},
+			type:'post',
+			dataType: 'json',
+			data:{
+				id: idorden,
+				valor: valor,
+				repuesto:repuesto
+			},
+			success:function(data)
+			{
+				console.log('success '+data);
+				document.getElementById("tablaGastos").deleteRow(0);
+				console.log('Si '+data.id);
+				var contLin = 3;
+				var tr, td, tabla;
+				tabla = document.getElementById('tablaGastos');
+				tr = tabla.insertRow(tabla.rows.length);
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = repuesto;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = valor;
+				contLin++;
+			},
+			error:function(data)
+			{
+				console.log('Error '+data);
+			}  
+		});
 	});
-	
-	 $(document).ready(function(){
- 	$("#save_gatorepuesto").click(function(event){
- 		event.preventDefault();
- 		var idorden = $("#id").val();
- 		var valor = $("#valor").val();
- 		var repuesto = $("#repuesto").val();
- 		var token = $("input[name=_token]").val();
- 		var route = '/admin/repuestos/saveGasto/';
- 		if (valor == ""){
- 			alert('Ingrese valor del repuesto');
- 			document.getElementById("valor").focus();
- 			return false;
- 		}
- 		$.ajax({
- 			url:route,
- 			headers:{'X-CSRF-TOKEN':token},
- 			type:'post',
- 			dataType: 'json',
- 			data:{
- 				id: idorden,
- 				valor: valor,
- 				repuesto:repuesto
- 			},
- 			success:function(data)
- 			{
- 				console.log('success '+data);
- 				document.getElementById("tablaGastos").deleteRow(0);
- 				console.log('Si '+data.id);
- 				var contLin = 3;
- 				var tr, td, tabla;
- 				tabla = document.getElementById('tablaGastos');
- 				tr = tabla.insertRow(tabla.rows.length);
- 				td = tr.insertCell(tr.cells.length);
- 				td.innerHTML = repuesto;
- 				td = tr.insertCell(tr.cells.length);
- 				td.innerHTML = valor;
+});
+
+$(document).ready(function(){
+	$("#proveedorrucchbuton").click(function(event){
+		event.preventDefault();
+		var dataId= $("#rucprv").val();
+		var token = $("input[name=_token]").val();
+		var route = '/admin/products/buscaproveedorruc/';
+		var parametros = {
+			"id" :dataId
+		}
+		var dataSting = "id="+dataId;
+		if (dataId == "") {
+			alert('Ingrese datos de busqueda');
+			document.getElementById("rucprv").focus();
+			return false;
+		}
+		$.ajax({
+			url:route,
+			headers:{'X-CSRF-TOKEN':token},
+			type:'get',
+			dataType: 'json',
+			data:parametros,
+			success:function(data)
+			{
+
+				document.getElementById("rucprv").value = "";
+				document.getElementById("tabla_proveedor").deleteRow(0);
+				var contLin = 3;
+				var tr, td, tabla;
+				tabla = document.getElementById('tabla_proveedor');
+				tr = tabla.insertRow(tabla.rows.length);
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = td.innerHTML = data.nom_pro+' '
+				+data.app_pro+"<input type='hidden' id='celmovicamp' name='celmovicamp' value="+data.cel_movi+"><input type='hidden' id='celclarocamp' name='celclarocamp' value="+data.cel_claro+"><input type='hidden' id='empresacamp' name='empresacamp' value="+data.empresa+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+"><input type='hidden' id='nomcamp' name='nomcamp' value="+data.nom_pro+"><input type='hidden' id='appcamp' name='appcamp' value="+data.app_pro+"><input type='hidden' id='idcamp' name='idcamp' value="+data.id+">";
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.cel_movi+' '+data.cel_claro;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.mail;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.empresa;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = "<button type='button' id='buscarcliente' onclick='seleccionar_proveedor();' data-dismiss='modal' class='btn btn-primary'>Seleccionar</button>";
+ 				
  				contLin++;
  			},
  			error:function(data)
@@ -302,5 +354,20 @@ $(document).ready(function(){
  				console.log('Error '+data);
  			}  
  		});
- 	});
- });
+	});
+});
+
+ function seleccionar_proveedor(){
+ 	var empresa = document.getElementById("empresacamp").value;
+ 	var id = document.getElementById("idcamp").value;
+ 	var nom = document.getElementById("nomcamp").value;
+ 	var app = document.getElementById("appcamp").value;
+ 	var mail = document.getElementById("mailcamp").value;
+ 	var celmovi = document.getElementById("celmovicamp").value;
+ 	var celclaro = document.getElementById("celclarocamp").value;
+ 	document.getElementById("nom_pro").value = nom+ +app;
+ 	document.getElementById("mail").value = mail;
+ 	document.getElementById("proveedor_id").value = id;
+ 	document.getElementById("empresa").value = empresa;
+ 	document.getElementById("contactos").value = celmovi+' '+celclaro;
+ }

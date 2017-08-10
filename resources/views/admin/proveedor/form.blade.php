@@ -1,7 +1,7 @@
 <div class="form-group {{ $errors->has('nom_pro') ? 'has-error' : ''}}">
     {!! Form::label('nom_pro', 'Nom Pro', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-    {!! Form::text('nom_pro', null, ['class' => 'form-control','autofocus'=>'autofocus', 'required' => 'required']) !!}
+        {!! Form::text('nom_pro', null, ['class' => 'form-control','autofocus'=>'autofocus', 'required' => 'required']) !!}
         {!! $errors->first('nom_pro', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('app_pro') ? 'has-error' : ''}}">
@@ -137,6 +137,11 @@
     {!! $errors->first('longitud', '<p class="help-block">:message</p>') !!}
 </div>
 </div>
+
+
+
+
+
 
 <div class="form-group">
     <div class="col-md-offset-4 col-md-4">

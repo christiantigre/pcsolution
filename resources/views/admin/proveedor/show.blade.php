@@ -79,7 +79,7 @@
                                     </tr>
                                     <tr>
                                         <th> Ubicación </th>
-                                        <td> {{ $proveedor->id_pais }}/{{ $proveedor->id_provincia }}/{{ $proveedor->id_canton }} </td>
+                                        <td> {{ $proveedor->pais->pais }}/{{ $proveedor->provincia->provincia }}/{{ $proveedor->canton->canton }} </td>
                                     </tr>
                                     <tr>
                                         <th> Estado </th>

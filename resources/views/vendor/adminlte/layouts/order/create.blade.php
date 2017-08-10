@@ -105,7 +105,7 @@
               {!! Form::select('id_marca', $marcas, null,['placeholder'=>'Selecciona','id'=>'id_marca','class'=>'form-control','autofocus'=>'autofocus'])    !!}
             </div>
             <div class="col-sm-5">
-            <a href="{{ url('/admin/marcas/create') }}" class="btn btn-default btn-sm" title="Add New Article">
+              <a href="{{ url('/admin/marcas/create') }}" class="btn btn-default btn-sm" title="Add New Article">
                 <i class="fa fa-plus" aria-hidden="true"></i> Agregar marca
               </a>
             </div>
@@ -135,7 +135,7 @@
               <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default"><i class="fa fa-search" aria-hidden="true"></i> Buscar Cliente</button>
             </div>
             <div class="col-sm-5">
-            <a href="{{ url('/admin/clients/create') }}" class="btn btn-default" title="Add New Client">
+              <a href="{{ url('/admin/clients/create') }}" class="btn btn-default" title="Add New Client">
                 <i class="fa fa-plus" aria-hidden="true"></i> Registrar Cliente
               </a>
             </div>

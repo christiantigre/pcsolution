@@ -31,5 +31,10 @@ class Provincium extends Model
 	{
 		return $this->belongsTo('App\Pai');
 	}
+
+    public function Proveedor()
+    {
+        return $this->hasMany('App\Proveedor', 'id');
+    }
 	
 }

@@ -59,7 +59,8 @@ class ProductController extends Controller
         'pre_com'=>'numeric',
         'pre_ven'=>'numeric',
         'codbarra'=>'unique:products',
-        'cant' => 'numeric|min:1|max:10000'
+        'cant' => 'numeric|min:1|max:10000',
+        'proveedor_id'=>'required'
         ];
 
         $messages = [
@@ -68,6 +69,7 @@ class ProductController extends Controller
         'codbarra.unique:products'=>'Este codigo de barra ya esta en uso.',
         'cant.numeric'=>'Cantidad incorrecta',
         'cant.max'=>'Cantidad fuera de rango permitido',
+        'proveedor_id.required'=>'Seleccionar un proveedor es obligatorio',
         ];
 
         $file = Input::file('img');
@@ -115,6 +117,7 @@ class ProductController extends Controller
         $requestData->is_active = $request->is_active;
         $requestData->articulo_id = $request->articulo_id;
         $requestData->marca_id = $request->marca_id;
+        $requestData->proveedor_id = $request->proveedor_id;
 
         return $requestData;
     }
@@ -133,7 +136,8 @@ class ProductController extends Controller
             $requestData->catalogo = $request->catalogo;
             $requestData->is_active = $request->is_active;
             $requestData->articulo_id = $request->articulo_id;
-            $requestData->marca_id = $request->marca_id;
+            $requestData->marca_id = $request->marca_id;            
+            $requestData->proveedor_id = $request->proveedor_id;
             return $requestData;
         }else{
             $requestData = Product::findOrFail($id);
@@ -151,6 +155,7 @@ class ProductController extends Controller
             $requestData->is_active = $request->is_active;
             $requestData->articulo_id = $request->articulo_id;
             $requestData->marca_id = $request->marca_id;
+            $requestData->proveedor_id = $request->proveedor_id;
             return $requestData;
         }
         
@@ -294,6 +299,7 @@ class ProductController extends Controller
                     'is_active' => $value->is_active,
                     'articulo_id' => $value->articulo_id,
                     'marca_id' => $value->marca_id,
+                    'proveedor_id' => $value->proveedor_id,
                     'created_at' => $value->created_at,
                     'updated_at' => $value->updated_at
                     ];

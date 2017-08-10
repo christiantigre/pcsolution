@@ -22,5 +22,6 @@ class DatabaseSeeder extends Seeder
        $this->call(ProvinciaTableSeeder::class);
        $this->call(CantonTableSeeder::class);
        $this->call(ParroquiaTableSeeder::class);
+       $this->call(ProveedorTableSeeder::class);
    }
 }

@@ -24,6 +24,10 @@ class Canton extends Model
     public function provincia()
     {
       return $this->belongsTo('App\Provincium');
-    }
+  }
+  public function Proveedor()
+  {
+    return $this->hasMany('App\Proveedor', 'id');
+}
 
 }

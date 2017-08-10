@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('admin/provincia', 'Admin\\ProvinciaController');
 	Route::resource('admin/ciudad', 'Admin\\CiudadController');
 	Route::resource('admin/proveedor', 'Admin\\ProveedorController');
+	Route::get('admin/products/buscaproveedorruc','Admin\ProveedorController@buscarrucproveedor');
 	Route::resource('admin/canton', 'Admin\\CantonController');
 	Route::resource('admin/parroquia', 'Admin\\ParroquiaController');
 	//Route::get('/order','Admin\OrderController');

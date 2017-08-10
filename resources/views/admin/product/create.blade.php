@@ -6,6 +6,8 @@
 @endsection
 
 @section('main-content')
+
+<?php $tittle_modal='Buscar Proveedor'; ?>
 <div class="container">
     <div class="row">
 
@@ -40,3 +42,4 @@
     </div>
 </div>
 @endsection
+

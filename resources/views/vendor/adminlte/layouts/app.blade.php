@@ -44,6 +44,7 @@ desired effect
         <!--Modal-->
         @include('adminlte::layouts.partials.modal')
         @include('adminlte::layouts.partials.modalAbono')
+        @include('adminlte::layouts.partials.modalProveedor')
 
         <!-- Main content -->
         <section class="content">

@@ -65,6 +65,8 @@
                                 </tr>
                                 <tr><th> Marca </th><td> {{ $product->marca->marca }} </td>
                                 </tr>
+                                <tr><th> Proveedor </th><td> {{ $product->proveedor_id }} ({{ $product->proveedor->cel_movi }} - {{ $product->proveedor->cel_claro }} / {{ $product->proveedor->tlfn }} / {{ $product->proveedor->mail }})</td>
+                                </tr>
                                 <tr>
                                     <th>Imagen</th>
                                     <td>

@@ -27,5 +27,9 @@ class Pai extends Model
      */
     protected $fillable = ['pais', 'iso', 'status'];
 
+    public function Proveedor()
+    {
+        return $this->hasMany('App\Proveedor', 'id');
+    }
     
 }

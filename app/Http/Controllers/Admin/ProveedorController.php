@@ -66,6 +66,13 @@ class ProveedorController extends Controller
             ));
     }
 
+    public function buscarrucproveedor(Request $request){
+        if ($request->ajax()) {
+            $proveedor = Proveedor::orderBy('id','DESC')->where('ruc',$request->id)->first();
+            return response()->json($proveedor);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -76,10 +83,10 @@ class ProveedorController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-         'nom_pro' => 'max:35',
-         'app_pro' => 'max:35',
-         'dir' => 'max:150'
-         ]);
+           'nom_pro' => 'max:35',
+           'app_pro' => 'max:35',
+           'dir' => 'max:150'
+           ]);
         $requestData = $request->all();
         
         Proveedor::create($requestData);
@@ -132,10 +139,10 @@ class ProveedorController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-         'nom_pro' => 'max:35',
-         'app_pro' => 'max:35',
-         'dir' => 'max:150'
-         ]);
+           'nom_pro' => 'max:35',
+           'app_pro' => 'max:35',
+           'dir' => 'max:150'
+           ]);
         $requestData = $request->all();
         
         $proveedor = Proveedor::findOrFail($id);
