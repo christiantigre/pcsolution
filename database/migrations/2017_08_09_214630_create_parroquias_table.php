@@ -15,7 +15,7 @@ class CreateParroquiasTable extends Migration
         Schema::create('parroquias', function(Blueprint $table) {
             $table->increments('id');
             $table->string('parroquia',35)->nullable();
-            $table->string('iso',15)->nullable();
+            $table->string('iso',15)->nullable()->default('');
             $table->boolean('status')->default(1);
             $table->integer('canton_id')->unsigned();
             $table->foreign('canton_id')->references('id')->on('cantons');

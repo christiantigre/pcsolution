@@ -25,7 +25,7 @@ class Proveedor extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom_pro', 'app_pro', 'dir', 'tlfn', 'cel_movi', 'cel_claro', 'fax', 'mail', 'web', 'ruc', 'representante', 'actividad', 'logo', 'id_pais', 'id_provincia', 'id_ciudad', 'status', 'empresa', 'ubicacion', 'latitud', 'longitud'];
+    protected $fillable = ['nom_pro', 'app_pro', 'dir', 'tlfn', 'cel_movi', 'cel_claro', 'fax', 'mail', 'web', 'ruc', 'representante', 'actividad', 'logo', 'id_pais', 'id_provincia', 'id_canton', 'status', 'empresa', 'ubicacion', 'latitud', 'longitud'];
 
     
 }

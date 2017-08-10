@@ -61,7 +61,7 @@
             "type": "integer#unsigned"
         },
         {
-            "name": "id_ciudad",
+            "name": "id_canton",
             "type": "integer#unsigned"
         },
         {

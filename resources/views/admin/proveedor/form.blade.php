@@ -88,11 +88,11 @@
         {!! Form::number('id_provincia', null, ['class' => 'form-control']) !!}
         {!! $errors->first('id_provincia', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('id_ciudad') ? 'has-error' : ''}}">
-    {!! Form::label('id_ciudad', 'Id Ciudad', ['class' => 'col-md-4 control-label']) !!}
+</div><div class="form-group {{ $errors->has('id_canton') ? 'has-error' : ''}}">
+    {!! Form::label('id_canton', 'Id Canton', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::number('id_ciudad', null, ['class' => 'form-control']) !!}
-        {!! $errors->first('id_ciudad', '<p class="help-block">:message</p>') !!}
+        {!! Form::number('id_canton', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('id_canton', '<p class="help-block">:message</p>') !!}
     </div>
 </div><div class="form-group {{ $errors->has('status') ? 'has-error' : ''}}">
     {!! Form::label('status', 'Status', ['class' => 'col-md-4 control-label']) !!}
