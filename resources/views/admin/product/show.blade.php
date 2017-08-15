@@ -71,6 +71,8 @@
                                     {{ $product->proveedor->id }} ({{ $product->proveedor->cel_movi }} - {{ $product->proveedor->cel_claro }} / {{ $product->proveedor->tlfn }} / {{ $product->proveedor->mail }})
                                     <a href="{{ url('/admin/proveedor/' . $product->proveedor->id) }}" title="Ver Proveedor"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Ver Proveedor</button></a>
 
+                                    <a href="{{ url('/admin/crear/' . $product->proveedor->id) }}" title="Enviar Correo"><button class="btn btn-success btn-xs"><i class="fa fa-send" aria-hidden="true"></i> Contactar</button></a>
+
                                 </td>
                             </tr>
                             <tr>

@@ -48,6 +48,11 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('admin/estados', 'Admin\\EstadosController');
 	Route::resource('admin/marcas', 'Admin\\MarcasController');
 	Route::resource('admin/product', 'Admin\\ProductController');
+	Route::resource('admin/mail', 'Admin\\MailController');
+	Route::get('admin/crear/{id}', 'Admin\\MailController@create');
+	Route::get('admin/sendMail', 'Admin\\MailController@sendtest');
+	Route::post('/admin/mail/store','Admin\MailController@sendMail');
+	
 
 	Route::get('admin/product/importEcxel','Admin\ProductController@importEcxel');
 	Route::get('importExport', 'Admin\ProductController@importExport');
