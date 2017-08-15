@@ -54,32 +54,38 @@
                                 <tr><th> Catalogo </th><td> {{ $product->catalogo }} </td>
                                 </tr>
                                 <tr><th> Estado </th><td> 
-                                @if(($product->is_active)=='0')
+                                    @if(($product->is_active)=='0')
                                     Inactivo
-                                @else
+                                    @else
                                     Activo
-                                @endif
+                                    @endif
                                 </td>
-                                </tr>
-                                <tr><th> Sección </th><td> {{ $product->articulo->articulo }} </td>
-                                </tr>
-                                <tr><th> Marca </th><td> {{ $product->marca->marca }} </td>
-                                </tr>
-                                <tr><th> Proveedor </th><td> {{ $product->proveedor_id }} ({{ $product->proveedor->cel_movi }} - {{ $product->proveedor->cel_claro }} / {{ $product->proveedor->tlfn }} / {{ $product->proveedor->mail }})</td>
-                                </tr>
-                                <tr>
-                                    <th>Imagen</th>
-                                    <td>
-                                            <img src="{{ asset($product->img.'') }}" width="150" alt="image02" class="user-image">
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                            </tr>
+                            <tr><th> Sección </th><td> {{ $product->articulo->articulo }} </td>
+                            </tr>
+                            <tr><th> Marca </th><td> {{ $product->marca->marca }} </td>
+                            </tr>
+                            <tr>
+                                <th> Proveedor </th>
+                                <td> 
+                                    {{ $product->proveedor->id }} ({{ $product->proveedor->cel_movi }} - {{ $product->proveedor->cel_claro }} / {{ $product->proveedor->tlfn }} / {{ $product->proveedor->mail }})
+                                    <a href="{{ url('/admin/proveedor/' . $product->proveedor->id) }}" title="Ver Proveedor"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Ver Proveedor</button></a>
 
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Imagen</th>
+                                <td>
+                                    <img src="{{ asset($product->img.'') }}" width="150" alt="image02" class="user-image">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

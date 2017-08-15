@@ -38,7 +38,7 @@
         <div class="modal-body">
           <div class="col-lg-12">
             <div class="input-group">
-              <input type="text" class="form-control" id="rucprv" placeholder="Ingrese numero de cedula">
+              <input type="text" class="form-control" id="rucprv" placeholder="Ingrese numero de ruc">
               <span class="input-group-btn">
                 <button class="btn btn-default" id="proveedorrucchbuton" type="button">BUSCAR</button>
               </span>
@@ -47,18 +47,18 @@
 
             <!--nom cliente-->    
             <div class="input-group">
-              <input type="text" class="form-control" id="nomcli" placeholder="Ingrese nombre cliente">
+              <input type="text" class="form-control" id="nompro" placeholder="Ingrese nombre empresa">
               <span class="input-group-btn">
-                <button class="btn btn-default" id="nomsearchbuton" type="button">BUSCAR</button>
+                <button class="btn btn-default" id="proveedorempchbuton" type="button">BUSCAR</button>
               </span>
             </div><!-- /input-group -->
 
             <!-- /.form-group -->
             <!--Mail cliente-->     
             <div class="input-group">
-              <input type="text" class="form-control" id="mailcli" placeholder="Ingrese correo cliente">
+              <input type="text" class="form-control" id="mailpro" placeholder="Ingrese correo proveedor">
               <span class="input-group-btn">
-                <button class="btn btn-default" id="mailsearchbuton" type="button">BUSCAR</button>
+                <button class="btn btn-default" id="proveedormailchbuton" type="button">BUSCAR</button>
               </span>
             </div><!-- /input-group -->
           </div><!-- /.col-lg-6 -->
@@ -68,7 +68,7 @@
             <div class="col-xs-12">
               <div class="box">
                 <div class="box-header">
-                  <h3 class="box-title">Datos Cliente</h3>
+                  <h3 class="box-title">Datos Proveedor</h3>
 
                   <div class="box-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">

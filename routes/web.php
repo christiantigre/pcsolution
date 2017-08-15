@@ -63,6 +63,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('admin/ciudad', 'Admin\\CiudadController');
 	Route::resource('admin/proveedor', 'Admin\\ProveedorController');
 	Route::get('admin/products/buscaproveedorruc','Admin\ProveedorController@buscarrucproveedor');
+	Route::get('admin/products/buscaproveedorempresa','Admin\ProveedorController@buscarempresaproveedor');
+	Route::get('admin/products/buscaproveedormail','Admin\ProveedorController@buscarmailproveedor');
 	Route::resource('admin/canton', 'Admin\\CantonController');
 	Route::resource('admin/parroquia', 'Admin\\ParroquiaController');
 	//Route::get('/order','Admin\OrderController');

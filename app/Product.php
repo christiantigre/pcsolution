@@ -37,7 +37,7 @@ class Product extends Model
 
     public function proveedor()
     {
-        return $this->belongsTo('App\Proveedor', 'id');
+        return $this->belongsTo('App\Proveedor', 'proveedor_id');
     }
     
 }

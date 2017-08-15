@@ -304,7 +304,7 @@ $(document).ready(function(){
 		});
 	});
 });
-
+//buscar proveedor por ruc
 $(document).ready(function(){
 	$("#proveedorrucchbuton").click(function(event){
 		event.preventDefault();
@@ -328,7 +328,6 @@ $(document).ready(function(){
 			data:parametros,
 			success:function(data)
 			{
-
 				document.getElementById("rucprv").value = "";
 				document.getElementById("tabla_proveedor").deleteRow(0);
 				var contLin = 3;
@@ -346,7 +345,6 @@ $(document).ready(function(){
 				td.innerHTML = data.empresa;
 				td = tr.insertCell(tr.cells.length);
 				td.innerHTML = "<button type='button' id='buscarcliente' onclick='seleccionar_proveedor();' data-dismiss='modal' class='btn btn-primary'>Seleccionar</button>";
- 				
  				contLin++;
  			},
  			error:function(data)
@@ -356,6 +354,107 @@ $(document).ready(function(){
  		});
 	});
 });
+//buscar proveedor por nombre de empresa
+$(document).ready(function(){
+	$("#proveedorempchbuton").click(function(event){
+		event.preventDefault();
+		var dataId= $("#nompro").val();
+		var token = $("input[name=_token]").val();
+		var route = '/admin/products/buscaproveedorempresa/';
+		var parametros = {
+			"id" :dataId
+		}
+		var dataSting = "id="+dataId;
+		if (dataId == "") {
+			alert('Ingrese datos de busqueda');
+			document.getElementById("rucprv").focus();
+			return false;
+		}
+		$.ajax({
+			url:route,
+			headers:{'X-CSRF-TOKEN':token},
+			type:'get',
+			dataType: 'json',
+			data:parametros,
+			success:function(data)
+			{
+				document.getElementById("nompro").value = "";
+				document.getElementById("tabla_proveedor").deleteRow(0);
+				var contLin = 3;
+				var tr, td, tabla;
+				tabla = document.getElementById('tabla_proveedor');
+				tr = tabla.insertRow(tabla.rows.length);
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = td.innerHTML = data.nom_pro+' '
+				+data.app_pro+"<input type='hidden' id='celmovicamp' name='celmovicamp' value="+data.cel_movi+"><input type='hidden' id='celclarocamp' name='celclarocamp' value="+data.cel_claro+"><input type='hidden' id='empresacamp' name='empresacamp' value="+data.empresa+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+"><input type='hidden' id='nomcamp' name='nomcamp' value="+data.nom_pro+"><input type='hidden' id='appcamp' name='appcamp' value="+data.app_pro+"><input type='hidden' id='idcamp' name='idcamp' value="+data.id+">";
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.cel_movi+' '+data.cel_claro;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.mail;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.empresa;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = "<button type='button' id='buscarcliente' onclick='seleccionar_proveedor();' data-dismiss='modal' class='btn btn-primary'>Seleccionar</button>";
+ 				contLin++;
+ 			},
+ 			error:function(data)
+ 			{
+ 				console.log('Error '+data);
+ 			}  
+ 		});
+	});
+});
+//buscar proveedor por mail
+$(document).ready(function(){
+	$("#proveedormailchbuton").click(function(event){
+		event.preventDefault();
+		var dataId= $("#mailpro").val();
+		var token = $("input[name=_token]").val();
+		var route = '/admin/products/buscaproveedormail/';
+		var parametros = {
+			"id" :dataId
+		}
+		var dataSting = "id="+dataId;
+		if (dataId == "") {
+			alert('Ingrese datos de busqueda');
+			document.getElementById("rucprv").focus();
+			return false;
+		}
+		$.ajax({
+			url:route,
+			headers:{'X-CSRF-TOKEN':token},
+			type:'get',
+			dataType: 'json',
+			data:parametros,
+			success:function(data)
+			{
+				document.getElementById("mailpro").value = "";
+				document.getElementById("tabla_proveedor").deleteRow(0);
+				var contLin = 3;
+				var tr, td, tabla;
+				tabla = document.getElementById('tabla_proveedor');
+				tr = tabla.insertRow(tabla.rows.length);
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = td.innerHTML = data.nom_pro+' '
+				+data.app_pro+"<input type='hidden' id='celmovicamp' name='celmovicamp' value="+data.cel_movi+"><input type='hidden' id='celclarocamp' name='celclarocamp' value="+data.cel_claro+"><input type='hidden' id='empresacamp' name='empresacamp' value="+data.empresa+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+"><input type='hidden' id='mailcamp' name='mailcamp' value="+data.mail+"><input type='hidden' id='nomcamp' name='nomcamp' value="+data.nom_pro+"><input type='hidden' id='appcamp' name='appcamp' value="+data.app_pro+"><input type='hidden' id='idcamp' name='idcamp' value="+data.id+">";
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.cel_movi+' '+data.cel_claro;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.mail;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = data.empresa;
+				td = tr.insertCell(tr.cells.length);
+				td.innerHTML = "<button type='button' id='buscarcliente' onclick='seleccionar_proveedor();' data-dismiss='modal' class='btn btn-primary'>Seleccionar</button>";
+ 				contLin++;
+ 			},
+ 			error:function(data)
+ 			{
+ 				console.log('Error '+data);
+ 			}  
+ 		});
+	});
+});
+
 
  function seleccionar_proveedor(){
  	var empresa = document.getElementById("empresacamp").value;
@@ -370,4 +469,5 @@ $(document).ready(function(){
  	document.getElementById("proveedor_id").value = id;
  	document.getElementById("empresa").value = empresa;
  	document.getElementById("contactos").value = celmovi+' '+celclaro;
+
  }

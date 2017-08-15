@@ -202,6 +202,7 @@ class ProductController extends Controller
      */
     public function update($id, Request $request)
     {
+
         $rules = [
         'catalogo' => 'max:1',
         'pre_com'=>'numeric',
@@ -235,7 +236,8 @@ class ProductController extends Controller
 
             if($image->save($path)){
                 $this->validate($request, $rules, $messages);
-                $requestData_returned = $this->update_producto($request,$url,$id);                              $requestData_returned->update();
+                $requestData_returned = $this->update_producto($request,$url,$id);                              
+                $requestData_returned->update();
                 Session::flash('flash_message', 'Producto agregado!');
                 return redirect('admin/product');
             }else{

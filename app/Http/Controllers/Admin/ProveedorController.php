@@ -73,6 +73,20 @@ class ProveedorController extends Controller
         }
     }
 
+    public function buscarempresaproveedor(Request $request){
+        if ($request->ajax()) {
+            $proveedor = Proveedor::orderBy('id','DESC')->where('empresa',$request->id)->first();
+            return response()->json($proveedor);
+        }
+    }
+
+    public function buscarmailproveedor(Request $request){
+        if ($request->ajax()) {
+            $proveedor = Proveedor::orderBy('id','DESC')->where('mail',$request->id)->first();
+            return response()->json($proveedor);
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
