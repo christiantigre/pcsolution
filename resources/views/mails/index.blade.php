@@ -16,7 +16,9 @@
 
                     <br />
                     <br />
-
+                    
+                    @include('adminlte::errors.info')
+                    @include('adminlte::errors.errors')
                     @if ($errors->any())
                     <ul class="alert alert-danger">
                         @foreach ($errors->all() as $error)

@@ -51,8 +51,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('admin/mail', 'Admin\\MailController');
 	Route::get('admin/crear/{id}', 'Admin\\MailController@create');
 	Route::get('admin/sendMail', 'Admin\\MailController@sendtest');
-	Route::post('/admin/mail/store','Admin\MailController@sendMail');
-	
+	Route::post('/admin/mail/store','Admin\MailController@store');
+
 
 	Route::get('admin/product/importEcxel','Admin\ProductController@importEcxel');
 	Route::get('importExport', 'Admin\ProductController@importExport');

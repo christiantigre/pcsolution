@@ -8,6 +8,8 @@ use App\Mail\OrderShipped;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Correos;
 use App\Proveedor;
+use App\Empres;
+use Session;
 
 class MailController extends Controller
 {
@@ -44,14 +46,46 @@ class MailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function enviarmail(Request $request, $id)
-    {
-        dd($request);
-    }
 
     public function store(Request $request)
     {
-        dd($request);
+        $empress = Empres::findOrFail(1);
+        $empresa = [
+        'tlfn' => $empress->tlfn,
+        'cel_movi' => $empress->cel_movi,
+        'cel_claro' => $empress->cel_claro,
+        'mail' => $empress->mail,
+        'area_especializacion' => $empress->area_especializacion,
+        'logo' => $empress->logo,
+        'link_web' => $empress->link_web,
+        'fb' => $empress->fb,
+        'tw' => $empress->tw,
+        'gog' => $empress->gog
+        ];
+
+        $proveedor = Proveedor::findOrFail($request->id);
+        
+        $content = [
+        'title'=> $request->asunto, 
+        'body'=> $request->mensaje,
+        'pro_empress'=> $proveedor->empresa,
+        'name'=> 'PcSolutions',
+        'address'=> $proveedor->mail
+        ];
+
+        
+        if(($request->mail)==''){
+            Session::flash('danger', 'No se pudo enviar el mensaje');
+        }else{
+            try {                
+                Session::flash('success', 'Mensaje enviado correctamente a '.$proveedor->empresa);           
+                Mail::to($request->mail)->send(new Correos($content,$empresa));
+            } catch (Exception $e) {
+                Session::flash('danger', 'Error '.$e);   
+            }
+        }
+        
+        return redirect('/admin/product/');
     }
 
     /**

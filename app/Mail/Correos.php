@@ -16,9 +16,10 @@ class Correos extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($content,$empresa)
     {
-        //
+        $this->content = $content;
+        $this->empresa = $empresa;
     }
 
     /**
@@ -28,6 +29,26 @@ class Correos extends Mailable
      */
     public function build()
     {
-        return $this->view('mails.mail')->to('andrescondo17@gmail.com');
+        $subject = $this->content['title'];
+        $name = $this->content['name'];
+        $address = $this->content['address'];
+        $address_reply = $this->empresa['mail'];
+        return $this->view('mails.mail')
+        ->with(['content'=>$this->content,'empresa'=>$this->empresa])
+        ->cc($address, $name)
+        ->bcc($address, $name)
+        ->replyTo($address_reply, $name)
+        ->subject($subject);
+        //->to('andrescondo17@gmail.com');
+        /*$address = 'ignore@batcave.io';
+        $name = 'Ignore Me';
+        $subject = 'Krytonite Found';
+
+        return $this->view('emails.kryptonite-found')
+        ->from($address, $name)
+        ->cc($address, $name)
+        ->bcc($address, $name)
+        ->replyTo($address, $name)
+        ->subject($subject);*/
     }
 }

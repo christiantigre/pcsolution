@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width" />
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Correo</title>
+	<title>{{ $content['title'] }}</title>
 	
 	<style type="text/css" media="screen">
 		/* ------------------------------------- 
@@ -60,7 +60,7 @@
 		}
 
 		table.social {
-			/* 	padding:15px; */
+			/* 	padding:15px; #009ADA*/
 			background-color: #ebebeb;
 
 		}
@@ -236,19 +236,22 @@
 
 </head>
 
-<body bgcolor="#FFFFFF">
+<body bgcolor="#3B5998">
 
 	<!-- HEADER -->
-	<table class="head-wrap" bgcolor="#999999">
+	<table class="head-wrap" bgcolor="#152144">
 		<tr>
 			<td></td>
 			<td class="header container" >
 				
 				<div class="content">
-					<table bgcolor="#999999">
+					<table bgcolor="#152144">
 						<tr>
-							<td><img src="http://placehold.it/200x50/" /></td>
-							<td align="right"><h6 class="collapse">Basic</h6></td>
+							<td>
+							<img src="https://lh3.googleusercontent.com/seS8ibdMwjwcc0i9Sb2KHCTj3MOq6Hwrirq56H_vCy3o2EkUmTeayLmUP--w7VwYrYPYyUkPAV1wB-rm5X7kuTkqac1c-jn-WyqEt7ipLqPwGIxBZibEZt1ZQOjvtEOMrBV0Tg6JUJqMB4piWtb-c6cDKPUcWvrgILUaSUTtNZ26PM2oFAxoydeAPfna0Hh3JJOQfovqZVy6kaKoaXMAplIkvJcJL3AhK4WvhKvvJjjT9iCKDrAnjnP5oqBlnSixU2ZrhIEQy-KR8vNEmhaQ-uCaij0OLXnu_ZSpSmW8FrvrWBGTf3pZ4qrCAM0BrUSllw1P4lVLCC5dGFGWAJ5DcZTO_fg-35adTprloNiyO5iYr6H4pOLxaZi59VhfyMUTPZ5J-nQqjzAvD41zP9Nzod1j28i3EEAAYHx1fz55u4yTA6Y7dZckTDLg3-1kJGQLLWrhpElMEo1z8IsMgf3DW62pu4F99k7oIUubwS3EIvVGY0NGiYC15VUXefdsHyvGrg7PXvxtcEZgtxB-afqTVTZw_3QMLmiF7xpMC5Nlw64bB5v6svTAbGO4-bqv2fH4kL2jRqEXIA2C6vfsozB6XRnce6FfouQQ6JuFSEaNstVh3pooHc8=w1366-h263-no" width='240' height='70' />
+
+							</td>
+							<td align="right"><h6 class="collapse"></h6></td>
 						</tr>
 					</table>
 				</div>
@@ -269,12 +272,12 @@
 					<table>
 						<tr>
 							<td>
-								<h3>Hi, Elijah Baily</h3>
-								<p class="lead">Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae.</p>
-								<p>Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. consequat vel lacus. Sed iaculis pulvinar ligula, ornare fringilla ante viverra et. In hac habitasse platea dictumst. Donec vel orci mi, eu congue justo. Integer eget odio est, eget malesuada lorem. Aenean sed tellus dui, vitae viverra risus. Nullam massa sapien, pulvinar eleifend fringilla id, convallis eget nisi. Mauris a sagittis dui. Pellentesque non lacinia mi. Fusce sit amet libero sit amet erat venenatis sollicitudin vitae vel eros. Cras nunc sapien, interdum sit amet porttitor ut, congue quis urna.</p>
+								<h3>Hola, {{ $content['pro_empress'] }}</h3>
+								<p class="lead">{{ $content['title'] }}</p>
+								<p>{{ $content['body'] }}</p>
 								<!-- Callout Panel -->
 								<p class="callout">
-									Phasellus dictum sapien a neque luctus cursus. Pellentesque sem dolor, fringilla et pharetra vitae. <a href="#">Click it! &raquo;</a>
+									{{ $empresa['area_especializacion'] }} <a href="#{{ $empresa['link_web'] }}">web! &raquo;</a>
 								</p><!-- /Callout Panel -->					
 
 								<!-- social & contact -->
@@ -287,8 +290,8 @@
 												<tr>
 													<td>				
 
-														<h5 class="">Connect with Us:</h5>
-														<p class=""><a href="#" class="soc-btn fb">Facebook</a> <a href="#" class="soc-btn tw">Twitter</a> <a href="#" class="soc-btn gp">Google+</a></p>
+														<h5 class="">Visitanos en:</h5>
+														<p class=""><a href="{{ $empresa['fb'] }}" class="soc-btn fb">Facebook</a> <a href="{{ $empresa['tw'] }}" class="soc-btn tw">Twitter</a> <a href="{{ $empresa['gog'] }}" class="soc-btn gp">Google+</a></p>
 
 
 													</td>
@@ -300,55 +303,58 @@
 												<tr>
 													<td>				
 
-														<h5 class="">Contact Info:</h5>												
-														<p>Phone: <strong>408.341.0600</strong><br/>
-															Email: <strong><a href="emailto:hseldon@trantor.com">hseldon@trantor.com</a></strong></p>
+														<h5 class="">Contactos:</h5>												
+														<p>
+															Celular: <strong>{{ $empresa['cel_movi'] }} - {{ $empresa['cel_claro'] }}</strong><br/>
+															Telefono: <strong>{{ $empresa['tlfn'] }}</strong><br/>
+															Email: <strong><a href="emailto:{{ $empresa['mail'] }}">{{ $empresa['mail'] }}</a></strong>
+														</p>
 
-														</td>
-													</tr>
-												</table><!-- /column 2 -->
+													</td>
+												</tr>
+											</table><!-- /column 2 -->
 
-												<span class="clear"></span>	
+											<span class="clear"></span>	
 
-											</td>
-										</tr>
-									</table><!-- /social & contact -->
+										</td>
+									</tr>
+								</table><!-- /social & contact -->
 
-								</td>
-							</tr>
-						</table>
-					</div><!-- /content -->
+							</td>
+						</tr>
+					</table>
+				</div><!-- /content -->
 
-				</td>
-				<td></td>
-			</tr>
-		</table><!-- /BODY -->
+			</td>
+			<td></td>
+		</tr>
+	</table><!-- /BODY -->
 
-		<!-- FOOTER -->
-		<table class="footer-wrap">
-			<tr>
-				<td></td>
-				<td class="container">
+	<!-- FOOTER -->
+	<table class="footer-wrap">
+		<tr>
+			<td></td>
+			<td class="container">
 
-					<!-- content -->
-					<div class="content">
-						<table>
-							<tr>
-								<td align="center">
-									<p>
-										<a href="#">Terms</a> |
-										<a href="#">Privacy</a> |
-										<a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>
-									</p>
-								</td>
-							</tr>
-						</table>
-					</div><!-- /content -->
+				<!-- content -->
+				<div class="content">
+					<table>
+						<tr>
+							<td align="center">
+								<p>
+									<a href="#">Terms</a> |
+									<a href="#">Privacy</a> |
+									<a href="#"><unsubscribe>Unsubscribe</unsubscribe></a>
+								</p>
+							</td>
+						</tr>
+					</table>
+				</div><!-- /content -->
 
-				</td>
-				<td></td>
-			</tr>
-		</table><!-- /FOOTER -->
+			</td>
+			<td></td>
+		</tr>
+	</table><!-- /FOOTER -->
 
-	</body>
-	</html>
+</body>
+</html>

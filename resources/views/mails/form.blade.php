@@ -1,3 +1,5 @@
+{!! Form::hidden('id', null, ['class' => 'form-control','autofocus'=>'autofocus', 'required' => 'required']) !!}
+
 <div class="form-group {{ $errors->has('mail') ? 'has-error' : ''}}">
     {!! Form::label('mail', 'Destinatario', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
@@ -12,10 +14,13 @@
         {!! $errors->first('asunto', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
+<div class="form-group {{ $errors->has('mensaje') ? 'has-error' : ''}}">
+    {!! Form::label('mensaje', 'Mensaje', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
 
-
-
-<textarea name="content" class="form-control my-editor">{!! old('content', $content) !!}</textarea>
+        {{ Form::textarea('mensaje', null, ['class' => 'form-control']) }}
+    </div>
+</div>
 
 
 
