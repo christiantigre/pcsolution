@@ -9,11 +9,15 @@ use App\Personal;
 use Illuminate\Http\Request;
 use Session;
 use App\Pai;
+use App\User;
 use App\Provincium;
 use App\Canton;
 use App\Cargo;
+use App\Genero;
+use App\EstadoCivil;
 use Carbon\Carbon;
 use Input;
+use Image;
 
 class PersonalController extends Controller
 {
@@ -58,7 +62,9 @@ class PersonalController extends Controller
         $provincias = Provincium::orderBy('id','DESC')->pluck('provincia','id');
         $cantones = Canton::orderBy('id','DESC')->pluck('canton','id');
         $cargos = Cargo::orderBy('id','DESC')->pluck('cargo','id');
-        return view('admin.personal.create',compact('paises','provincias','cantones','cargos'));
+        $generos = Genero::orderBy('id','DESC')->pluck('genero','id');
+        $estadocivils = EstadoCivil::orderBy('id','DESC')->pluck('estado_civil','id');
+        return view('admin.personal.create',compact('paises','provincias','cantones','cargos','generos','estadocivils'));
     }
 
     /**
@@ -78,13 +84,89 @@ class PersonalController extends Controller
         $requestData = $request->all();
         $fechanac = $request->input('fecha_nac');
         $fecha_nacimiento = Carbon::parse($fechanac)->format('Y-m-d');
-        dd($fecha_nacimiento);
-        Personal::create($requestData);
+        $file = Input::file('foto');
 
-        Session::flash('flash_message', 'Personal added!');
+        $fields = [
+        'name'     => $request->nom_per,
+        'email'    => $request->mail,
+        'password' => bcrypt($request->mail),
+        ];
 
-        return redirect('admin/personal');
+        if (!empty($file)) {
+         $random = str_random(10);
+         $nombre = $random.' - '.$file->getClientOriginalName();
+         $path = public_path('uploads/personal/'.$nombre);
+         $url = '/uploads/personal/'.$nombre;
+         $image = Image::make($file->getRealPath());
+         $image->resize(600, 300);
+         if($image->save($path)){
+            $foto = 'uploads/personal/'.$nombre;
+        }
+        $Data = $this->crea_personal($request,$fields,$foto,$fecha_nacimiento);
     }
+    if(empty($file)){
+        $foto = "";
+        $Data = $this->crea_personal($request,$fields,$foto,$fecha_nacimiento);
+    }
+
+    Personal::create($Data);
+
+    Session::flash('flash_message', 'Personal registrado!');
+
+    return redirect('admin/personal');
+}
+
+public static function crea_personal($request,$fields, $foto, $fecha_nacimiento){
+    if(empty($foto)){
+        $usuario = User::create($fields);
+        $Data = [
+        'nom_per' => $request->nom_per,
+        'app_per' => $request->app_per,
+        'dir' => $request->dir,
+        'tlfn' => $request->tlfn,
+        'cedula' => $request->cedula,
+        'pasaporte' => $request->pasaporte,
+        'cel_movi' => $request->cel_movi,
+        'cel_claro' => $request->cel_claro,
+        'hijos' => $request->hijos,
+        'fecha_nac' => $fecha_nacimiento,
+        'id_pais' => $request->id_pais,
+        'id_provincia' => $request->id_provincia,
+        'id_canton' => $request->id_canton,
+        'id_cargo' => $request->id_cargo,
+        'id_estadocivil' => $request->id_estadocivil,
+        'id_user' => $usuario->id,
+        'status' => $request->status,
+        'mail' => $usuario->email
+        ];
+        return $Data;
+    }else{
+        $usuario = User::create($fields);
+        $Data = [
+        'nom_per' => $request->nom_per,
+        'app_per' => $request->app_per,
+        'dir' => $request->dir,
+        'tlfn' => $request->tlfn,
+        'cedula' => $request->cedula,
+        'pasaporte' => $request->pasaporte,
+        'cel_movi' => $request->cel_movi,
+        'cel_claro' => $request->cel_claro,
+        'hijos' => $request->hijos,
+        'fecha_nac' => $fecha_nacimiento,
+        'id_pais' => $request->id_pais,
+        'id_provincia' => $request->id_provincia,
+        'id_canton' => $request->id_canton,
+        'id_cargo' => $request->id_cargo,
+        'id_estadocivil' => $request->id_estadocivil,
+        'id_user' => $usuario->id,
+        'foto' => $foto,
+        'status' => $request->status,
+        'mail' => $usuario->email
+        ];
+        return $Data;
+    }
+}
+
 
     /**
      * Display the specified resource.
@@ -114,12 +196,14 @@ class PersonalController extends Controller
         $provincias = Provincium::orderBy('id','DESC')->pluck('provincia','id');
         $cantones = Canton::orderBy('id','DESC')->pluck('canton','id');
         $cargos = Cargo::orderBy('id','DESC')->pluck('cargo','id');
+        $generos = Genero::orderBy('id','DESC')->pluck('genero','id');
+        $estadocivils = EstadoCivil::orderBy('id','DESC')->pluck('estado_civil','id');
 
         $cambio_fecha = $personal->fecha_nac;
         $date2 = Carbon::parse($cambio_fecha)->format('d-m-Y');
         
         return view('admin.personal.edit', compact(
-            'personal','paises','provincias','cantones','cargos','date2'));
+            'personal','paises','provincias','cantones','cargos','date2','generos','estadocivils'));
     }
 
     /**
@@ -138,10 +222,34 @@ class PersonalController extends Controller
          'dir' => 'max:150'
          ]);
         $requestData = $request->all();
-        
         $fechanac = $request->input('fecha_nac');
         $fecha_nacimiento = Carbon::parse($fechanac)->format('Y-m-d');
+        $file = Input::file('foto');
+        if (!empty($file)) {
+         $random = str_random(10);
+         $nombre = $random.' - '.$file->getClientOriginalName();
+         $path = public_path('uploads/personal/'.$nombre);
+         $url = '/uploads/personal/'.$nombre;
+         $image = Image::make($file->getRealPath());
+         $image->resize(600, 300);
+         if($image->save($path)){
+            $foto = 'uploads/personal/'.$nombre;
+        }
+        $personal = $this->actualiza_personal($request,$foto,$fecha_nacimiento,$id);
+    }
+    if(empty($file)){
+        $foto = "";
+        $personal = $this->actualiza_personal($request,$foto,$fecha_nacimiento,$id);
+    }   
+    $personal->update();
 
+    Session::flash('flash_message', 'Personal Actualizado!');
+
+    return redirect('admin/personal');
+}
+
+public static function actualiza_personal($request, $foto, $fecha_nacimiento,$id){
+    if(empty($foto)){
         $personal = Personal::findOrFail($id);
         $personal->nom_per = $request->nom_per;
         $personal->app_per = $request->app_per;
@@ -149,8 +257,30 @@ class PersonalController extends Controller
         $personal->tlfn = $request->tlfn;
         $personal->cel_movi = $request->cel_movi;
         $personal->cel_claro = $request->cel_claro;
-        $personal->genero = $request->genero;
-        $personal->estado_civil = $request->estado_civil;
+        $personal->id_genero = $request->id_genero;
+        $personal->id_estadocivil = $request->id_estadocivil;
+        $personal->hijos = $request->hijos;
+        $personal->fecha_nac = $fecha_nacimiento;
+        $personal->id_pais = $request->id_pais;
+        $personal->id_provincia = $request->id_provincia;
+        $personal->id_canton = $request->id_canton;
+        $personal->id_cargo = $request->id_cargo;
+        $personal->id_user = $request->id_user;
+        $personal->status = $request->status;
+        $personal->mail = $request->mail;
+        $personal->cedula = $request->cedula;
+        $personal->pasaporte = $request->pasaporte;
+        return $personal;
+    }else{
+        $personal = Personal::findOrFail($id);
+        $personal->nom_per = $request->nom_per;
+        $personal->app_per = $request->app_per;
+        $personal->dir = $request->dir;
+        $personal->tlfn = $request->tlfn;
+        $personal->cel_movi = $request->cel_movi;
+        $personal->cel_claro = $request->cel_claro;
+        $personal->id_genero = $request->id_genero;
+        $personal->id_estadocivil = $request->id_estadocivil;
         $personal->hijos = $request->hijos;
         $personal->fecha_nac = $fecha_nacimiento;
         $personal->id_pais = $request->id_pais;
@@ -161,13 +291,12 @@ class PersonalController extends Controller
         $personal->foto = $request->foto;
         $personal->status = $request->status;
         $personal->mail = $request->mail;
-
-        $personal->update();
-
-        Session::flash('flash_message', 'Personal updated!');
-
-        return redirect('admin/personal');
+        $personal->cedula = $request->cedula;
+        $personal->pasaporte = $request->pasaporte;
+        $personal->foto = $foto;
+        return $personal;
     }
+}
 
     /**
      * Remove the specified resource from storage.
@@ -180,7 +309,7 @@ class PersonalController extends Controller
     {
         Personal::destroy($id);
 
-        Session::flash('flash_message', 'Personal deleted!');
+        Session::flash('flash_message', 'Persona Eliminada correctamente, se procedera a finalizar la sessión!');
 
         return redirect('admin/personal');
     }

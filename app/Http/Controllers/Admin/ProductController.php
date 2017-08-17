@@ -91,7 +91,8 @@ class ProductController extends Controller
 
             if($image->save($path)){
                 $this->validate($request, $rules, $messages);
-                $requestData_returned = $this->guarda_producto($request,$url);                              $requestData_returned->save();
+                $requestData_returned = $this->guarda_producto($request,$url);
+                $requestData_returned->save();
                 Session::flash('flash_message', 'Producto agregado!');
                 return redirect('admin/product');
             }else{

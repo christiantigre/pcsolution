@@ -11,7 +11,9 @@
 
         <div class="col-md-9">
             <div class="panel panel-default">
-                <div class="panel-heading">Personal</div>
+                <div class="panel-heading">Personal</div>                
+                @include('adminlte::errors.errors')
+                @include('adminlte::errors.info')
                 <div class="panel-body">
                     <a href="{{ url('/admin/personal/create') }}" class="btn btn-success btn-sm" title="Add New Personal">
                         <i class="fa fa-plus" aria-hidden="true"></i> Agregar Nuevo
@@ -54,13 +56,6 @@
                                         'url' => ['/admin/personal', $item->id],
                                         'style' => 'display:inline'
                                         ]) !!}
-                                        {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar', array(
-                                        'type' => 'submit',
-                                        'class' => 'btn btn-danger btn-xs',
-                                        'title' => 'Delete Personal',
-                                        'onclick'=>'return confirm("Confirm delete?")'
-                                        )) !!}
-                                        {!! Form::close() !!}
                                     </td>
                                 </tr>
                                 @endforeach

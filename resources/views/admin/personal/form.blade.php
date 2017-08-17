@@ -8,28 +8,28 @@
 <div class="form-group {{ $errors->has('app_per') ? 'has-error' : ''}}">
     {!! Form::label('app_per', 'Apellido', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('app_per', null, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::text('app_per', null, ['class' => 'form-control' ]) !!}
         {!! $errors->first('app_per', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group {{ $errors->has('cedula') ? 'has-error' : ''}}">
     {!! Form::label('cedula', 'Cedula', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('cedula', null, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::text('cedula', null, ['class' => 'form-control']) !!}
         {!! $errors->first('cedula', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group {{ $errors->has('pasaporte') ? 'has-error' : ''}}">
     {!! Form::label('pasaporte', 'Pasaporte', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('pasaporte', null, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::text('pasaporte', null, ['class' => 'form-control']) !!}
         {!! $errors->first('pasaporte', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group {{ $errors->has('dir') ? 'has-error' : ''}}">
     {!! Form::label('dir', 'Dirección', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('dir', null, ['class' => 'form-control', 'required' => 'required']) !!}
+        {!! Form::text('dir', null, ['class' => 'form-control']) !!}
         {!! $errors->first('dir', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
@@ -80,21 +80,14 @@
 <div class="form-group {{ $errors->has('genero') ? 'has-error' : ''}}">
     {!! Form::label('genro', 'Genero', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {{ Form::select('genero', ['Masculino' => 'Masculino', 'Femenino' => 'Femenino'], 0 , ['id' =>'genero','class'=>'form-control']) }}
-
+        {{ Form::select('id_genero', $generos, null,['placeholder'=>'Selecciona','id'=>'id_genero','class'=>'form-control','autofocus'=>'autofocus']) }}
         {!! $errors->first('genero', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 <div class="form-group {{ $errors->has('estado_civil') ? 'has-error' : ''}}">
     {!! Form::label('estado_civil', 'Estado Civil', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {{ Form::select('estado_civil', [
-        'Soltero(a)' => 'Soltero(a)', 
-        'Unión de hecho' => 'Unión de hecho',
-        'Casado(a)' => 'Casado(a)',
-        'Divorciado(a)' => 'Divorciado(a)',
-        'Viudo(a)' => 'Viudo(a)'
-        ], 0 , ['id' =>'estado_civil','class'=>'form-control']) }}
+        {{ Form::select('id_estadocivil', $estadocivils, null,['placeholder'=>'Selecciona','id'=>'id_estadocivil','class'=>'form-control','autofocus'=>'autofocus']) }}
 
         {!! $errors->first('estado_civil', '<p class="help-block">:message</p>') !!}
     </div>
@@ -102,7 +95,7 @@
 <div class="form-group {{ $errors->has('hijos') ? 'has-error' : ''}}">
     {!! Form::label('hijos', 'Hijos', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
-        {!! Form::text('hijos', null, ['class' => 'form-control']) !!}
+        {!! Form::number('hijos', null, ['class' => 'form-control']) !!}
         {!! $errors->first('hijos', '<p class="help-block">:message</p>') !!}
     </div>
 </div>

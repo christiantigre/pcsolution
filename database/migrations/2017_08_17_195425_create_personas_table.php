@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreatePersonalsTable extends Migration
+class CreatePersonasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreatePersonalsTable extends Migration
     public function up()
     {
         Schema::create('personals', function(Blueprint $table) {
-            $table->increments('id');
+           $table->increments('id');
             $table->string('nom_per',35)->nullable();
             $table->string('app_per',35)->nullable();
             $table->string('dir',60)->nullable();
@@ -22,14 +22,14 @@ class CreatePersonalsTable extends Migration
             $table->string('pasaporte',15)->nullable();
             $table->string('cel_movi',15)->nullable();
             $table->string('cel_claro',15)->nullable();
-            $table->string('genero',10)->nullable();
-            $table->string('estado_civil',10)->nullable();
             $table->string('hijos',5)->nullable();
             $table->date('fecha_nac')->nullable();
             $table->integer('id_pais')->unsigned()->default(1);
             $table->integer('id_provincia')->unsigned()->default(1);
             $table->integer('id_canton')->unsigned()->default(1);
             $table->integer('id_cargo')->unsigned()->default(1);
+            $table->integer('id_genero')->unsigned()->default(1);
+            $table->integer('id_estadocivil')->unsigned()->default(1);
             $table->integer('id_user')->unsigned();
             $table->string('foto',60)->nullable();
             $table->boolean('status')->default(1);
@@ -39,6 +39,8 @@ class CreatePersonalsTable extends Migration
             $table->foreign('id_canton')->references('id')->on('cantons');
             $table->foreign('id_cargo')->references('id')->on('cargos');
             $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_genero')->references('id')->on('generos');
+            $table->foreign('id_estadocivil')->references('id')->on('estado_civils');
             $table->timestamps();
         });
     }

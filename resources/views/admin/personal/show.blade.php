@@ -21,13 +21,7 @@
                     'url' => ['admin/personal', $personal->id],
                     'style' => 'display:inline'
                     ]) !!}
-                    {!! Form::button('<i class="fa fa-trash-o" aria-hidden="true"></i> Eliminar', array(
-                    'type' => 'submit',
-                    'class' => 'btn btn-danger btn-xs',
-                    'title' => 'Delete Personal',
-                    'onclick'=>'return confirm("Confirm delete?")'
-                    ))!!}
-                    {!! Form::close() !!}
+                    
                     <br/>
                     <br/>
 
@@ -43,10 +37,10 @@
                                 <tr>
                                     <th> Apellido </th><td> {{ $personal->app_per }} </td>
                                 </tr>
-                                 <tr>
+                                <tr>
                                     <th> Cedula </th><td> {{ $personal->cedula }} </td>
                                 </tr>
-                                 <tr>
+                                <tr>
                                     <th> Pasaporte </th><td> {{ $personal->pasaporte }} </td>
                                 </tr>
                                 <tr>
@@ -65,10 +59,10 @@
                                     <th> Cel. Claro </th><td> {{ $personal->cel_claro }} </td>
                                 </tr>
                                 <tr>
-                                    <th> Genero </th><td> {{ $personal->genero }} </td>
+                                    <th> Genero </th><td> {{ $personal->id_genero }} </td>
                                 </tr>
                                 <tr>
-                                    <th> Estado civil </th><td> {{ $personal->estado_civil }} </td>
+                                    <th> Estado civil </th><td> {{ $personal->id_estadocivil }} </td>
                                 </tr>
                                 <tr>
                                     <th> Num hijos </th><td> {{ $personal->hijos }} </td>
@@ -93,17 +87,17 @@
                                 </tr>
                                 <tr>
                                     <th> Fotografia </th>
-                                    <td> 
-                                        {{ $personal->foto }} 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                    <td>                                          
+                                    <img src="{{ asset( $personal->foto ) }}" width="320" alt="fotografía"> 
+                                   </td>
+                               </tr>
+                           </tbody>
+                       </table>
+                   </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
+               </div>
+           </div>
+       </div>
+   </div>
 </div>
 @endsection
