@@ -203,7 +203,7 @@ class ProductController extends Controller
      */
     public function update($id, Request $request)
     {
-
+        $producto_foto = Product::findOrFail($id);
         $rules = [
         'catalogo' => 'max:1',
         'pre_com'=>'numeric',
@@ -231,22 +231,25 @@ class ProductController extends Controller
             $random = str_random(10);
             $nombre = $random.' - '.$file->getClientOriginalName();
             $path = public_path('uploads/productos/'.$nombre);
-            $url = '/uploads/productos/'.$nombre;
-            $image = Image::make($file->getRealPath());
-            $image->resize(640, 400);
+            if (file_exists($producto_foto->img)) {
+             unlink($producto_foto->img);
+         }
+         $url = '/uploads/productos/'.$nombre;
+         $image = Image::make($file->getRealPath());
+         $image->resize(640, 400);
 
-            if($image->save($path)){
-                $this->validate($request, $rules, $messages);
-                $requestData_returned = $this->update_producto($request,$url,$id);                              
-                $requestData_returned->update();
-                Session::flash('flash_message', 'Producto agregado!');
-                return redirect('admin/product');
-            }else{
-                Session::flash('flash_message', 'Ocurrio un error al subir la imagen al servidor!');
-                return redirect('admin/product');
-            }
+         if($image->save($path)){
+            $this->validate($request, $rules, $messages);
+            $requestData_returned = $this->update_producto($request,$url,$id);                              
+            $requestData_returned->update();
+            Session::flash('flash_message', 'Producto agregado!');
+            return redirect('admin/product');
+        }else{
+            Session::flash('flash_message', 'Ocurrio un error al subir la imagen al servidor!');
+            return redirect('admin/product');
         }
     }
+}
 
     /**
      * Remove the specified resource from storage.

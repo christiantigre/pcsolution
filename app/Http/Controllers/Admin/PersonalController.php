@@ -257,14 +257,18 @@ public static function crea_personal($request,$fields, $foto, $fecha_nacimiento)
            'app_per' => 'max:35',
            'dir' => 'max:150'
            ]);
+        $personal_foto = Personal::findOrFail($id);
         $requestData = $request->all();
         $fechanac = $request->input('fecha_nac');
         $fecha_nacimiento = Carbon::parse($fechanac)->format('Y-m-d');
         $file = Input::file('foto');
         if (!empty($file)) {
            $random = str_random(10);
-           $nombre = $random.' - '.$file->getClientOriginalName();
+           $nombre = $random.'-'.$file->getClientOriginalName();
            $path = public_path('uploads/personal/'.$nombre);
+           if (file_exists($personal_foto->foto)) {
+               unlink($personal_foto->foto);
+           }
            $url = '/uploads/personal/'.$nombre;
            $image = Image::make($file->getRealPath());
            $image->resize(600, 300);
