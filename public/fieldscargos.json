@@ -1,0 +1,36 @@
+{
+    "fields": [
+        {
+            "name": "cargo",
+            "type": "string"
+        },
+        {
+            "name": "status",
+            "type": "boolean"
+        },
+        {
+            "name": "departamento_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "foreign_keys": [        
+        {
+            "column": "departamento_id",
+            "references": "id",
+            "on": "Departamento"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "Departamento",
+            "type": "belongsTo",
+            "class": "App\\Departamento"
+        }
+    ],
+    "validations": [
+        {
+            "field": "cargo",
+            "rules": "max:35"
+        }
+    ]
+}

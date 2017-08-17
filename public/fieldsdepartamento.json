@@ -1,0 +1,20 @@
+{
+    "fields": [
+        {
+            "name": "departamento",
+            "type": "string"
+        },        
+        {
+            "name": "status",
+            "type": "boolean"
+        }
+        
+    ],
+    
+    "validations": [
+        {
+            "field": "departamento",
+            "rules": "requires|max:35"
+        }
+    ]
+}

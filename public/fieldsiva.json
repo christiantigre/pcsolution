@@ -1,0 +1,14 @@
+{
+    "fields": [
+        {
+            "name": "valor",
+            "type": "integer"
+        }
+    ],
+    "validations": [
+        {
+            "field": "valor",
+            "rules": "required"
+        }
+    ]
+}

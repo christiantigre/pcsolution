@@ -145,6 +145,10 @@ return [
     'proveedor'                 => 'Proveedores',
     'canton'                 => 'Cantones',
     'parr'                 => 'Parroquias',
+    'iva'                 => 'Iva',
+    'departamento'                 => 'Departamento',
+    'cargo'                 => 'Cargo',
+    'parametros'                 => 'Parametros',
 
 
 

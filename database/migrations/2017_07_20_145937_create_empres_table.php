@@ -29,10 +29,10 @@ class CreateEmpresTable extends Migration
             $table->string('descripcion',255)->nullable();
             $table->string('fax',35)->nullable();
             $table->string('link_web',35)->nullable();
-            $table->string('fb',35)->nullable();
-            $table->string('tw',35)->nullable();
-            $table->string('gog',35)->nullable();
-            $table->string('likein',35)->nullable();
+            $table->string('fb',50)->nullable();
+            $table->string('tw',50)->nullable();
+            $table->string('gog',50)->nullable();
+            $table->string('likein',50)->nullable();
             $table->string('logo',150)->nullable();
             $table->string('iso_logotipo',150)->nullable();
             $table->string('slogan',150)->nullable();
