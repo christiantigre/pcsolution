@@ -14,7 +14,7 @@ class CargoTableSeeder extends Seeder
     {
     	Cargo::create( [
     		'id'=>1,
-    		'cargo'=>'Cajera',
+    		'cargo'=>'Administrador',
     		'status'=>1,
     		'departamento_id'=>2
     		] );
@@ -32,7 +32,7 @@ class CargoTableSeeder extends Seeder
     	
     	Cargo::create( [
     		'id'=>3,
-    		'cargo'=>'Despachador',
+    		'cargo'=>'Despachador(a)',
     		'status'=>1,
     		'departamento_id'=>3
     		] );
@@ -41,9 +41,16 @@ class CargoTableSeeder extends Seeder
     	
     	Cargo::create( [
     		'id'=>4,
-    		'cargo'=>'Técnico',
+    		'cargo'=>'Técnico(a)',
     		'status'=>1,
     		'departamento_id'=>5
     		] );
+
+        Cargo::create( [
+            'id'=>5,
+            'cargo'=>'Cajero(a)',
+            'status'=>1,
+            'departamento_id'=>5
+            ] );
     }
 }

@@ -152,4 +152,6 @@ return [
     'regiones'                 => 'Regiones',
     'personal'                 => 'Personal',
     'ventas'                 => 'Ventas',
+    'genero'                 => 'Generos',
+    'estadocivil'                 => 'Estados Civiles',
     ];

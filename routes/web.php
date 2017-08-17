@@ -76,6 +76,10 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::resource('admin/departamento', 'Admin\\DepartamentoController');
 	Route::resource('admin/cargo', 'Admin\\CargoController');
+	Route::resource('admin/personal', 'Admin\\PersonalController');
+	Route::resource('admin/genero', 'Admin\\GeneroController');
+	Route::resource('admin/estado-civil', 'Admin\\EstadoCivilController');
+	
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware
@@ -85,4 +89,4 @@ Route::group(['middleware' => 'auth'], function () {
     #adminlte_routes
 });
 
-Route::resource('admin/personal', 'Admin\\PersonalController');
+

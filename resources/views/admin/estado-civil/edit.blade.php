@@ -11,9 +11,9 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Editar Personal #{{ $personal->id }}</div>
+                    <div class="panel-heading">Editar Estado Civil #{{ $estadocivil->estado_civil }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/personal') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
+                        <a href="{{ url('/admin/estado-civil') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
                         <br />
                         <br />
 
@@ -25,14 +25,14 @@
                             </ul>
                         @endif
 
-                        {!! Form::model($personal, [
+                        {!! Form::model($estadocivil, [
                             'method' => 'PATCH',
-                            'url' => ['/admin/personal', $personal->id],
+                            'url' => ['/admin/estado-civil', $estadocivil->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}
 
-                        @include ('admin.personal.form', ['submitButtonText' => 'Actualizar'])
+                        @include ('admin.estado-civil.form', ['submitButtonText' => 'Actualizar'])
 
                         {!! Form::close() !!}
 

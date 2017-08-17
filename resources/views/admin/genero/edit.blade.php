@@ -11,9 +11,9 @@
 
             <div class="col-md-9">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Editar Personal #{{ $personal->id }}</div>
+                    <div class="panel-heading">Editar Genero #{{ $genero->genero }}</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/personal') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
+                        <a href="{{ url('/admin/genero') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
                         <br />
                         <br />
 
@@ -25,14 +25,14 @@
                             </ul>
                         @endif
 
-                        {!! Form::model($personal, [
+                        {!! Form::model($genero, [
                             'method' => 'PATCH',
-                            'url' => ['/admin/personal', $personal->id],
+                            'url' => ['/admin/genero', $genero->id],
                             'class' => 'form-horizontal',
                             'files' => true
                         ]) !!}
 
-                        @include ('admin.personal.form', ['submitButtonText' => 'Actualizar'])
+                        @include ('admin.genero.form', ['submitButtonText' => 'Actualizar'])
 
                         {!! Form::close() !!}
 

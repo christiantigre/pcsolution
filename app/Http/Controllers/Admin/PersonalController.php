@@ -8,6 +8,12 @@ use App\Http\Controllers\Controller;
 use App\Personal;
 use Illuminate\Http\Request;
 use Session;
+use App\Pai;
+use App\Provincium;
+use App\Canton;
+use App\Cargo;
+use Carbon\Carbon;
+use Input;
 
 class PersonalController extends Controller
 {
@@ -23,17 +29,17 @@ class PersonalController extends Controller
 
         if (!empty($keyword)) {
             $personal = Personal::where('nom_per', 'LIKE', "%$keyword%")
-				->orWhere('app_per', 'LIKE', "%$keyword%")
-				->orWhere('dir', 'LIKE', "%$keyword%")
-				->orWhere('tlfn', 'LIKE', "%$keyword%")
-				->orWhere('cel_movi', 'LIKE', "%$keyword%")
-				->orWhere('cel_claro', 'LIKE', "%$keyword%")
-				->orWhere('id_pais', 'LIKE', "%$keyword%")
-				->orWhere('id_provincia', 'LIKE', "%$keyword%")
-				->orWhere('id_canton', 'LIKE', "%$keyword%")
-				->orWhere('id_cargo', 'LIKE', "%$keyword%")
-				->orWhere('id_user', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+            ->orWhere('app_per', 'LIKE', "%$keyword%")
+            ->orWhere('dir', 'LIKE', "%$keyword%")
+            ->orWhere('tlfn', 'LIKE', "%$keyword%")
+            ->orWhere('cel_movi', 'LIKE', "%$keyword%")
+            ->orWhere('cel_claro', 'LIKE', "%$keyword%")
+            ->orWhere('id_pais', 'LIKE', "%$keyword%")
+            ->orWhere('id_provincia', 'LIKE', "%$keyword%")
+            ->orWhere('id_canton', 'LIKE', "%$keyword%")
+            ->orWhere('id_cargo', 'LIKE', "%$keyword%")
+            ->orWhere('id_user', 'LIKE', "%$keyword%")
+            ->paginate($perPage);
         } else {
             $personal = Personal::paginate($perPage);
         }
@@ -48,7 +54,11 @@ class PersonalController extends Controller
      */
     public function create()
     {
-        return view('admin.personal.create');
+        $paises = Pai::orderBy('id','DESC')->pluck('pais','id');
+        $provincias = Provincium::orderBy('id','DESC')->pluck('provincia','id');
+        $cantones = Canton::orderBy('id','DESC')->pluck('canton','id');
+        $cargos = Cargo::orderBy('id','DESC')->pluck('cargo','id');
+        return view('admin.personal.create',compact('paises','provincias','cantones','cargos'));
     }
 
     /**
@@ -61,12 +71,14 @@ class PersonalController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'nom_per' => 'max:35',
-			'app_per' => 'max:35',
-			'dir' => 'max:150'
-		]);
+         'nom_per' => 'max:35',
+         'app_per' => 'max:35',
+         'dir' => 'max:150'
+         ]);
         $requestData = $request->all();
-        
+        $fechanac = $request->input('fecha_nac');
+        $fecha_nacimiento = Carbon::parse($fechanac)->format('Y-m-d');
+        dd($fecha_nacimiento);
         Personal::create($requestData);
 
         Session::flash('flash_message', 'Personal added!');
@@ -98,8 +110,16 @@ class PersonalController extends Controller
     public function edit($id)
     {
         $personal = Personal::findOrFail($id);
+        $paises = Pai::orderBy('id','DESC')->pluck('pais','id');
+        $provincias = Provincium::orderBy('id','DESC')->pluck('provincia','id');
+        $cantones = Canton::orderBy('id','DESC')->pluck('canton','id');
+        $cargos = Cargo::orderBy('id','DESC')->pluck('cargo','id');
 
-        return view('admin.personal.edit', compact('personal'));
+        $cambio_fecha = $personal->fecha_nac;
+        $date2 = Carbon::parse($cambio_fecha)->format('d-m-Y');
+        
+        return view('admin.personal.edit', compact(
+            'personal','paises','provincias','cantones','cargos','date2'));
     }
 
     /**
@@ -113,14 +133,36 @@ class PersonalController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-			'nom_per' => 'max:35',
-			'app_per' => 'max:35',
-			'dir' => 'max:150'
-		]);
+         'nom_per' => 'max:35',
+         'app_per' => 'max:35',
+         'dir' => 'max:150'
+         ]);
         $requestData = $request->all();
         
+        $fechanac = $request->input('fecha_nac');
+        $fecha_nacimiento = Carbon::parse($fechanac)->format('Y-m-d');
+
         $personal = Personal::findOrFail($id);
-        $personal->update($requestData);
+        $personal->nom_per = $request->nom_per;
+        $personal->app_per = $request->app_per;
+        $personal->dir = $request->dir;
+        $personal->tlfn = $request->tlfn;
+        $personal->cel_movi = $request->cel_movi;
+        $personal->cel_claro = $request->cel_claro;
+        $personal->genero = $request->genero;
+        $personal->estado_civil = $request->estado_civil;
+        $personal->hijos = $request->hijos;
+        $personal->fecha_nac = $fecha_nacimiento;
+        $personal->id_pais = $request->id_pais;
+        $personal->id_provincia = $request->id_provincia;
+        $personal->id_canton = $request->id_canton;
+        $personal->id_cargo = $request->id_cargo;
+        $personal->id_user = $request->id_user;
+        $personal->foto = $request->foto;
+        $personal->status = $request->status;
+        $personal->mail = $request->mail;
+
+        $personal->update();
 
         Session::flash('flash_message', 'Personal updated!');
 

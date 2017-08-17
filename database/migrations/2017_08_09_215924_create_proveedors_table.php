@@ -17,6 +17,8 @@ class CreateProveedorsTable extends Migration
             $table->string('nom_pro',35)->nullable();
             $table->string('app_pro',25)->nullable();
             $table->string('dir',35)->nullable();
+            $table->string('cedula',15)->nullable();
+            $table->string('pasaporte',20)->nullable();
             $table->string('tlfn',15)->nullable();
             $table->string('cel_movi',15)->nullable();
             $table->string('cel_claro',15)->nullable();

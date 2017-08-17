@@ -1,0 +1,119 @@
+{
+    "fields": [
+        {
+            "name": "nom_per",
+            "type": "string"
+        },
+        {
+            "name": "app_per",
+            "type": "string"
+        },
+        {
+            "name": "dir",
+            "type": "string"
+        },
+        {
+            "name": "tlfn",
+            "type": "string"
+        },
+        {
+            "name": "cel_movi",
+            "type": "string"
+        },
+        {
+            "name": "cel_claro",
+            "type": "string"
+        },       
+        {
+            "name": "id_pais",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_provincia",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_canton",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_cargo",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_user",
+            "type": "integer#unsigned"
+        }
+        
+    ],
+    "foreign_keys": [
+        {
+            "column": "id_pais",
+            "references": "id",
+            "on": "pais"
+        },
+        {
+            "column": "id_provincia",
+            "references": "id",
+            "on": "provincias"
+        },
+        {
+            "column": "id_canton",
+            "references": "id",
+            "on": "ciudads"
+        },
+        {
+            "column": "id_cargo",
+            "references": "id",
+            "on": "cargos"
+        },
+        {
+            "column": "id_user",
+            "references": "id",
+            "on": "users"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "pais",
+            "type": "belongsTo",
+            "class": "App\\Pai"
+        },
+        {
+            "name": "provincium",
+            "type": "belongsTo",
+            "class": "App\\Provincium"
+        }
+        ,
+        {
+            "name": "canton",
+            "type": "belongsTo",
+            "class": "App\\Canton"
+        },
+        {
+            "name": "cargo",
+            "type": "belongsTo",
+            "class": "App\\Cargo"
+        },
+        {
+            "name": "users",
+            "type": "belongsTo",
+            "class": "App\\User"
+        }
+    ],
+    "validations": [
+        {
+            "field": "nom_per",
+            "rules": "max:35"
+        },
+        {
+            "field": "app_per",
+            "rules": "max:35"
+        },
+        {
+            "field": "dir",
+            "rules": "max:150"
+        }
+    ]
+}
+

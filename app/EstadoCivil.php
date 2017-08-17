@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cargo extends Model
+class EstadoCivil extends Model
 {
     /**
      * The database table used by the model.
      *
      * @var string
      */
-    protected $table = 'cargos';
+    protected $table = 'estado_civils';
 
     /**
     * The database primary key value.
@@ -25,17 +25,7 @@ class Cargo extends Model
      *
      * @var array
      */
-    protected $fillable = ['cargo', 'status', 'departamento_id'];
+    protected $fillable = ['estado_civil'];
 
-    public function Departamento()
-	{
-		return $this->belongsTo('App\Departamento');
-	}
-
-    public function personal()
-    {
-        return $this->hasMany('App\Personal', 'id');
-    }
-
-	
+    
 }

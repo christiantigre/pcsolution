@@ -39,7 +39,7 @@
             <li class="active"><a href="{{ url('/admin/clients') }}"><i class='fa fa-link'></i> <span>{{ trans('message.client') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/product') }}"><i class='fa fa-link'></i> <span>{{ trans('message.product') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/proveedor') }}"><i class='fa fa-link'></i> <span>{{ trans('message.proveedor') }}</span></a></li>
-            <li class="active"><a href="{{ url('/admin/proveedor') }}"><i class='fa fa-link'></i> <span>{{ trans('message.personal') }}</span></a></li>
+            <li class="active"><a href="{{ url('/admin/personal') }}"><i class='fa fa-link'></i> <span>{{ trans('message.personal') }}</span></a></li>
             <li class="treeview">
                 <a href="#"><i class='fa fa-link'></i> <span>{{ trans('message.conf') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
@@ -54,6 +54,8 @@
                             <li><a href="/admin/iva">{{ trans('message.iva') }}</a></li>
                             <li><a href="/admin/departamento">{{ trans('message.departamento') }}</a></li>
                             <li><a href="/admin/cargo">{{ trans('message.cargo') }}</a></li>
+                            <li><a href="/admin/genero">{{ trans('message.genero') }}</a></li>
+                            <li><a href="/admin/estado-civil">{{ trans('message.estadocivil') }}</a></li>
                         </ul>
                     </li>
                     <li class="treeview">

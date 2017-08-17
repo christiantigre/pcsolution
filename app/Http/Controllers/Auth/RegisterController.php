@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Personal;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -67,7 +68,7 @@ class RegisterController extends Controller
             'email'    => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
             'terms'    => 'required',
-        ]);
+            ]);
     }
 
     /**
@@ -79,13 +80,28 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $fields = [
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => bcrypt($data['password']),
+        'name'     => $data['name'],
+        'email'    => $data['email'],
+        'password' => bcrypt($data['password']),
         ];
         if (config('auth.providers.users.field','email') === 'username' && isset($data['username'])) {
             $fields['username'] = $data['username'];
         }
-        return User::create($fields);
+
+        $user = User::create($fields);
+
+        //$ultimo_id = User::max('id');
+        //$incremento_id = ($ultimo_id->id)+1;
+        $persona = new Personal;
+        $persona->nom_per =  $user->name;
+        $persona->mail =  $user->email;
+        $persona->id_user = $user->id;
+        $persona->id_pais = '1';
+        $persona->id_provincia = '1';
+        $persona->id_canton = '1';
+        $persona->id_cargo = '4';
+        $persona->save();
+
+        return $user;
     }
 }

@@ -13,7 +13,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Crear nuevo articulo</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/articles') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> BAtras</button></a>
+                        <a href="{{ url('/admin/articles') }}" title="Back"><button class="btn btn-warning btn-xs"><i class="fa fa-arrow-left" aria-hidden="true"></i> Atras</button></a>
                         <br />
                         <br />
 

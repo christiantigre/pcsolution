@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
        $this->call(IvaTableSeeder::class);
        $this->call(DepartamentoTableSeeder::class);
        $this->call(CargoTableSeeder::class);
+       $this->call(GeneroTableSeeder::class);
+       $this->call(EstadiCivilTableSeeder::class);
    }
 }

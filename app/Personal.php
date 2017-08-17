@@ -25,7 +25,32 @@ class Personal extends Model
      *
      * @var array
      */
-    protected $fillable = ['nom_per', 'app_per', 'dir', 'tlfn', 'cel_movi', 'cel_claro', 'id_pais', 'id_provincia', 'id_canton', 'id_cargo', 'id_user'];
+    protected $fillable = [
+    'nom_per', 
+    'app_per', 
+    'dir', 
+    'tlfn', 
+    'cel_movi', 
+    'cel_claro', 
+    'genero', 
+    'estado_civil', 
+    'hijos', 
+    'fecha_nac', 
+    'id_pais', 
+    'id_provincia', 
+    'id_canton', 
+    'id_cargo', 
+    'id_user',
+    'foto', 
+    'status', 
+    'mail',
+    'cedula',
+    'pasaporte'
+    ];
+
+    public function cargo(){
+        return $this->belongsTo('App\Cargo','id_cargo');
+    }
 
     
 }
