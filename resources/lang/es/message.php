@@ -146,10 +146,10 @@ return [
     'canton'                 => 'Cantones',
     'parr'                 => 'Parroquias',
     'iva'                 => 'Iva',
-    'departamento'                 => 'Departamento',
-    'cargo'                 => 'Cargo',
+    'departamento'                 => 'Departamentos',
+    'cargo'                 => 'Cargos',
     'parametros'                 => 'Parametros',
-
-
-
+    'regiones'                 => 'Regiones',
+    'personal'                 => 'Personal',
+    'ventas'                 => 'Ventas',
     ];

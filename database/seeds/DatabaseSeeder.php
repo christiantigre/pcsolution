@@ -23,5 +23,8 @@ class DatabaseSeeder extends Seeder
        $this->call(CantonTableSeeder::class);
        $this->call(ParroquiaTableSeeder::class);
        $this->call(ProveedorTableSeeder::class);
+       $this->call(IvaTableSeeder::class);
+       $this->call(DepartamentoTableSeeder::class);
+       $this->call(CargoTableSeeder::class);
    }
 }
