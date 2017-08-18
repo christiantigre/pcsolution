@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Ventum;
 use Illuminate\Http\Request;
 use Session;
+use Carbon\Carbon;
 
 class VentaController extends Controller
 {
@@ -53,7 +54,9 @@ class VentaController extends Controller
      */
     public function create()
     {
-        return view('admin.venta.create');
+        $carbon = new Carbon();
+        $carbon  = Carbon::now(new \DateTimeZone('America/Guayaquil'));
+        return view('admin.venta.create',array('fecha'=>$carbon));
     }
 
     /**
