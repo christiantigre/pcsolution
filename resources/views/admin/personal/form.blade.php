@@ -133,7 +133,6 @@
  </div>
 </div>
 <div class="form-group {{ $errors->has('id_user') ? 'has-error' : ''}}">
-    {!! Form::label('id_user', 'Id User', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::hidden('id_user', null, ['class' => 'form-control']) !!}
         {!! $errors->first('id_user', '<p class="help-block">:message</p>') !!}

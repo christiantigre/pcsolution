@@ -154,4 +154,7 @@ return [
     'ventas'                 => 'Ventas',
     'genero'                 => 'Generos',
     'estadocivil'                 => 'Estados Civiles',
+    'descuento'                 => 'Descuentos',
+    'tipopago'                 => 'Tipos Pago',
+    'estadopago'                 => 'Estados Pago',
     ];

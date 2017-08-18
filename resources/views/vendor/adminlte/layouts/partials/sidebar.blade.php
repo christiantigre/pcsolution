@@ -35,7 +35,7 @@
             <!-- Optionally, you can add icons to the links -->
             <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i> <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/orders') }}"><i class='fa fa-link'></i> <span>{{ trans('message.order') }}</span></a></li>
-            <li class="active"><a href="{{ url('/admin/orders') }}"><i class='fa fa-link'></i> <span>{{ trans('message.ventas') }}</span></a></li>
+            <li class="active"><a href="{{ url('/admin/venta') }}"><i class='fa fa-link'></i> <span>{{ trans('message.ventas') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/clients') }}"><i class='fa fa-link'></i> <span>{{ trans('message.client') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/product') }}"><i class='fa fa-link'></i> <span>{{ trans('message.product') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/proveedor') }}"><i class='fa fa-link'></i> <span>{{ trans('message.proveedor') }}</span></a></li>
@@ -56,6 +56,9 @@
                             <li><a href="/admin/cargo">{{ trans('message.cargo') }}</a></li>
                             <li><a href="/admin/genero">{{ trans('message.genero') }}</a></li>
                             <li><a href="/admin/estado-civil">{{ trans('message.estadocivil') }}</a></li>
+                            <li><a href="/admin/descuento">{{ trans('message.descuento') }}</a></li>
+                            <li><a href="/admin/tipopago">{{ trans('message.tipopago') }}</a></li>
+                            <li><a href="/admin/estadopago">{{ trans('message.estadopago') }}</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
