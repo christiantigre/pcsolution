@@ -11,7 +11,7 @@
                 @include('adminlte::errors.errors')
                 @include('adminlte::errors.info')
 
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Crear Nueva Venta</div>
                     <div class="panel-body">

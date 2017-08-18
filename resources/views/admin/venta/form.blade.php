@@ -93,11 +93,26 @@
         {!! Form::number('id_cliente', null, ['class' => 'form-control']) !!}
         {!! $errors->first('id_cliente', '<p class="help-block">:message</p>') !!}
     </div>
-</div><div class="form-group {{ $errors->has('id_vendedor') ? 'has-error' : ''}}">
+</div>
+<div class="form-group {{ $errors->has('id_vendedor') ? 'has-error' : ''}}">
     {!! Form::label('id_vendedor', 'Id Vendedor', ['class' => 'col-md-4 control-label']) !!}
     <div class="col-md-6">
         {!! Form::number('id_vendedor', null, ['class' => 'form-control']) !!}
         {!! $errors->first('id_vendedor', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group {{ $errors->has('tipopago') ? 'has-error' : ''}}">
+    {!! Form::label('tipopago', 'Pago', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::number('id_tipopago', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('id_tipopago', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+<div class="form-group {{ $errors->has('id_estadopago') ? 'has-error' : ''}}">
+    {!! Form::label('id_estadopago', 'Estado pago', ['class' => 'col-md-4 control-label']) !!}
+    <div class="col-md-6">
+        {!! Form::number('id_estadopago', null, ['class' => 'form-control']) !!}
+        {!! $errors->first('id_estadopago', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
 

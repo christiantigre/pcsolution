@@ -25,7 +25,7 @@ class Ventum extends Model
      *
      * @var array
      */
-    protected $fillable = ['secuencial', 'numerofactura', 'claveacceso', 'total', 'subtotal', 'valorconiva', 'valorsiniva', 'valorcondescuento', 'fecha_venta', 'status', 'responsable', 'cantidad_items', 'id_iva', 'id_descuento', 'id_cliente', 'id_vendedor'];
+    protected $fillable = ['secuencial', 'numerofactura', 'claveacceso', 'total', 'subtotal', 'valorconiva', 'valorsiniva', 'valorcondescuento', 'fecha_venta', 'status', 'responsable', 'cantidad_items', 'id_iva', 'id_descuento', 'id_cliente', 'id_vendedor','id_tipopago','id_estadopago'];
 
     
 }
