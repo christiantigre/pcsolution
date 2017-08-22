@@ -12,7 +12,7 @@ class ClientTableSeeder extends Seeder
      */
     public function run()
     {
-    	Client::create( ['id'=>1,'nom_cli'=>'ANDRES','app_cli'=>'CONDO','ci_cli'=>'0909889898','ruc_cli'=>'0909098989098','fecha_nac'=>NULL,
-    		'tlfn'=>'234234','cel'=>'1231231233','mail'=>'andrescondo17@gmail.com',	'dir'=>'3 de Noviembre y Cesar Cueva'] );
+    	Client::create( ['id'=>1,'nom_cli'=>'CLIENTE','app_cli'=>'FINAL','ci_cli'=>'9999999999','ruc_cli'=>'9999999999999','fecha_nac'=>NULL,
+    		'tlfn'=>'','cel'=>'','mail'=>'',	'dir'=>''] );
     }
 }

@@ -1,6 +1,10 @@
 {
     "fields": [
         {
+            "name": "secuencial",
+            "type": "string"
+        },
+        {
             "name": "numerofactura",
             "type": "string"
         },
@@ -10,129 +14,149 @@
         },
         {
             "name": "total",
-            "type": "string"
+            "type": "double"
         },
         {
             "name": "subtotal",
-            "type": "string"
-        },
+            "type": "double"
+        }, 
         {
-            "name": "iva",
-            "type": "string"
-        },
+            "name": "valorconiva",
+            "type": "double"
+        }, 
         {
-            "name": "",
-            "type": "string"
-        },
+            "name": "valorsiniva",
+            "type": "double"
+        },  
         {
-            "name": "img",
-            "type": "string"
-        },
+            "name": "valorcondescuento",
+            "type": "double"
+        }, 
         {
-            "name": "prgr_tittle",
-            "type": "string"
-        },
+            "name": "fecha_venta",
+            "type": "date"
+        },       
         {
-            "name": "nuevo",
+            "name": "status",
             "type": "boolean"
         },
         {
-            "name": "promocion",
-            "type": "boolean"
+            "name": "responsable",
+            "type": "string"
         },
         {
-            "name": "catalogo",
-            "type": "boolean"
+            "name": "cantidad_items",
+            "type": "integer"
         },
         {
-            "name": "is_active",
-            "type": "boolean"
-        },
-        {
-            "name": "articulo_id",
+            "name": "id_iva",
             "type": "integer#unsigned"
         },
         {
-            "name": "marca_id",
+            "name": "id_descuento",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_cliente",
+            "type": "integer#unsigned"
+        },
+        {
+            "name": "id_vendedor",
             "type": "integer#unsigned"
         }
     ],
     "foreign_keys": [
         {
-            "column": "marca_id",
+            "column": "id_iva",
             "references": "id",
-            "on": "marcas"
+            "on": "ivas"
         },
         {
-            "column": "articulo_id",
+            "column": "id_descuento",
             "references": "id",
-            "on": "articulos"
+            "on": "descuentos"
+        },
+        {
+            "column": "id_cliente",
+            "references": "id",
+            "on": "clients"
+        },
+        {
+            "column": "id_vendedor",
+            "references": "id",
+            "on": "personals"
         }
     ],
     "relationships": [
         {
-            "name": "marca",
+            "name": "iva",
             "type": "belongsTo",
-            "class": "App\\Marca"
+            "class": "App\\Iva"
         },
         {
-            "name": "articulo",
+            "name": "descuento",
             "type": "belongsTo",
-            "class": "App\\Articulo"
+            "class": "App\\Descuento"
+        },
+        {
+            "name": "cliente",
+            "type": "belongsTo",
+            "class": "App\\Client"
+        },
+        {
+            "name": "personal",
+            "type": "belongsTo",
+            "class": "App\\Personal"
         }
     ],
     "validations": [
         {
-            "field": "nombre",
+            "field": "secuencial",
             "rules": "max:35"
         },
         {
-            "field": "slug",
+            "field": "numerofactura",
             "rules": "max:35"            
         },
         {
-            "field": "codbarra",
-            "rules": "max:20"
+            "field": "claveacceso",
+            "rules": "max:35"
         },
         {
 
-            "field": "cant",
+            "field": "total",
+            "rules": "double:15,2"
+        },
+        {
+
+            "field": "subtotal",
+            "rules": "double:15,2"
+        },
+        {
+
+            "field": "valorconiva",
+            "rules": "double:15,2"
+        },
+        {
+
+            "field": "valorsiniva",
+            "rules": "double:15,2"
+        },
+        {
+
+            "field": "valorcondescuento",
+            "rules": "double:15,2"
+        },
+        {
+
+            "field": "responsable",
+            "rules": "max:35"
+        },
+        {
+
+            "field": "cantidad_items",
             "rules": "max:5"
-        },
-        {
-
-            "field": "pre_ven",
-            "rules": "max:8,2"
-        },
-        {
-
-            "field": "pre_com",
-            "rules": "max:8,2"
-        },
-        {
-
-            "field": "img",
-            "rules": "max:300"
-        },
-        {
-
-            "field": "prgr_tittle",
-            "rules": "max:300"
-        },
-        {
-
-            "field": "nuevo",
-            "rules": "max:1"
-        },
-        {
-
-            "field": "promocion",
-            "rules": "max:1"
-        },
-        {
-            
-            "field": "catalogo",
-            "rules": "max:1"
         }
     ]
 }
+

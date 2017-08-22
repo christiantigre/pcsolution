@@ -1,0 +1,19 @@
+{
+    "fields": [
+        {
+            "name": "tipopago",
+            "type": "string"
+        }        ,
+        {
+            "name": "status",
+            "type": "boolean"
+        }
+    ],
+    "validations": [
+        {
+            "field": "tipopago",
+            "rules": "max:15"
+        }
+    ]
+}
+

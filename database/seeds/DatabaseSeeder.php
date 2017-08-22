@@ -28,5 +28,8 @@ class DatabaseSeeder extends Seeder
        $this->call(CargoTableSeeder::class);
        $this->call(GeneroTableSeeder::class);
        $this->call(EstadiCivilTableSeeder::class);
+       $this->call(DescuentoTableSeeder::class);
+       $this->call(EstadopagoTableSeeder::class);
+       $this->call(TipopagoTableSeeder::class);
    }
 }

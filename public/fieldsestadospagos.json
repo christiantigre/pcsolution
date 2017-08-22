@@ -1,0 +1,18 @@
+{
+    "fields": [
+        {
+            "name": "estadopago",
+            "type": "string"
+        }   ,     
+        {
+            "name": "status",
+            "type": "boolean"
+        }
+    ],
+    "validations": [
+        {
+            "field": "estadopago",
+            "rules": "max:15"
+        }
+    ]
+}

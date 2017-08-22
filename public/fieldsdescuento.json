@@ -1,0 +1,14 @@
+{
+    "fields": [
+        {
+            "name": "valor",
+            "type": "double"
+        },       
+        {
+            "name": "status",
+            "type": "boolean"
+        }
+    ]
+    
+}
+
