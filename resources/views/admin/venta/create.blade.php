@@ -11,7 +11,7 @@
   <!-- SELECT2 EXAMPLE -->
   <div class="box box-default">
     <div class="box-header with-border">
-      <h3 class="box-title">Registrar Nueva Orden</h3>
+      <h3 class="box-title">Registrar Nueva Venta</h3>
 
       <div class="box-tools pull-right">
         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -28,10 +28,13 @@
 
       <button class="btn btn-primary" id="guardaorden" type="submit" >Guardar</button>
       <a href="{{asset('/admin/venta/')}}" class="btn btn-default"> Cancelar</a>
-      <a href="{{ url('/admin/articles/create') }}" class="btn btn-default btn-sm" title="Add New Article">
+      <a href="" data-toggle="modal" data-target="#modal-registrocliente" class="btn btn-default" title="Add New Article">
         <i class="fa fa-plus" aria-hidden="true"></i> Crear Cliente
       </a>
-      <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-default"><i class="fa fa-search" aria-hidden="true"></i> Buscar Cliente</button>
+      <a href="{{ url('/admin/articles/create') }}" class="btn btn-default" title="Add New Article">
+        <i class="fa fa-plus" aria-hidden="true"></i> Crear Producto
+      </a>
+      
       <div class="row">
         <div class="col-md-12">
           <div class="col-md-4">
@@ -80,8 +83,7 @@
               <div class="col-sm-10">
                 N° : 2017-00980 
 
-                {!! Form::hidden('numero',null,['class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}
-                {!! Form::hidden('anio',null,['class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}               
+                {!! Form::hidden('id_cliente',null,['id'=>'id_cliente','class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}
               </div>
             </div>
           </div>
@@ -92,7 +94,7 @@
           <div class="form-group">
             <label for="articulo" class="col-sm-2 control-label">Cliente</label>
             <div class="col-sm-10">
-              {!! Form::text('cliente_name',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'']) !!}
+              {!! Form::text('cliente_name',null,['id'=>'cliente_name','data-toggle'=>'modal','data-target'=>'#modal-seleccionacliente','class'=>'form-control','autocomplete'=>'off','placeholder'=>'']) !!}
             </div>
           </div>
           <!-- /.form-group -->
@@ -100,14 +102,14 @@
           <div class="form-group">
             <label for="marca" class="col-sm-2 control-label">CI / RUC</label>
             <div class="col-sm-10">
-              {!! Form::text('ci_ruc',null,['class'=>'form-control','autocomplete'=>'off','placeholder'=>'']) !!}
+              {!! Form::text('ci_ruc',null,['id'=>'ci_ruc','class'=>'form-control','autocomplete'=>'off','placeholder'=>'']) !!}
             </div>
           </div>
           <!--modelo-->            
           <div class="form-group">
             <label for="modelo" class="col-sm-2 control-label">Pago</label>
             <div class="col-sm-10">
-              {!! Form::text('modelo',null,['class'=>'form-control','autocomplete'=>'off','maxlength'=>'30','placeholder'=>'']) !!}
+              {!! Form::select('id_tipopagos', $tipopagos, null,['placeholder'=>'Selecciona','id'=>'id_tipopagos','class'=>'form-control','autofocus'=>'autofocus'])    !!}
             </div>
           </div>
           <!-- /.form-group -->
@@ -118,13 +120,8 @@
           <!--tlfn cliente-->          
           <div class="form-group">
             <label for="modelo" class="col-sm-2 control-label">Teléfono</label>
-            <div class="col-sm-10">
-              <?php 
-              $tittle_modal = 'Buscar Cliente';
-              ?>
-              
+            <div class="col-sm-10">              
               {!! Form::text('tlfn_cliente',null,['id'=>'tlfn_cliente','class'=>'form-control','data-toggle'=>'modal','data-target'=>'#modal-default','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
-
             </div>
           </div>
           <!-- /.form-group -->
@@ -151,7 +148,9 @@
           <div class="form-group">
             <label for="serie" class="col-sm-2 control-label">Vendedor</label>
             <div class="col-sm-10">
-              {!! Form::text('vendedor',null,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}            
+              {!! Form::hidden('id_personal',$id_personal,['id'=>'id_persona','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
+
+              {!! Form::text('vendedor',$persona,['class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}            
             </div>
           </div>
           <!-- /.form-group -->
@@ -161,61 +160,25 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Condensed Full Width Table</h3>
+              <h3 class="box-title">Productos</h3>
+              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-seleccionaproductos"><i class="fa fa-search" aria-hidden="true"></i> Buscar Producto</button>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
               <table class="table table-condensed">
-                <tbody><tr>
-                  <th style="width: 10px">#</th>
-                  <th>Codigo</th>
-                  <th>Producto</th>
-                  <th>Cantidad</th>
-                  <th>Descripción</th>
-                  <th>Precio Unitario</th>
-                  <th>Acción</th>
-                </tr>
-                <tr>
-                  <td>1.</td>
-                  <td>Update software</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-red">55%</span></td>
-                </tr>
-                <tr>
-                  <td>2.</td>
-                  <td>Clean database</td>
-                  <td>
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-yellow">70%</span></td>
-                </tr>
-                <tr>
-                  <td>3.</td>
-                  <td>Cron job running</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-light-blue">30%</span></td>
-                </tr>
-                <tr>
-                  <td>4.</td>
-                  <td>Fix and squish bugs</td>
-                  <td>
-                    <div class="progress progress-xs progress-striped active">
-                      <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                    </div>
-                  </td>
-                  <td><span class="badge bg-green">90%</span></td>
-                </tr>
-              </tbody></table>
+                <tbody>
+                  <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Codigo</th>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Descripción</th>
+                    <th>Precio Unitario</th>
+                    <th>Acción</th>
+                  </tr>
+                  
+                </tbody>
+              </table>
             </div>
             <!-- /.box-body -->
           </div>
@@ -239,5 +202,8 @@
 
 </section>
 <!-- /.content -->
+
+@include('admin.venta.modalselec_cli')
+@include('admin.venta.modalselec_prod')
 @endsection
 

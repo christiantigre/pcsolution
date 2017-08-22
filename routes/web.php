@@ -84,6 +84,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::resource('admin/venta', 'Admin\\VentaController');
 	Route::resource('admin/tipopago', 'Admin\\TipopagoController');
 	Route::resource('admin/estadopago', 'Admin\\EstadopagoController');
+	Route::get('admin/getproducts/','Admin\VentaController@getproducts');
+	Route::get('admin/getclientes/','Admin\VentaController@getclientes');
+	Route::get('admin/extraerdatoscli/','Admin\VentaController@extraerdatoscliente');
+
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware

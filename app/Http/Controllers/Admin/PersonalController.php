@@ -77,17 +77,17 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = $this->validate($request, [
+        /*$validator = $this->validate($request, [
            'nom_per' => 'max:35',
            'app_per' => 'max:35',
-           'dir' => 'max:150',
-           'mail' => 'unique:personals',
+           'dir' => 'max:150'
            ]);
-        if ($validator->fails()) {
+
+        if($validator->fails()) {
             return redirect('admin/personal/create')
             ->withErrors($validator)
             ->withInput();
-        }else{  
+        }else{  */
 
             $requestData = $request->all();
             $fechanac = $request->input('fecha_nac');
@@ -101,13 +101,13 @@ class PersonalController extends Controller
             ];
 
             if (!empty($file)) {
-               $random = str_random(10);
-               $nombre = $random.' - '.$file->getClientOriginalName();
-               $path = public_path('uploads/personal/'.$nombre);
-               $url = '/uploads/personal/'.$nombre;
-               $image = Image::make($file->getRealPath());
-               $image->resize(600, 300);
-               if($image->save($path)){
+             $random = str_random(10);
+             $nombre = $random.' - '.$file->getClientOriginalName();
+             $path = public_path('uploads/personal/'.$nombre);
+             $url = '/uploads/personal/'.$nombre;
+             $image = Image::make($file->getRealPath());
+             $image->resize(600, 300);
+             if($image->save($path)){
                 $foto = 'uploads/personal/'.$nombre;
             }
             $Data = $this->crea_personal($request,$fields,$foto,$fecha_nacimiento);
@@ -126,82 +126,82 @@ class PersonalController extends Controller
         Session::flash('flash_message', 'Personal registrado!');
 
         return redirect('admin/personal');
+        /*}*/
     }
-}
 
-public static function crea_personal($request,$fields, $foto, $fecha_nacimiento){
+    public static function crea_personal($request,$fields, $foto, $fecha_nacimiento){
 
 
-    if(empty($foto)){
-        try {            
-            try {                
-                $usuario = User::create($fields);
+        if(empty($foto)){
+            try {            
+                try {                
+                    $usuario = User::create($fields);
+                    \DB::commit();
+                } catch (Exception $e) {                
+                    \DB::rollBack();
+                }
+                $Data = [
+                'nom_per' => $request->nom_per,
+                'app_per' => $request->app_per,
+                'dir' => $request->dir,
+                'tlfn' => $request->tlfn,
+                'cedula' => $request->cedula,
+                'pasaporte' => $request->pasaporte,
+                'cel_movi' => $request->cel_movi,
+                'cel_claro' => $request->cel_claro,
+                'hijos' => $request->hijos,
+                'fecha_nac' => $fecha_nacimiento,
+                'id_pais' => $request->id_pais,
+                'id_provincia' => $request->id_provincia,
+                'id_canton' => $request->id_canton,
+                'id_cargo' => $request->id_cargo,
+                'id_estadocivil' => $request->id_estadocivil,
+                'id_user' => $usuario->id,
+                'status' => $request->status,
+                'mail' => $usuario->email
+                ];
                 \DB::commit();
-            } catch (Exception $e) {                
+            } catch (Exception $e) {
                 \DB::rollBack();
             }
-            $Data = [
-            'nom_per' => $request->nom_per,
-            'app_per' => $request->app_per,
-            'dir' => $request->dir,
-            'tlfn' => $request->tlfn,
-            'cedula' => $request->cedula,
-            'pasaporte' => $request->pasaporte,
-            'cel_movi' => $request->cel_movi,
-            'cel_claro' => $request->cel_claro,
-            'hijos' => $request->hijos,
-            'fecha_nac' => $fecha_nacimiento,
-            'id_pais' => $request->id_pais,
-            'id_provincia' => $request->id_provincia,
-            'id_canton' => $request->id_canton,
-            'id_cargo' => $request->id_cargo,
-            'id_estadocivil' => $request->id_estadocivil,
-            'id_user' => $usuario->id,
-            'status' => $request->status,
-            'mail' => $usuario->email
-            ];
-            \DB::commit();
-        } catch (Exception $e) {
-            \DB::rollBack();
-        }
-        
-        return $Data;
-    }else{
-        try {
-            try {                
-                $usuario = User::create($fields);
+            
+            return $Data;
+        }else{
+            try {
+                try {                
+                    $usuario = User::create($fields);
+                    \DB::commit();
+                } catch (Exception $e) {                
+                    \DB::rollBack();
+                }
+                $Data = [
+                'nom_per' => $request->nom_per,
+                'app_per' => $request->app_per,
+                'dir' => $request->dir,
+                'tlfn' => $request->tlfn,
+                'cedula' => $request->cedula,
+                'pasaporte' => $request->pasaporte,
+                'cel_movi' => $request->cel_movi,
+                'cel_claro' => $request->cel_claro,
+                'hijos' => $request->hijos,
+                'fecha_nac' => $fecha_nacimiento,
+                'id_pais' => $request->id_pais,
+                'id_provincia' => $request->id_provincia,
+                'id_canton' => $request->id_canton,
+                'id_cargo' => $request->id_cargo,
+                'id_estadocivil' => $request->id_estadocivil,
+                'id_user' => $usuario->id,
+                'foto' => $foto,
+                'status' => $request->status,
+                'mail' => $usuario->email
+                ];            
                 \DB::commit();
-            } catch (Exception $e) {                
+            } catch (Exception $e) {
                 \DB::rollBack();
             }
-            $Data = [
-            'nom_per' => $request->nom_per,
-            'app_per' => $request->app_per,
-            'dir' => $request->dir,
-            'tlfn' => $request->tlfn,
-            'cedula' => $request->cedula,
-            'pasaporte' => $request->pasaporte,
-            'cel_movi' => $request->cel_movi,
-            'cel_claro' => $request->cel_claro,
-            'hijos' => $request->hijos,
-            'fecha_nac' => $fecha_nacimiento,
-            'id_pais' => $request->id_pais,
-            'id_provincia' => $request->id_provincia,
-            'id_canton' => $request->id_canton,
-            'id_cargo' => $request->id_cargo,
-            'id_estadocivil' => $request->id_estadocivil,
-            'id_user' => $usuario->id,
-            'foto' => $foto,
-            'status' => $request->status,
-            'mail' => $usuario->email
-            ];            
-            \DB::commit();
-        } catch (Exception $e) {
-            \DB::rollBack();
+            return $Data;
         }
-        return $Data;
     }
-}
 
 
     /**
@@ -253,26 +253,26 @@ public static function crea_personal($request,$fields, $foto, $fecha_nacimiento)
     public function update($id, Request $request)
     {
         $this->validate($request, [
-           'nom_per' => 'max:35',
-           'app_per' => 'max:35',
-           'dir' => 'max:150'
-           ]);
+         'nom_per' => 'max:35',
+         'app_per' => 'max:35',
+         'dir' => 'max:150'
+         ]);
         $personal_foto = Personal::findOrFail($id);
         $requestData = $request->all();
         $fechanac = $request->input('fecha_nac');
         $fecha_nacimiento = Carbon::parse($fechanac)->format('Y-m-d');
         $file = Input::file('foto');
         if (!empty($file)) {
-           $random = str_random(10);
-           $nombre = $random.'-'.$file->getClientOriginalName();
-           $path = public_path('uploads/personal/'.$nombre);
-           if (file_exists($personal_foto->foto)) {
-               unlink($personal_foto->foto);
-           }
-           $url = '/uploads/personal/'.$nombre;
-           $image = Image::make($file->getRealPath());
-           $image->resize(600, 300);
-           if($image->save($path)){
+         $random = str_random(10);
+         $nombre = $random.'-'.$file->getClientOriginalName();
+         $path = public_path('uploads/personal/'.$nombre);
+         if (file_exists($personal_foto->foto)) {
+             unlink($personal_foto->foto);
+         }
+         $url = '/uploads/personal/'.$nombre;
+         $image = Image::make($file->getRealPath());
+         $image->resize(600, 300);
+         if($image->save($path)){
             $foto = 'uploads/personal/'.$nombre;
         }
         $personal = $this->actualiza_personal($request,$foto,$fecha_nacimiento,$id);

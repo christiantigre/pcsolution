@@ -52,5 +52,12 @@ class CargoTableSeeder extends Seeder
             'status'=>1,
             'departamento_id'=>5
             ] );
+
+        Cargo::create( [
+            'id'=>6,
+            'cargo'=>'Vendedor(a)',
+            'status'=>1,
+            'departamento_id'=>2
+            ] );
     }
 }

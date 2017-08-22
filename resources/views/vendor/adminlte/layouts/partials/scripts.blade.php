@@ -13,6 +13,7 @@
 <script>
 	$(function () {
 		$("#example1").DataTable();
+		$("#productos").DataTable();
 		$('#example2').DataTable({
 			"paging": true,
 			"lengthChange": false,

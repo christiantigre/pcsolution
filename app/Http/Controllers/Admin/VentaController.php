@@ -6,6 +6,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Ventum;
+use App\Product;
+use App\Client;
+use App\Personal;
+use App\Tipopago;
 use Illuminate\Http\Request;
 use Session;
 use Carbon\Carbon;
@@ -24,27 +28,48 @@ class VentaController extends Controller
 
         if (!empty($keyword)) {
             $venta = Ventum::where('secuencial', 'LIKE', "%$keyword%")
-				->orWhere('numerofactura', 'LIKE', "%$keyword%")
-				->orWhere('claveacceso', 'LIKE', "%$keyword%")
-				->orWhere('total', 'LIKE', "%$keyword%")
-				->orWhere('subtotal', 'LIKE', "%$keyword%")
-				->orWhere('valorconiva', 'LIKE', "%$keyword%")
-				->orWhere('valorsiniva', 'LIKE', "%$keyword%")
-				->orWhere('valorcondescuento', 'LIKE', "%$keyword%")
-				->orWhere('fecha_venta', 'LIKE', "%$keyword%")
-				->orWhere('status', 'LIKE', "%$keyword%")
-				->orWhere('responsable', 'LIKE', "%$keyword%")
-				->orWhere('cantidad_items', 'LIKE', "%$keyword%")
-				->orWhere('id_iva', 'LIKE', "%$keyword%")
-				->orWhere('id_descuento', 'LIKE', "%$keyword%")
-				->orWhere('id_cliente', 'LIKE', "%$keyword%")
-				->orWhere('id_vendedor', 'LIKE', "%$keyword%")
-				->paginate($perPage);
+            ->orWhere('numerofactura', 'LIKE', "%$keyword%")
+            ->orWhere('claveacceso', 'LIKE', "%$keyword%")
+            ->orWhere('total', 'LIKE', "%$keyword%")
+            ->orWhere('subtotal', 'LIKE', "%$keyword%")
+            ->orWhere('valorconiva', 'LIKE', "%$keyword%")
+            ->orWhere('valorsiniva', 'LIKE', "%$keyword%")
+            ->orWhere('valorcondescuento', 'LIKE', "%$keyword%")
+            ->orWhere('fecha_venta', 'LIKE', "%$keyword%")
+            ->orWhere('status', 'LIKE', "%$keyword%")
+            ->orWhere('responsable', 'LIKE', "%$keyword%")
+            ->orWhere('cantidad_items', 'LIKE', "%$keyword%")
+            ->orWhere('id_iva', 'LIKE', "%$keyword%")
+            ->orWhere('id_descuento', 'LIKE', "%$keyword%")
+            ->orWhere('id_cliente', 'LIKE', "%$keyword%")
+            ->orWhere('id_vendedor', 'LIKE', "%$keyword%")
+            ->paginate($perPage);
         } else {
             $venta = Ventum::paginate($perPage);
         }
 
         return view('admin.venta.index', compact('venta'));
+    }
+
+    public function getproducts(){
+        $product = Product::orderBy('id','DESC')->get(); 
+
+        return view('admin.venta.all_product', compact('product'));   
+        dd($productos);
+    }
+
+    public function getclientes(){
+        $clientes = Client::orderBy('id','DESC')->get(); 
+
+        return view('admin.venta.all_clientes', compact('clientes'));   
+        dd($productos);
+    }
+
+    function extraerdatoscliente(Request $request){
+        if ($request->ajax()) {
+            $cliente = Client::orderBy('id','DESC')->where('id',$request->id)->first();
+            return response()->json($cliente);
+        }
     }
 
     /**
@@ -56,7 +81,30 @@ class VentaController extends Controller
     {
         $carbon = new Carbon();
         $carbon  = Carbon::now(new \DateTimeZone('America/Guayaquil'));
-        return view('admin.venta.create',array('fecha'=>$carbon));
+        $logueado = \Auth::id();
+        $persona = Personal::orderBy('id','DESC')->where('id_user',$logueado)->first();
+        $nombre = $persona->nom_per;
+        $apellido = $persona->app_per;
+        $id_persona = $persona->id;
+        $persona = $nombre.' '.$apellido;
+
+        /*$persona = [
+        'nombre'=>$persona->nom_per,
+        'apellido'=>$persona->app_per,
+        'id_persona'=>$persona->id
+        ];*/        
+        $tipopagos = Tipopago::orderBy('id','DESC')->pluck('tipopago','id');
+
+        $clientes = Client::orderBy('id','DESC')->get();
+        $productos = Product::orderBy('id','DESC')->get();
+        return view('admin.venta.create',array(
+            'fecha'=>$carbon,
+            'clientes'=>$clientes,
+            'persona'=>$persona,
+            'id_personal'=>$id_persona,
+            'tipopagos'=>$tipopagos,
+            'productos'=>$productos
+            ));
     }
 
     /**
@@ -69,17 +117,17 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-			'secuencial' => 'max:35',
-			'numerofactura' => 'max:35',
-			'claveacceso' => 'max:35',
-			'total' => 'double:15,2',
-			'subtotal' => 'double:15,2',
-			'valorconiva' => 'double:15,2',
-			'valorsiniva' => 'double:15,2',
-			'valorcondescuento' => 'double:15,2',
-			'responsable' => 'max:35',
-			'cantidad_items' => 'max:5'
-		]);
+           'secuencial' => 'max:35',
+           'numerofactura' => 'max:35',
+           'claveacceso' => 'max:35',
+           'total' => 'double:15,2',
+           'subtotal' => 'double:15,2',
+           'valorconiva' => 'double:15,2',
+           'valorsiniva' => 'double:15,2',
+           'valorcondescuento' => 'double:15,2',
+           'responsable' => 'max:35',
+           'cantidad_items' => 'max:5'
+           ]);
         $requestData = $request->all();
         
         Ventum::create($requestData);
@@ -128,17 +176,17 @@ class VentaController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-			'secuencial' => 'max:35',
-			'numerofactura' => 'max:35',
-			'claveacceso' => 'max:35',
-			'total' => 'double:15,2',
-			'subtotal' => 'double:15,2',
-			'valorconiva' => 'double:15,2',
-			'valorsiniva' => 'double:15,2',
-			'valorcondescuento' => 'double:15,2',
-			'responsable' => 'max:35',
-			'cantidad_items' => 'max:5'
-		]);
+           'secuencial' => 'max:35',
+           'numerofactura' => 'max:35',
+           'claveacceso' => 'max:35',
+           'total' => 'double:15,2',
+           'subtotal' => 'double:15,2',
+           'valorconiva' => 'double:15,2',
+           'valorsiniva' => 'double:15,2',
+           'valorcondescuento' => 'double:15,2',
+           'responsable' => 'max:35',
+           'cantidad_items' => 'max:5'
+           ]);
         $requestData = $request->all();
         
         $ventum = Ventum::findOrFail($id);
