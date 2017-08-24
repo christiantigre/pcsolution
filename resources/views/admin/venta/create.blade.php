@@ -162,23 +162,15 @@
             <div class="box-header">
               <h3 class="box-title">Productos</h3>
               <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-seleccionaproductos"><i class="fa fa-search" aria-hidden="true"></i> Buscar Producto</button>
+
+              <button class="btn btn-default" id="buscarcliente" type="button" onClick="listitems();"><i class="fa fa-search" aria-hidden="true"></i> Test</button>
+
+              
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
-              <table class="table table-condensed">
-                <tbody>
-                  <tr>
-                    <th style="width: 10px">#</th>
-                    <th>Codigo</th>
-                    <th>Producto</th>
-                    <th>Cantidad</th>
-                    <th>Descripción</th>
-                    <th>Precio Unitario</th>
-                    <th>Acción</th>
-                  </tr>
-                  
-                </tbody>
-              </table>
+              <div id="list-cart">
+              </div>             
             </div>
             <!-- /.box-body -->
           </div>
@@ -207,3 +199,7 @@
 @include('admin.venta.modalselec_prod')
 @endsection
 
+<script>
+  
+
+</script>

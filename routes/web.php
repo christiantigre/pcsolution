@@ -88,6 +88,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('admin/getclientes/','Admin\VentaController@getclientes');
 	Route::get('admin/extraerdatoscli/','Admin\VentaController@extraerdatoscliente');
 
+	Route::post('admin/venta/addItem/','Admin\VentaController@addItem');
+	Route::get('admin/listcartitems/','Admin\VentaController@listall');
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware

@@ -10,6 +10,7 @@ use App\Product;
 use App\Client;
 use App\Personal;
 use App\Tipopago;
+use App\Carrito;
 use Illuminate\Http\Request;
 use Session;
 use Carbon\Carbon;
@@ -51,26 +52,49 @@ class VentaController extends Controller
         return view('admin.venta.index', compact('venta'));
     }
 
-    public function getproducts(){
-        $product = Product::orderBy('id','DESC')->get(); 
-
-        return view('admin.venta.all_product', compact('product'));   
-        dd($productos);
-    }
-
-    public function getclientes(){
-        $clientes = Client::orderBy('id','DESC')->get(); 
-
-        return view('admin.venta.all_clientes', compact('clientes'));   
-        dd($productos);
-    }
-
-    function extraerdatoscliente(Request $request){
-        if ($request->ajax()) {
-            $cliente = Client::orderBy('id','DESC')->where('id',$request->id)->first();
-            return response()->json($cliente);
+    public function addItem(Request $request){
+       if ($request->ajax()) {        
+        $precio_pro=$request->precio;
+        $cantidad_pro = $request->cantidad;
+        $total_prod = ($precio_pro*$cantidad_pro);
+        $item = new Carrito;
+        $item->idproducto = $request->idproducto;
+        $item->nomproducto = $request->nombre;
+        $item->codbarra = $request->codbarra;
+        $item->precio = $request->precio;
+        $item->cantidad = $request->cantidad;
+        $item->total = $total_prod;
+        if($item->save()){
+            return response()->json(["mensaje"=>"Registrado con exito","data"=>$request->all()]);
+        }else{
+            return response()->json(["mensaje"=>"Error !!! al guardar","data"=>$request->all()]);
         }
+
+    }else{
+     return response()->json(["mensaje"=>$request->all()]);   
+ }
+}
+
+public function getproducts(){
+    $product = Product::orderBy('id','DESC')->get(); 
+
+    return view('admin.venta.all_product', compact('product'));   
+    dd($productos);
+}
+
+public function getclientes(){
+    $clientes = Client::orderBy('id','DESC')->get(); 
+
+    return view('admin.venta.all_clientes', compact('clientes'));   
+    dd($productos);
+}
+
+function extraerdatoscliente(Request $request){
+    if ($request->ajax()) {
+        $cliente = Client::orderBy('id','DESC')->where('id',$request->id)->first();
+        return response()->json($cliente);
     }
+}
 
     /**
      * Show the form for creating a new resource.
@@ -96,6 +120,7 @@ class VentaController extends Controller
         $tipopagos = Tipopago::orderBy('id','DESC')->pluck('tipopago','id');
 
         $clientes = Client::orderBy('id','DESC')->get();
+        $carrito = Carrito::orderBy('id','ASC')->get();
         $productos = Product::orderBy('id','DESC')->get();
         return view('admin.venta.create',array(
             'fecha'=>$carbon,
@@ -103,8 +128,15 @@ class VentaController extends Controller
             'persona'=>$persona,
             'id_personal'=>$id_persona,
             'tipopagos'=>$tipopagos,
-            'productos'=>$productos
+            'productos'=>$productos,
+            'carrito'=>$carrito
             ));
+    }
+
+    public function listall()
+    {
+        $carrito = Carrito::orderBy('id','ASC')->get();
+        return view('admin/venta/list-cartitems', compact('carrito'));
     }
 
     /**
@@ -117,17 +149,17 @@ class VentaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-           'secuencial' => 'max:35',
-           'numerofactura' => 'max:35',
-           'claveacceso' => 'max:35',
-           'total' => 'double:15,2',
-           'subtotal' => 'double:15,2',
-           'valorconiva' => 'double:15,2',
-           'valorsiniva' => 'double:15,2',
-           'valorcondescuento' => 'double:15,2',
-           'responsable' => 'max:35',
-           'cantidad_items' => 'max:5'
-           ]);
+         'secuencial' => 'max:35',
+         'numerofactura' => 'max:35',
+         'claveacceso' => 'max:35',
+         'total' => 'double:15,2',
+         'subtotal' => 'double:15,2',
+         'valorconiva' => 'double:15,2',
+         'valorsiniva' => 'double:15,2',
+         'valorcondescuento' => 'double:15,2',
+         'responsable' => 'max:35',
+         'cantidad_items' => 'max:5'
+         ]);
         $requestData = $request->all();
         
         Ventum::create($requestData);
@@ -176,17 +208,17 @@ class VentaController extends Controller
     public function update($id, Request $request)
     {
         $this->validate($request, [
-           'secuencial' => 'max:35',
-           'numerofactura' => 'max:35',
-           'claveacceso' => 'max:35',
-           'total' => 'double:15,2',
-           'subtotal' => 'double:15,2',
-           'valorconiva' => 'double:15,2',
-           'valorsiniva' => 'double:15,2',
-           'valorcondescuento' => 'double:15,2',
-           'responsable' => 'max:35',
-           'cantidad_items' => 'max:5'
-           ]);
+         'secuencial' => 'max:35',
+         'numerofactura' => 'max:35',
+         'claveacceso' => 'max:35',
+         'total' => 'double:15,2',
+         'subtotal' => 'double:15,2',
+         'valorconiva' => 'double:15,2',
+         'valorsiniva' => 'double:15,2',
+         'valorcondescuento' => 'double:15,2',
+         'responsable' => 'max:35',
+         'cantidad_items' => 'max:5'
+         ]);
         $requestData = $request->all();
         
         $ventum = Ventum::findOrFail($id);

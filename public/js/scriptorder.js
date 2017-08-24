@@ -469,7 +469,6 @@ function seleccionar_proveedor(){
 	document.getElementById("proveedor_id").value = id;
 	document.getElementById("empresa").value = empresa;
 	document.getElementById("contactos").value = celmovi+' '+celclaro;
-
 }
 
 $('.select_cli').click(function(){
@@ -506,37 +505,55 @@ $('.select_cli').click(function(){
 $('.select_prod').click(function(){
 	var dataId = this.id;
 	var token = $("input[name=_token]").val();
-	var route = '/admin/extraerdatosprod/';
-	var parametros = {
-		"id" :dataId
-	}
+	var route = '/admin/venta/addItem/';	
 	var id = $(this).parents("tr").find("td")[0].innerHTML;
 	var nombre = $(this).parents("tr").find("td")[1].innerHTML;
 	var codbarra = $(this).parents("tr").find("td")[2].innerHTML;
 	var precio = $(this).parents("tr").find("td")[3].innerHTML;
 	var cantidad = $(this).parents("tr").find('#cantidad').val();
-	console.log(nombre);
-	/*$.ajax({
+	//console.log(nombre);
+	var parametros = {
+		"id" :dataId,
+		"idproducto" :id,
+		"nombre" :nombre,
+		"codbarra" :codbarra,
+		"precio" :precio,
+		"cantidad" :cantidad
+	}
+	$.ajax({
 		url:route,
 		headers:{'X-CSRF-TOKEN':token},
-		type:'get',
+		type:'post',
 		dataType: 'json',
 		data:parametros,
 		success:function(data)
 		{
-			//data.cel_movi
-			console.log(data.id);
-			document.getElementById("cliente_name").value = data.nom_cli+' '+data.app_cli;
-			document.getElementById("ci_ruc").value = data.ci_cli+' '+data.ruc_cli;
-			document.getElementById("tlfn_cliente").value = data.tlfn+' '+data.cel;
-			document.getElementById("dir_cli").value = data.dir;
-			document.getElementById("email_cliente").value = data.mail;
-			document.getElementById("id_cliente").value = data.id;
+			console.log('correcto '+data);
+			items_cart();	
 		},
 		error:function(data)
 		{
 			console.log('Error '+data);
 		}  
-	});*/
+	});
 });
 
+$(document).ready(function(){
+	$.ajax({
+		type:'get',
+		url:'/admin/listcartitems/',
+		success: function(data){
+			$('#list-cart').empty().html(data);
+		}
+	});
+});
+
+function items_cart(){
+	$.ajax({
+		type:'get',
+		url:'/admin/listcartitems/',
+		success: function(data){
+			$('#list-cart').empty().html(data);
+		}
+	});
+}
