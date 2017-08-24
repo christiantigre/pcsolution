@@ -557,3 +557,52 @@ function items_cart(){
 		}
 	});
 }
+
+function delete_item(id){
+	var token = $("input[name=_token]").val();
+	var route = '/admin/venta/deleteItem/';	
+	var parametros = {
+		"id" :id
+	}
+	$.ajax({
+		url:route,
+		headers:{'X-CSRF-TOKEN':token},
+		type:'post',
+		dataType: 'json',
+		data:parametros,
+		success:function(data)
+		{
+			console.log('correcto '+data.data);
+			items_cart();	
+		},
+		error:function(data)
+		{
+			console.log('Error '+data);
+		}  
+	});
+}
+
+function trash(id){
+	console.log(id);
+	var token = $("input[name=_token]").val();
+	var route = '/admin/venta/trashItem/';	
+	var parametros = {
+		"id" :'0'
+	}
+	$.ajax({
+		url:route,
+		headers:{'X-CSRF-TOKEN':token},
+		type:'post',
+		dataType: 'json',
+		data:parametros,
+		success:function(data)
+		{
+			console.log('correcto '+data.data);
+			items_cart();	
+		},
+		error:function(data)
+		{
+			console.log('Error '+data);
+		}  
+	});
+}

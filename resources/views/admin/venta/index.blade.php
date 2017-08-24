@@ -15,7 +15,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Venta</div>
                     <div class="panel-body">
-                        <a href="{{ url('/admin/venta/create') }}" class="btn btn-success btn-sm" title="Add New Ventum">
+                        <a href="{{ url('/admin/venta/create') }}" onclick="return trash(this.id);" id="nuevaventa" class="btn btn-success btn-sm" title="Add New Ventum">
                             <i class="fa fa-plus" aria-hidden="true"></i> Nueva Venta
                         </a>
 

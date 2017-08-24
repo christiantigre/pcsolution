@@ -53,7 +53,7 @@ class VentaController extends Controller
     }
 
     public function addItem(Request $request){
-       if ($request->ajax()) {        
+     if ($request->ajax()) {        
         $precio_pro=$request->precio;
         $cantidad_pro = $request->cantidad;
         $total_prod = ($precio_pro*$cantidad_pro);
@@ -71,8 +71,33 @@ class VentaController extends Controller
         }
 
     }else{
-     return response()->json(["mensaje"=>$request->all()]);   
- }
+       return response()->json(["mensaje"=>$request->all()]);   
+   }
+}
+
+public function deleteItem(Request $request){
+ if ($request->ajax()) {        
+    $item = Carrito::find($request->id);
+    if($item->delete()){
+        return response()->json(["mensaje"=>"Eliminado con exito","data"=>"Eliminado"]);
+    }else{
+        return response()->json(["mensaje"=>"Error !!! al guardar","data"=>$request->all()]);
+    }
+}else{
+   return response()->json(["mensaje"=>$request->all()]);   
+}
+}
+
+public function trashItem(Request $request){
+    if ($request->ajax()) {        
+        if(Carrito::truncate()){
+            return response()->json(["mensaje"=>"Vaciado con exito","data"=>"Vaciado"]);
+        }else{
+            return response()->json(["mensaje"=>"Error !!! al vaciar","data"=>$request->all()]);
+        }
+    }else{
+       return response()->json(["mensaje"=>$request->all()]);   
+   }
 }
 
 public function getproducts(){
@@ -149,17 +174,17 @@ function extraerdatoscliente(Request $request){
     public function store(Request $request)
     {
         $this->validate($request, [
-         'secuencial' => 'max:35',
-         'numerofactura' => 'max:35',
-         'claveacceso' => 'max:35',
-         'total' => 'double:15,2',
-         'subtotal' => 'double:15,2',
-         'valorconiva' => 'double:15,2',
-         'valorsiniva' => 'double:15,2',
-         'valorcondescuento' => 'double:15,2',
-         'responsable' => 'max:35',
-         'cantidad_items' => 'max:5'
-         ]);
+           'secuencial' => 'max:35',
+           'numerofactura' => 'max:35',
+           'claveacceso' => 'max:35',
+           'total' => 'double:15,2',
+           'subtotal' => 'double:15,2',
+           'valorconiva' => 'double:15,2',
+           'valorsiniva' => 'double:15,2',
+           'valorcondescuento' => 'double:15,2',
+           'responsable' => 'max:35',
+           'cantidad_items' => 'max:5'
+           ]);
         $requestData = $request->all();
         
         Ventum::create($requestData);
@@ -208,17 +233,17 @@ function extraerdatoscliente(Request $request){
     public function update($id, Request $request)
     {
         $this->validate($request, [
-         'secuencial' => 'max:35',
-         'numerofactura' => 'max:35',
-         'claveacceso' => 'max:35',
-         'total' => 'double:15,2',
-         'subtotal' => 'double:15,2',
-         'valorconiva' => 'double:15,2',
-         'valorsiniva' => 'double:15,2',
-         'valorcondescuento' => 'double:15,2',
-         'responsable' => 'max:35',
-         'cantidad_items' => 'max:5'
-         ]);
+           'secuencial' => 'max:35',
+           'numerofactura' => 'max:35',
+           'claveacceso' => 'max:35',
+           'total' => 'double:15,2',
+           'subtotal' => 'double:15,2',
+           'valorconiva' => 'double:15,2',
+           'valorsiniva' => 'double:15,2',
+           'valorcondescuento' => 'double:15,2',
+           'responsable' => 'max:35',
+           'cantidad_items' => 'max:5'
+           ]);
         $requestData = $request->all();
         
         $ventum = Ventum::findOrFail($id);

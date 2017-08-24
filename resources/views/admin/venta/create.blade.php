@@ -163,8 +163,7 @@
               <h3 class="box-title">Productos</h3>
               <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-seleccionaproductos"><i class="fa fa-search" aria-hidden="true"></i> Buscar Producto</button>
 
-              <button class="btn btn-default" id="buscarcliente" type="button" onClick="listitems();"><i class="fa fa-search" aria-hidden="true"></i> Test</button>
-
+              <button class="btn btn-default" id="trashitems" type="button" onClick="trash(this.id);"><i class="fa fa-trash" aria-hidden="true"></i> Vaciar</button>
               
             </div>
             <!-- /.box-header -->
@@ -199,7 +198,3 @@
 @include('admin.venta.modalselec_prod')
 @endsection
 
-<script>
-  
-
-</script>

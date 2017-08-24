@@ -90,6 +90,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 	Route::post('admin/venta/addItem/','Admin\VentaController@addItem');
 	Route::get('admin/listcartitems/','Admin\VentaController@listall');
+	Route::post('admin/venta/deleteItem/','Admin\VentaController@deleteItem');
+	Route::post('admin/venta/trashItem/','Admin\VentaController@trashItem');
 	//Route::get('/order','Admin\OrderController');
     //    Route::get('/link1', function ()    {
 //        // Uses Auth Middleware

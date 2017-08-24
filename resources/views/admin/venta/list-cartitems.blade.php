@@ -10,16 +10,20 @@
       <th>Total</th>
       <th>Acción</th>
     </tr>
+    <?php $i=1; ?>
     @foreach($carrito as $item)
     <tr>
-      <td style="width: 10px">{{ $item->id }}</td>
+      <td style="width: 10px"><?Php echo $i; ?></td>
       <td>{{ $item->codbarra }}</td>
       <td>{{ $item->nomproducto }}</td>
       <td>{{ $item->cantidad }}</td>
       <td>{{ $item->precio }}</td>
       <td>{{ $item->total }}</td>
-      <td>Acción</td>
+      <td>
+      <button class="btn btn-default delete_item" id="{{ $item->id }}" value="{{ $item->id }}" type="button" title="QUITAR" onClick="delete_item(this.id);"><i class="fa fa-trash" aria-hidden="true"></i> </button>
+      </td>
     </tr>
+    <?Php $i++; ?>
     @endforeach
 
   </tbody>
