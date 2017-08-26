@@ -69,6 +69,8 @@ class ClientController extends Controller
     {
         $rules = [
         'ci_cli' => 'nullable|numeric|max:9999999999',
+        'nom_cli' => 'required|max:15',
+        'app_cli' => 'required|max:15',
         'ruc_cli' => 'nullable|numeric|max:999999999999999',
         'tlfn' => 'nullable|numeric|max:99999999999999',
         'cel' => 'nullable|numeric|max:999999999999999',
@@ -76,6 +78,10 @@ class ClientController extends Controller
         ];
 
         $messages = [
+        'nom_cli.required'=>'El nombre es obligatorio',
+        'nom_cli.max'=>'El nombre a eccedido los caracteres permitidos',
+        'app_cli.required'=>'El apellido es obligatorio',
+        'app_cli.max'=>'El apellido a eccedido los caracteres permitidos',
         'ci_cli.numeric'=>'Caractér invalido',
         'ci_cli.max'=>'Limite eccedido en caracteres',
         'ruc_cli.max'=>'Limite eccedido en caracteres',

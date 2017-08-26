@@ -94,7 +94,7 @@
           <div class="form-group">
             <label for="articulo" class="col-sm-2 control-label">Cliente</label>
             <div class="col-sm-10">
-              {!! Form::text('cliente_name',null,['id'=>'cliente_name','data-toggle'=>'modal','data-target'=>'#modal-seleccionacliente','class'=>'form-control','autocomplete'=>'off','placeholder'=>'']) !!}
+              {!! Form::text('cliente_name',null,['id'=>'cliente_name','data-toggle'=>'modal','data-target'=>'#modal-seleccionacliente','class'=>'form-control','autocomplete'=>'off','placeholder'=>'','autofocus'=>'autofocus']) !!}
             </div>
           </div>
           <!-- /.form-group -->

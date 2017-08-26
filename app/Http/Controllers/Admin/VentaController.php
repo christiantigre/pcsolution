@@ -11,6 +11,7 @@ use App\Client;
 use App\Personal;
 use App\Tipopago;
 use App\Carrito;
+use App\Iva;
 use Illuminate\Http\Request;
 use Session;
 use Carbon\Carbon;
@@ -161,7 +162,28 @@ function extraerdatoscliente(Request $request){
     public function listall()
     {
         $carrito = Carrito::orderBy('id','ASC')->get();
-        return view('admin/venta/list-cartitems', compact('carrito'));
+        $total = Carrito::sum('total');
+
+        $iva = Iva::where('status', 1)->first();
+        $iva_valor=$iva->valor;
+        $iva_mostrar = ($iva_valor*1);
+        $mult = $iva_valor+100;
+        $iva_final = $mult/100;
+
+        $subtotal = ($total/$iva_final);
+        $valor_con_iva = ($total-$subtotal);
+        /*$totales = array(
+        'total'=>$total,
+        'iva'=>$valor_con_iva,
+        'subtotal'=>$subtotal,
+        'ivavalor'=>$iva_mostrar
+        );*/
+        return view('admin/venta/list-cartitems', compact('carrito'),array(
+            'total' =>  $total,
+            'iva' =>  $valor_con_iva,
+            'subtotal' =>  $subtotal,
+            'ivavalor' =>  $iva_mostrar
+            ));
     }
 
     /**
