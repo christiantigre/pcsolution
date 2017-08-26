@@ -58,7 +58,7 @@ class ProductController extends Controller
         'catalogo' => 'max:1',
         'pre_com'=>'numeric',
         'pre_ven'=>'numeric',
-        'codbarra'=>'unique:products',
+        'codbarra'=>'unique:products|max:99999999999999999999',
         'cant' => 'numeric|min:1|max:10000',
         'proveedor_id'=>'required'
         ];
