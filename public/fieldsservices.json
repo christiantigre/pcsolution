@@ -1,0 +1,98 @@
+{
+    "fields": [
+        {
+            "name": "nombre",
+            "type": "string"
+        },
+        {
+            "name": "codservice",
+            "type": "string"
+        },
+        {
+            "name": "cant",
+            "type": "string"
+        },
+        {
+            "name": "pre_comservice",
+            "type": "string"
+        },
+        {
+            "name": "pre_venservice",
+            "type": "string"
+        },
+        {
+            "name": "img",
+            "type": "string"
+        },
+        {
+            "name": "prgr_tittle",
+            "type": "string"
+        },
+        {
+            "name": "nuevo",
+            "type": "boolean"
+        },
+        {
+            "name": "promocion",
+            "type": "boolean"
+        },
+        {
+            "name": "catalogo",
+            "type": "boolean"
+        },
+        {
+            "name": "is_active",
+            "type": "boolean"
+        }
+    ],
+    "validations": [
+        {
+            "field": "nombre",
+            "rules": "max:35"
+        },
+        {
+            "field": "codservice",
+            "rules": "max:35"
+        },
+        {
+
+            "field": "cant",
+            "rules": "max:5"
+        },
+        {
+
+            "field": "pre_ven",
+            "rules": "max:8,2"
+        },
+        {
+
+            "field": "pre_com",
+            "rules": "max:8,2"
+        },
+        {
+
+            "field": "img",
+            "rules": "max:300"
+        },
+        {
+
+            "field": "prgr_tittle",
+            "rules": "max:300"
+        },
+        {
+
+            "field": "nuevo",
+            "rules": "max:1"
+        },
+        {
+
+            "field": "promocion",
+            "rules": "max:1"
+        },
+        {
+            
+            "field": "catalogo",
+            "rules": "max:1"
+        }
+    ]
+}

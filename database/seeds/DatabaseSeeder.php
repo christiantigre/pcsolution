@@ -31,5 +31,6 @@ class DatabaseSeeder extends Seeder
        $this->call(DescuentoTableSeeder::class);
        $this->call(EstadopagoTableSeeder::class);
        $this->call(TipopagoTableSeeder::class);
+       $this->call(ServiceTableSeeder::class);
    }
 }

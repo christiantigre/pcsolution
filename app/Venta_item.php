@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Venta_item extends Model
 {
-    protected $table = 'items';
+	protected $table = 'venta_items';
 
     /**
     * The database primary key value.
@@ -20,5 +20,7 @@ class Item extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description'];
+
+    protected $fillable = ['producto', 'codbarra','precio','cant','total','id_venta','id_producto'];
+    
 }

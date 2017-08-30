@@ -8,6 +8,9 @@
 @section('main-content')
 <!-- Main content -->
 <section class="content">
+
+  @include('adminlte::errors.errors')
+  @include('adminlte::errors.info')
   <!-- SELECT2 EXAMPLE -->
   <div class="box box-default">
     <div class="box-header with-border">
@@ -53,17 +56,12 @@
             <div class="form-group">
               <label for="secuencial" class="col-sm-2 control-label"></label>
               <div class="col-sm-10">
-
                 Fecha : {{ $fecha }}  
-
-
-
-
+                {!! Form::hidden('fechaventa',$fechaventa,['id'=>'fechaventa','class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}
               </div>
             </div>
           </div>
         </div>
-
         <div class="col-md-12">
           <div class="col-md-4">
             <div class="form-group">
@@ -81,7 +79,9 @@
             <div class="form-group">
               <label for="fecha" class="col-sm-2 control-label"></label>
               <div class="col-sm-10">
-                N° : 2017-00980 
+                N° : {{ $secuencial }}
+
+                {!! Form::hidden('secuencial',$secuencial,['id'=>'secuencial','class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}
 
                 {!! Form::hidden('id_cliente',null,['id'=>'id_cliente','class'=>'form-control','readonly'=>'readonly','autocomplete'=>'off','placeholder'=>'']) !!}
               </div>
@@ -129,7 +129,6 @@
           <div class="form-group">
             <label for="modelo" class="col-sm-2 control-label">Dirección</label>
             <div class="col-sm-10">
-              <input type="hidden" name="id_cliente" id="id_cliente" />
               {!! Form::text('dir_cli',null,['id'=>'dir_cli','class'=>'form-control','autocomplete'=>'off','autofocus'=>'autofocus','placeholder'=>'']) !!}
             </div>
           </div>
@@ -162,7 +161,7 @@
             <div class="box-header">
               <h3 class="box-title">Productos</h3>
               <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-seleccionaproductos"><i class="fa fa-search" aria-hidden="true"></i> Buscar Producto</button>
-
+              <button class="btn btn-default" id="buscarcliente" type="button" data-toggle="modal" data-target="#modal-seleccionaservicios"><i class="fa fa-search" aria-hidden="true"></i> Buscar Servicio</button>
               <button class="btn btn-default" id="trashitems" type="button" onClick="trash(this.id);"><i class="fa fa-trash" aria-hidden="true"></i> Vaciar</button>
               
             </div>
@@ -196,5 +195,6 @@
 
 @include('admin.venta.modalselec_cli')
 @include('admin.venta.modalselec_prod')
+@include('admin.venta.modalselec_ser')
 @endsection
 

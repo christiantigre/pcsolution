@@ -17,11 +17,11 @@ class CreateVentasTable extends Migration
             $table->string('secuencial',35)->nullable();
             $table->string('numerofactura',35)->nullable();
             $table->string('claveacceso',35)->nullable();
-            $table->double('total',15,2)->nullable();
-            $table->double('subtotal',15,2)->nullable();
-            $table->double('valorconiva',15,2)->nullable();
-            $table->double('valorsiniva',15,2)->nullable();
-            $table->double('valorcondescuento',15,2)->nullable();
+            $table->string('total',35)->nullable();
+            $table->string('subtotal',35)->nullable();
+            $table->string('valorconiva',35)->nullable();
+            $table->string('valorsiniva',35)->nullable();
+            $table->string('valorcondescuento',35)->nullable();
             $table->date('fecha_venta')->nullable();
             $table->string('responsable',35)->nullable();
             $table->string('cantidad_items',5)->nullable();

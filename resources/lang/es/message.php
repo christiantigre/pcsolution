@@ -157,4 +157,5 @@ return [
     'descuento'                 => 'Descuentos',
     'tipopago'                 => 'Tipos Pago',
     'estadopago'                 => 'Estados Pago',
+    'service'                 => 'Servicios',
     ];

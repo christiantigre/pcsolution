@@ -37,7 +37,7 @@
             <li class="active"><a href="{{ url('/admin/orders') }}"><i class='fa fa-link'></i> <span>{{ trans('message.order') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/venta') }}"><i class='fa fa-link'></i> <span>{{ trans('message.ventas') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/clients') }}"><i class='fa fa-link'></i> <span>{{ trans('message.client') }}</span></a></li>
-            <li class="active"><a href="{{ url('/admin/product') }}"><i class='fa fa-link'></i> <span>{{ trans('message.product') }}</span></a></li>
+            <li class="active"><a href="{{ url('/admin/product') }}"><i class='fa fa-link'></i> <span>{{ trans('message.product') }}</span></a></li><li class="active"><a href="{{ url('/admin/service') }}"><i class='fa fa-link'></i> <span>{{ trans('message.service') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/proveedor') }}"><i class='fa fa-link'></i> <span>{{ trans('message.proveedor') }}</span></a></li>
             <li class="active"><a href="{{ url('/admin/personal') }}"><i class='fa fa-link'></i> <span>{{ trans('message.personal') }}</span></a></li>
             <li class="treeview">
