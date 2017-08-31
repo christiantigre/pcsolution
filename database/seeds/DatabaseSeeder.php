@@ -32,5 +32,6 @@ class DatabaseSeeder extends Seeder
        $this->call(EstadopagoTableSeeder::class);
        $this->call(TipopagoTableSeeder::class);
        $this->call(ServiceTableSeeder::class);
+       $this->call(PersonalTableSeeder::class);
    }
 }

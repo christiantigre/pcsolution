@@ -14,6 +14,7 @@ use App\Carrito;
 use App\Venta_item;
 use App\Iva;
 use App\Service;
+use App\Empres;
 use Illuminate\Http\Request;
 use Session;
 use Carbon\Carbon;
@@ -107,7 +108,6 @@ public function getproducts(){
     $product = Product::orderBy('id','DESC')->get(); 
 
     return view('admin.venta.all_product', compact('product'));   
-    dd($productos);
 }
 
 public function getclientes(){
@@ -167,57 +167,47 @@ function extraerdatoscliente(Request $request){
     $id_persona = $persona->id;
     $persona = $nombre.' '.$apellido;
 
-        /*$persona = [
-        'nombre'=>$persona->nom_per,
-        'apellido'=>$persona->app_per,
-        'id_persona'=>$persona->id
-        ];*/        
-        $tipopagos = Tipopago::orderBy('id','DESC')->pluck('tipopago','id');
+    $tipopagos = Tipopago::orderBy('id','DESC')->pluck('tipopago','id');
 
-        $clientes = Client::orderBy('id','DESC')->get();
-        $carrito = Carrito::orderBy('id','ASC')->get();
-        $productos = Product::orderBy('id','DESC')->get();
-        $services = Service::orderBy('id','DESC')->get(); 
-        return view('admin.venta.create',array(
-            'fecha'=>$carbon,
-            'clientes'=>$clientes,
-            'persona'=>$persona,
-            'id_personal'=>$id_persona,
-            'tipopagos'=>$tipopagos,
-            'productos'=>$productos,
-            'carrito'=>$carrito,
-            'services'=>$services,
-            'secuencial'=>$secuencial,
-            'fechaventa'=>$fechaventa
-            ));
-    }
+    $clientes = Client::orderBy('id','DESC')->get();
+    $carrito = Carrito::orderBy('id','ASC')->get();
+    $productos = Product::orderBy('id','DESC')->get();
+    $services = Service::orderBy('id','DESC')->get(); 
+    return view('admin.venta.create',array(
+        'fecha'=>$carbon,
+        'clientes'=>$clientes,
+        'persona'=>$persona,
+        'id_personal'=>$id_persona,
+        'tipopagos'=>$tipopagos,
+        'productos'=>$productos,
+        'carrito'=>$carrito,
+        'services'=>$services,
+        'secuencial'=>$secuencial,
+        'fechaventa'=>$fechaventa
+        ));
+}
 
-    public function listall()
-    {
-        $carrito = Carrito::orderBy('id','ASC')->get();
-        $total = Carrito::sum('total');
+public function listall()
+{
+    $carrito = Carrito::orderBy('id','ASC')->get();
+    $total = Carrito::sum('total');
 
-        $iva = Iva::where('status', 1)->first();
-        $iva_valor=$iva->valor;
-        $iva_mostrar = ($iva_valor*1);
-        $mult = $iva_valor+100;
-        $iva_final = $mult/100;
+    $iva = Iva::where('status', 1)->first();
+    $iva_valor=$iva->valor;
+    $iva_mostrar = ($iva_valor*1);
+    $mult = $iva_valor+100;
+    $iva_final = $mult/100;
 
-        $subtotal = ($total/$iva_final);
-        $valor_con_iva = ($total-$subtotal);
-        /*$totales = array(
-        'total'=>$total,
-        'iva'=>$valor_con_iva,
-        'subtotal'=>$subtotal,
-        'ivavalor'=>$iva_mostrar
-        );*/
-        return view('admin/venta/list-cartitems', compact('carrito'),array(
-            'total' =>  $total,
-            'iva' =>  $valor_con_iva,
-            'subtotal' =>  $subtotal,
-            'ivavalor' =>  $iva_mostrar
-            ));
-    }
+    $subtotal = ($total/$iva_final);
+    $valor_con_iva = ($total-$subtotal);
+
+    return view('admin/venta/list-cartitems', compact('carrito'),array(
+        'total' =>  $total,
+        'iva' =>  $valor_con_iva,
+        'subtotal' =>  $subtotal,
+        'ivavalor' =>  $iva_mostrar
+        ));
+}
 
     /**
      * Store a newly created resource in storage.
@@ -287,7 +277,6 @@ function extraerdatoscliente(Request $request){
 
         $items = Carrito::count();
         $total = Carrito::sum('total');
-    //$total_save = str_replace(',', '.', $total);
 
         $iva_valor=$iva->valor;
         $iva_mostrar = ($iva_valor*1);
@@ -346,8 +335,20 @@ function extraerdatoscliente(Request $request){
     public function show($id)
     {
         $ventum = Ventum::findOrFail($id);
-
-        return view('admin.venta.show', compact('ventum'));
+        $personal = Personal::findOrFail($ventum->id_vendedor);
+        $cliente = Client::findOrFail($ventum->id_cliente);
+        $empresa = Empres::findOrFail('1');
+        $items =\DB::table('venta_items')
+        ->join('products', 'venta_items.id_producto', '=', 'products.id')
+        ->select('products.id', 'products.nombre', 'products.slug','products.codbarra','products.pre_ven','venta_items.cant','venta_items.total')
+        ->get();
+        $iva = Iva::where('status', 1)->first();
+        $id_iva = $iva->id;
+        $iva_valor=$iva->valor;
+        $iva_mostrar = ($iva_valor*1);
+        $val_descuento=0;
+        $descuento=0;
+        return view('admin.venta.show', compact('ventum','empresa','personal','cliente','items','iva_mostrar','val_descuento','descuento'));
     }
 
     /**

@@ -71,14 +71,24 @@
                       <table id="example1" class="table table-bordered table-striped">
                         <thead>
                           <tr>
-                            <th>ID</th><th>Nom Pro</th><th>App Pro</th><th>Dir</th><th>Actions</th>
+                            <th>ID</th>
+                            <th>Nom Pro</th>
+                            <th>App Pro</th>
+                            <th>Dir</th>
+                            <th>Contactos</th>
+                            <th>Correo</th>
+                            <th>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
                           @foreach($proveedor as $item)
                           <tr>
                             <td>{{ $item->id }}</td>
-                            <td>{{ $item->nom_pro }}</td><td>{{ $item->app_pro }}</td><td>{{ $item->dir }}</td>
+                            <td>{{ $item->nom_pro }}</td>
+                            <td>{{ $item->app_pro }}</td>
+                            <td>{{ $item->dir }}</td>
+                            <td>{{ $item->tlfn }}/{{ $item->cel_movi }}/{{ $item->cel_claro }}</td>
+                            <td>{{ $item->mail }}</td>
                             <td>
                               <a href="{{ url('/admin/proveedor/' . $item->id) }}" title="View Proveedor"><button class="btn btn-info btn-xs"><i class="fa fa-eye" aria-hidden="true"></i> Ver</button></a>
                               <a href="{{ url('/admin/proveedor/' . $item->id . '/edit') }}" title="Edit Proveedor"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Editar</button></a>
